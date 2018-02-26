@@ -1,0 +1,106 @@
+- platform: template
+  sensors:
+    hue_bridge_state:
+      friendly_name: Hue Bridge
+      value_template: >
+        {% if is_state('device_tracker.hue_bridge', 'home') %}
+          Online
+        {% else %}
+          Offline
+        {% endif %}
+      icon_template: >
+        {% if is_state('device_tracker.hue_bridge', 'home') %}
+          mdi:power-cycle
+        {% else %}
+          mdi:power-off
+        {% endif %}
+
+    lametric_time_state:
+      friendly_name: LaMetric Time
+      value_template: >
+        {% if is_state('device_tracker.lametric_time', 'home') %}
+          Online
+        {% else %}
+          Offline
+        {% endif %}
+      icon_template: >
+        {% if is_state('device_tracker.lametric_time', 'home') %}
+          mdi:power-cycle
+        {% else %}
+          mdi:power-off
+        {% endif %}
+
+    xiomei_mi_bedside_lamp_state:
+      friendly_name: Xiomei Mi Bedside Lamp
+      value_template: >
+        {% if is_state('device_tracker.xiomei_mi_bedside_lamp', 'home') %}
+          Online
+        {% else %}
+          Offline
+        {% endif %}
+      icon_template: >
+        {% if is_state('device_tracker.xiomei_mi_bedside_lamp', 'home') %}
+          mdi:power-cycle
+        {% else %}
+          mdi:power-off
+        {% endif %}
+
+    nokia_sleep_state:
+      friendly_name: Nokia Sleep
+      value_template: >
+        {% if is_state('device_tracker.nokia_sleep', 'home') %}
+          Online
+        {% else %}
+          Offline
+        {% endif %}
+      icon_template: >
+        {% if is_state('device_tracker.nokia_sleep', 'home') %}
+          mdi:power-cycle
+        {% else %}
+          mdi:power-off
+        {% endif %}
+
+    chromecast_2_state:
+      friendly_name: Chromecast 2
+      value_template: >
+        {% if is_state('device_tracker.chromecast_2', 'home') %}
+          Online
+        {% else %}
+          Offline
+        {% endif %}
+      icon_template: >
+        {% if is_state('device_tracker.chromecast_2', 'home') %}
+          mdi:power-cycle
+        {% else %}
+          mdi:power-off
+        {% endif %}
+
+    hp_envy_5530_state:
+      friendly_name: HP ENVY 5530
+      value_template: >
+        {% if is_state('device_tracker.hp_envy_5530', 'home') %}
+          Online
+        {% else %}
+          Offline
+        {% endif %}
+      icon_template: >
+        {% if is_state('device_tracker.hp_envy_5530', 'home') %}
+          mdi:power-cycle
+        {% else %}
+          mdi:power-off
+        {% endif %}
+
+    ryan_desktop_state:
+      friendly_name: Ryan Desktop
+      value_template: >
+        {% if is_state('device_tracker.ryan_desktop', 'home') %}
+          Online
+        {% else %}
+          Offline
+        {% endif %}
+      icon_template: >
+        {% if is_state('device_tracker.ryan_desktop', 'home') %}
+          mdi:power-cycle
+        {% else %}
+          mdi:power-off
+        {% endif %}

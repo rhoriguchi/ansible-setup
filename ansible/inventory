@@ -1,0 +1,5 @@
+[py3-hosts]
+localhost-py3 ansible_host=localhost ansible_connection=local
+
+[py3-hosts:vars]
+ansible_python_interpreter=/usr/bin/python3

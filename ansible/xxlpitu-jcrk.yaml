@@ -1,0 +1,12 @@
+- name: Setup xxlpitu-jcrk
+  hosts: localhost
+  vars_files:
+    - vars/default.yaml
+    - vars/drives.yaml
+    - vars/xxlpitu-jcrk.yaml
+  roles:
+    - common
+    - duckdns
+    - resilio
+    - plex
+    - glances

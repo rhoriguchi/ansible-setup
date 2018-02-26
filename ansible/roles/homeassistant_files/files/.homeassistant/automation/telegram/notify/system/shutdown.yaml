@@ -1,0 +1,8 @@
+alias: Notify on Home Assistant shutdown
+trigger:
+  platform: homeassistant
+  event: shutdown
+action:
+  service: notify.xxlpitu
+  data:
+    message: INFO shutting down

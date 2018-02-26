@@ -1,0 +1,16 @@
+- name: Setup xxlpitu-home
+  hosts: localhost
+  vars_files:
+    - vars/default.yaml
+    - vars/drives.yaml
+    - vars/homeassistant.yaml
+    - vars/xxlpitu-home.yaml
+  roles:
+    - common
+    - resilio
+    - glances
+    - ssh_tunnel
+    - homeassistant_init
+    - homeassistant_files
+    - dehydrated
+    - gattlib

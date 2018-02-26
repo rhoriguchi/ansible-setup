@@ -1,0 +1,31 @@
+- name: Install autossh
+  apt:
+    name: autossh
+    state: latest
+    install_recommends: no
+
+- name: Create .ssh in homeassistant home
+  file:
+    path: "{{ homeassistant_home_path }}/.ssh"
+    state: directory
+    owner: homeassistant
+    group: homeassistant
+
+- name: Copy config in to .ssh in homeassistant home
+  copy:
+    src: config
+    dest: "{{ homeassistant_home_path }}/.ssh"
+    owner: homeassistant
+    group: homeassistant
+    mode: 0x600
+
+- name: Copy xxlpitu-jcrk-tunnel.service to /etc/systemd/system/
+  copy:
+    src: xxlpitu-jcrk-tunnel.service
+    dest: /etc/systemd/system
+
+- name: Restart xxlpitu-jcrk-tunnel.service and enable
+  service:
+    name: xxlpitu-jcrk-tunnel.service
+    state: restarted
+    enabled: yes

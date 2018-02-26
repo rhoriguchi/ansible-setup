@@ -1,0 +1,7 @@
+- name: Mount drive by PARTUUID
+  mount:
+    path: "{{ main_drive_path }}"
+    src: "PARTUUID={{ main_drive_partuuid }}"
+    fstype: ext4
+    opts: defaults,nofail
+    state: mounted

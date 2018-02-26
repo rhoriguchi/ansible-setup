@@ -1,0 +1,8 @@
+alias: Notify when Home Assistant updates are available
+trigger:
+  platform: state
+  entity_id: updater.updater
+action:
+  service: notify.xxlpitu
+  data:
+    message: INFO update available

@@ -1,0 +1,11 @@
+[Unit]
+Description=Create ssh tunnels for glances on xxlpitu-jcrk.duckdns.org
+After=network-online.target
+
+[Service]
+User=homeassistant
+Environment="AUTOSSH_GATETIME=0"
+ExecStart=/usr/bin/autossh -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -o ExitOnForwardFailure=yes -NL 61209:localhost:61208 xxlpitu@xxlpitu-jcrk.duckdns.org
+
+[Install]
+WantedBy=multi-user.target

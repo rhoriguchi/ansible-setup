@@ -1,0 +1,22 @@
+- name: Create duckdns duck.sh file
+  become: yes
+  become_user: root
+  lineinfile:
+    create: yes
+    path: ~/.duckdns/duck.sh
+    line: "echo url='https://www.duckdns.org/update?domains={{ duckdns_domain }}&token={{ duckdns_token }}&ip=' | curl -k -o ~/.duckdns/duck.log -K -"
+    mode: 0700
+
+- name: Crown job for duckdns
+  become: yes
+  become_user: root
+  cron:
+    minute: 5
+    job: ~/.duckdns/duck.sh >/dev/null 2>&1
+
+- name: Restart cron service
+  become: yes
+  become_user: root
+  service:
+    name: cron
+    state: restarted

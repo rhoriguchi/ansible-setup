@@ -1,0 +1,8 @@
+alias: Notify on Home Assistant start
+trigger:
+  platform: homeassistant
+  event: start
+action:
+  service: notify.xxlpitu
+  data:
+    message: INFO starting

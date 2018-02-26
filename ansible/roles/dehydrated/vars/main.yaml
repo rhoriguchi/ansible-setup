@@ -1,0 +1,3 @@
+---
+dehydrated_repo_path: "{{ homeassistant_home_path }}/dehydrated"
+duckdns_domain_full: "{{ duckdns_domain }}.duckdns.org"

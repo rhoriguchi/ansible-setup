@@ -1,0 +1,126 @@
+default_view:
+  name: Home
+  view: yes
+  entities:
+    - group.bedroom
+    - group.device_states
+    - group.weather_view
+    - group.sun_moon_view
+    - group.all_scenes
+
+devices:
+  name: Devices
+  view: yes
+  entities:
+    - group.xxlpitu_home_pi
+    - group.xxlpitu_jcrk_pi
+    - group.jcrk_synology
+    - group.battery_state
+
+battery_state:
+  name: Battery
+  view: no
+  entities:
+    - sensor.bedroom_sht31_smartgadget_battery
+    - sensor.hue_bedroom_dimmer_battery
+
+bedroom:
+  name: Bedroom
+  view: no
+  entities:
+    - light.hue_color_spots
+    - light.hue_lightstrips
+    - light.xiaomi_mi_bedside_lamp
+    - sensor.bedroom_sht31_smartgadget_temperature
+    - sensor.bedroom_sht31_smartgadget_humidity
+
+automations:
+  name: Automations
+  view: yes
+  entities:
+    - automation.mute_sonos_when_daniela_and_marcel_leaves_network
+    - automation.notify_daily_at_600_about_weather_forcast
+    - automation.notify_on_home_assistant_shutdown
+    - automation.notify_on_home_assistant_start
+    - automation.notify_when_home_assistant_updates_are_available
+    - automation.turn_off_lights_when_ryan_leaves_network
+    - input_boolean.nokia_sleep_trigger
+
+device_states:
+  name: Devices
+  view: no
+  entities:
+    - sensor.hue_bridge_state
+    - sensor.lametric_time_state
+    - sensor.xiomei_mi_bedside_lamp_state
+    - sensor.nokia_sleep_state
+    - sensor.chromecast_2_state
+    - sensor.hp_envy_5530_state
+    - sensor.ryan_desktop_state
+
+all_scenes:
+  name: Scenes
+  view: no
+  entities:
+    - scene.night_mode
+    - scene.hue_color_spot_relax
+    - scene.hue_color_spot_read
+    - scene.hue_color_spot_concentrate
+    - scene.hue_color_spot_energize
+
+sonos:
+  name: Sonos
+  view: yes
+  entities:
+    - media_player.bad
+    - media_player.esszimmer
+    - media_player.kuche
+    - media_player.schlafdraussen
+    - media_player.wohnzimmer
+
+xxlpitu_home_pi:
+  name: Raspbery Pi 3 B+
+  view: no
+  entities:
+    - sensor.xxlpitu_home_pi_cpu
+    - sensor.xxlpitu_home_pi_ram
+    - sensor.xxlpitu_home_pi_ssd_used
+    - sensor.xxlpitu_home_pi_ssd_free
+
+xxlpitu_jcrk_pi:
+  name: Raspbery Pi 3 B
+  view: no
+  entities:
+    - sensor.xxlpitu_jcrk_pi_cpu
+    - sensor.xxlpitu_jcrk_pi_ram
+    - sensor.xxlpitu_jcrk_pi_hdd_used
+    - sensor.xxlpitu_jcrk_pi_hdd_free
+
+jcrk_synology:
+  name: JCRK Synology
+  view: no
+  entities:
+    - sensor.cpu_load_total
+    - sensor.memory_usage_real
+    - sensor.volume_used_volume_1
+    - sensor.jcrk_synology_hdd_free
+
+weather_view:
+  name: Weather
+  view: no
+  entities:
+    - sensor.owm_condition
+    - sensor.owm_forecast
+    - sensor.owm_temperature
+    - sensor.owm_humidity
+    - sensor.owm_rain
+    - sensor.owm_wind_speed
+
+sun_moon_view:
+  name: Sun and moon
+  view: no
+  entities:
+    - sensor.day_night
+    - sensor.sunrise
+    - sensor.sunset
+    - sensor.moon

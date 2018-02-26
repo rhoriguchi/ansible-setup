@@ -1,0 +1,32 @@
+- name: Delete dotfiles repo if exist
+  file:
+    path: "{{ default_user_dotfiles_path }}"
+    state: absent
+
+- name: Clone dotfiles repo to default user
+  become: yes
+  become_user: "{{ default_user }}"
+  git:
+    repo: https://github.com/rhoriguchi/dotfiles.git
+    dest: "{{ default_user_dotfiles_path }}"
+
+- name: Change permissions for init.sh for dotfiles
+  become: yes
+  become_user: root
+  file:
+    path: "{{ default_user_dotfiles_path }}/init.sh"
+    mode: +x
+    owner: "{{ default_user }}"
+
+- name: Execute init.sh for dotfiles
+  become: yes
+  become_user: "{{ default_user }}"
+  command: "sh {{ default_user_dotfiles_path }}/init.sh"
+
+- name: Create .git-credentials file
+  become: yes
+  become_user: "{{ default_user }}"
+  lineinfile:
+    create: yes
+    path: ~/.git-credentials
+    line: "https://{{ default_git_user }}:{{ default_git_password }}@github.com"

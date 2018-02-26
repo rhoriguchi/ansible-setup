@@ -1,0 +1,10 @@
+---
+default_git_user: rhoriguchi
+default_git_password: ****
+
+default_user: xxlpitu
+default_user_password_hash: $6$8pvfEfnJ8Ar$nKztlUqftDFFT1VYsHiiU9NrudyEYnBHhfxxt8X91JUZCDM1tP8l9/EHMkNu.RlWChthcn3pNCDYTGKT/8GQB/
+
+pre_installed_user: pi
+
+duckdns_token: ****

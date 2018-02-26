@@ -1,0 +1,76 @@
+- name: Install rsync
+  apt:
+    name: rsync
+    state: latest
+    install_recommends: no
+
+- name: Stop home-assistant@homeassistant.service
+  service:
+    name: home-assistant@homeassistant.service
+    state: stopped
+
+- name: Create .homeassistant in homeassistant home
+  file:
+    path: "{{ homeassistant_home_path }}/.homeassistant"
+    state: directory
+
+- name: Synchronize .homeassistant to homeassistant home
+  synchronize:
+    src: .homeassistant/
+    dest: "{{ homeassistant_home_path }}/.homeassistant"
+    delete: no
+    recursive: yes
+
+- name: Clone homeassistant_secrets to tmp
+  git:
+    repo: "https://rhoriguchi:{{ default_git_password }}@github.com/rhoriguchi/homeassistant_secrets.git"
+    dest: "{{ homeassistant_secrets_tmp_repo_path }}"
+
+- name: Copy secrets.yaml to .homeassistant
+  copy:
+    src: "{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml"
+    dest: "{{ dot_homeassistant_path }}"
+    force: yes
+
+- name: Delete homeassistant_secrets repo
+  file:
+    path: "{{ homeassistant_secrets_tmp_repo_path }}"
+    state: absent
+
+- name: Check if .homeassistant/secrets.yaml exists
+  stat:
+    path: "{{ dot_homeassistant_path }}/secrets.yaml"
+  register: stat_result
+
+- fail:
+    msg: .homeassistant/secrets.yaml does not exist
+  when: stat_result.stat.exists == False
+
+- name: Include vars of secrets.yaml into secrets variable
+  include_vars:
+    file: "{{ dot_homeassistant_path }}/secrets.yaml"
+    name: secrets
+
+- name: Replace HUE_TOKEN with real hue token in phue.conf
+  replace:
+    path: "{{ dot_homeassistant_path }}/phue.conf"
+    regexp: "HUE_TOKEN"
+    replace: "{{ secrets.hue_token }}"
+
+- name: Delete home-assistant.log
+  file:
+    path: "{{ dot_homeassistant_path }}/home-assistant.log"
+    state: absent
+
+- name: Change owner and group of .homeassistant to homeassistant
+  file:
+    path: "{{ dot_homeassistant_path }}"
+    owner: homeassistant
+    group: homeassistant
+    recurse: yes
+
+- name: Restart home-assistant@homeassistant.service and enable
+  service:
+    name: home-assistant@homeassistant.service
+    state: restarted
+    enabled: yes

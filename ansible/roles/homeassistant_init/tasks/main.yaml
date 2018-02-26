@@ -1,0 +1,70 @@
+- name: Install net-tools
+  apt:
+    name: net-tools
+    state: latest
+    install_recommends: no
+
+- name: Install nmap
+  apt:
+    name: nmap
+    state: latest
+    install_recommends: no
+
+- name: Install libssl-dev
+  apt:
+    name: libssl-dev
+    state: latest
+    install_recommends: no
+
+- name: Install openssl
+  apt:
+    name: openssl
+    state: latest
+    install_recommends: no
+
+- name: Add user homeassistant
+  user:
+    name: homeassistant
+    login_class: system
+    shell: /bin/bash
+    groups: dialout
+    append: yes
+
+- name: Check if homeassistant virtual env dir exists
+  stat:
+    path: "{{ homeassistant_virual_env_path }}"
+  register: stat_result
+
+- name: Create homeassistant virtual env dir
+  file:
+    path: "{{ homeassistant_virual_env_path }}"
+    state: directory
+
+- name: Create homeassistant virtual env
+  command: "python3 -m venv {{ homeassistant_virual_env_path }}"
+  when: stat_result.stat.exists == False
+
+- name: Change permissions homeassistant virtual env
+  become: yes
+  become_user: root
+  file:
+    path: "{{ homeassistant_virual_env_path }}"
+    owner: homeassistant
+    group: homeassistant
+
+- name: Pip install homeassistant
+  pip:
+    name: homeassistant
+    version: "{{ homeassistant_version }}"
+    virtualenv: "{{ homeassistant_virual_env_path }}"
+
+- name: Copy home-assistant@homeassistant.service to /etc/systemd/system/
+  copy:
+    src: home-assistant@homeassistant.service
+    dest: /etc/systemd/system/
+
+- name: Replace ExecStart= line with correct value in home-assistant@homeassistant.service
+  lineinfile:
+    path: /etc/systemd/system/home-assistant@homeassistant.service
+    regexp: "^ExecStart=$"
+    line: "ExecStart={{ homeassistant_virual_env_path }}/bin/hass -c '{{ homeassistant_home_path }}/.homeassistant'"

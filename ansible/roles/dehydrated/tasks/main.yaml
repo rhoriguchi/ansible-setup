@@ -1,0 +1,84 @@
+- name: Check if /etc/systemd/system/home-assistant@homeassistant.service exists
+  stat:
+    path: /etc/systemd/system/home-assistant@homeassistant.service
+  register: stat_result
+
+- fail:
+    msg: /etc/systemd/system/home-assistant@homeassistant.service does not exist
+  when: stat_result.stat.exists == False
+
+- name: Check if certificate is allready created
+  stat:
+    path: "{{ dehydrated_repo_path }}/certs/{{ duckdns_domain_full }}/privkey.pem"
+  register: stat_result
+
+- name: Delete dehydrated repo if no certificate exists
+  file:
+    path: "{{ dehydrated_repo_path }}"
+    state: absent
+  when: stat_result.stat.exists == False
+
+- name: Clone dehydrated repo if no certificate exists
+  git:
+    repo: https://github.com/lukas2511/dehydrated.git
+    dest: "{{ dehydrated_repo_path }}"
+  when: stat_result.stat.exists == False
+
+- name: Copy config to dehydrated repo path
+  copy:
+    src: config
+    dest: "{{ dehydrated_repo_path }}"
+  when: stat_result.stat.exists == False
+
+- name: Copy hook.sh to dehydrated repo path
+  copy:
+    src: hook.sh
+    dest: "{{ dehydrated_repo_path }}"
+    mode: 0755
+  when: stat_result.stat.exists == False
+
+- name: Replace DUCKDNS_DOMAIN with real domain in hook.sh
+  replace:
+    path: "{{ dehydrated_repo_path }}/hook.sh"
+    regexp: "DUCKDNS_DOMAIN"
+    replace: "{{ duckdns_domain }}"
+  when: stat_result.stat.exists == False
+
+- name: Replace DUCKDNS_TOKEN with real token in hook.sh
+  replace:
+    path: "{{ dehydrated_repo_path }}/hook.sh"
+    regexp: "DUCKDNS_TOKEN"
+    replace: "{{ duckdns_token }}"
+  when: stat_result.stat.exists == False
+
+- name: Create domains.txt file
+  lineinfile:
+    create: yes
+    path: "{{ dehydrated_repo_path }}/domains.txt"
+    line: "{{ duckdns_domain_full }}"
+  when: stat_result.stat.exists == False
+
+- name: Register account key and Accept CAs terms of service for dehydrated
+  command: "{{ dehydrated_repo_path }}/dehydrated --register --accept-terms"
+  when: stat_result.stat.exists == False
+
+- name: Sign/renew non-existent/changed/expiring certificates for dehydrated
+  become: yes
+  become_user: root
+  command: "{{ dehydrated_repo_path }}/dehydrated --cron"
+  when: stat_result.stat.exists == False
+
+- name: Change owner and group of dehydrated repo to homeassistant
+  file:
+    path: "{{ dehydrated_repo_path }}"
+    owner: homeassistant
+    group: homeassistant
+    recurse: yes
+
+- name: Crown job for dehydrated
+  cron:
+    minute: 0
+    hour: 3
+    day: 1
+    job: "{{ dehydrated_repo_path }}/dehydrated --cron >/dev/null 2>&1"
+  when: stat_result.stat.exists == False

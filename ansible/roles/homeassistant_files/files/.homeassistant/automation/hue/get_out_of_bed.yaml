@@ -1,0 +1,29 @@
+# TODO homeassistant does not work
+alias: Turn on lightstrips when Ryan get's out of bed
+trigger:
+  platform: state
+  entity_id: input_boolean.turn_on_lightstrips_when_ryan_gets_out_of_bed
+  to: "on"
+condition:
+  - condition: state
+    entity_id: input_boolean.nokia_sleep_trigger
+    state: "on"
+  - condition: and
+    conditions:
+      - condition: time
+        after: "23:00:00"
+      - condition: time
+        before: "23:59:59"
+  - condition: and
+    conditions:
+      - condition: time
+        after: "00:00:00"
+      - condition: sun
+        before: sunrise
+        before_offset: "00:30:00"
+action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.turn_on_lightstrips_when_ryan_gets_out_of_bed
+  - service: scene.turn_on
+    entity_id: scene.night_mode

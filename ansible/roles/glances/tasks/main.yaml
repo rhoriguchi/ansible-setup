@@ -1,0 +1,30 @@
+- name: Pip install setuptools
+  pip:
+    name: setuptools
+
+- name: Pip install glances
+  pip:
+    name: glances
+
+- name: Pip install bottle
+  pip:
+    name: bottle
+
+- name: Pip install hddtemp
+  pip:
+    name: hddtemp
+
+- name: Pip install requests
+  pip:
+    name: requests
+
+- name: Copy glances.service to /etc/systemd/system/
+  copy:
+    src: glances.service
+    dest: /etc/systemd/system
+
+- name: Restart glances.service and enable
+  service:
+    name: glances.service
+    state: restarted
+    enabled: yes
