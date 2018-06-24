@@ -11,6 +11,7 @@ Python 3.5
 ## Setup
 
 Install Ansible requirements
+
 ```bash
 sudo apt-get update
 sudo apt-get upgrade
@@ -30,11 +31,13 @@ cd /tmp/raspbian_setup/ansible
 ```
 
 Change `****` in `/tmp/raspbian_setup/ansible/vars/default.yaml`
+
 ```bash
 nano /tmp/raspbian_setup/ansible/vars/default.yaml
 ```
 
-**Run for xxlpitu-home.yaml**
+### Run for xxlpitu-home.yaml
+
 ```bash
 sudo ansible-playbook xxlpitu-home.yaml
 ```
@@ -42,6 +45,7 @@ sudo ansible-playbook xxlpitu-home.yaml
 Once xxlpitu-home.yaml is finish manually login to resilio sync web ui and configure.
 
 Enable Bluetooth LE scan as non root
+
 ```bash
 sudo setcap 'cap_net_raw,cap_net_admin+eip' `readlink -f \`which python3\``
 ```
@@ -49,18 +53,21 @@ sudo setcap 'cap_net_raw,cap_net_admin+eip' `readlink -f \`which python3\``
 Generate new rsa key for SSH tunnels and add it to authorized_keys in dotfiles repo and add private key to `/home/homeassistant/.ssh/id_rsa`. The private key has to be in the openssh format.
 
 Change permissions of id_rsa to 600.
+
 ```bash
 chmod 600 /home/homeassistant/.ssh/id_rsa
 ```
 
-**Run for xxlpitu-jcrk.yaml**
+### Run for xxlpitu-jcrk.yaml**7
+
 ```bash
 sudo ansible-playbook xxlpitu-jcrk.yaml
 ```
 
 Once xxlpitu-home.yaml is finish manually login to resilio sync and plex web ui and configure.
 
-**After successful setup run delete_pre_installed_user.yaml**
+### After successful setup run delete_pre_installed_user.yaml**
+
 ```bash
 sudo ansible-playbook delete_pre_installed_user.yaml
 ```
@@ -97,11 +104,13 @@ exit
 ```
 
 ## Static IP
+
 - Raspberry - 192.168.2.150
 - Hue Bridge - 192.168.2.151
 - Xiaomi Mi Bedside Lamp - 192.168.2.152
 
 ## Default Ports
+
 - SSH - 22
 - Home Assistant - 8123
 - Resilio Sync - 8888
@@ -111,6 +120,7 @@ exit
 ## Home Assistant
 
 ### secrets.yaml template
+
 ```yml
 asuswrt_password: ****
 asuswrt_username: ****
@@ -171,6 +181,7 @@ pip3 install --upgrade homeassistant
 ```bash
 sudo fsck /dev/sda1
 ```
+
 ### Format drive
 
 ![Format drive](Format_drive.png?raw=true "Title")
