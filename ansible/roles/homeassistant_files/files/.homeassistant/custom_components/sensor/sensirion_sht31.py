@@ -188,22 +188,26 @@ class SHT31SmartGadgetClient(object):
             else:
                 self.temperature = temperature
 
-            if isinstance(humidity, float) and math.isnan(humidity) \
-                    and self.check_humidity_deviation(self.humidity,
-                                                      humidity):
+            if isinstance(humidity, float) and math.isnan(humidity):
                 _LOGGER.warning("Bad Humidity sample from "
                                 "SHT31 Smart-Gadget")
             else:
+                self.get_humidity_with_deviation_guard(self.humidity,
+                                                       humidity)
                 self.humidity = humidity
 
     @staticmethod
-    def check_humidity_deviation(old_value, new_value):
-        """Check if humidity has a certain deviation."""
+    def get_humidity_with_deviation_guard(old_value, new_value):
+        """Check if humidity has a certain deviation and return value."""
         if old_value is None:
             return True
 
         diff = abs(old_value - new_value)
-        return diff <= MAX_HUMIDITY_DEVIATION_PERCENT
+
+        if diff <= MAX_HUMIDITY_DEVIATION_PERCENT:
+            return new_value
+        else:
+            return old_value
 
 
 class SHT31SmartGadgetSensor(Entity):
