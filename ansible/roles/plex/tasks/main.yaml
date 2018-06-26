@@ -54,7 +54,7 @@
 
 - name: Create symbolic link from Plex Media Server to copy
   file:
-    src: "{{ main_drive_path }}/library/plex-data/Plex Media Server"
+    src: "{{ plex_data_path }}/Plex Media Server"
     dest: "{{ default_plex_data_path }}"
     state: link
     force: yes
