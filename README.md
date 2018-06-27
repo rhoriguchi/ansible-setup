@@ -58,7 +58,7 @@ Change permissions of id_rsa to 600.
 chmod 600 /home/homeassistant/.ssh/id_rsa
 ```
 
-### Run for xxlpitu-jcrk.yaml**7
+### Run for xxlpitu-jcrk.yaml
 
 ```bash
 sudo ansible-playbook xxlpitu-jcrk.yaml
@@ -66,7 +66,7 @@ sudo ansible-playbook xxlpitu-jcrk.yaml
 
 Once xxlpitu-home.yaml is finish manually login to resilio sync and plex web ui and configure.
 
-### After successful setup run delete_pre_installed_user.yaml**
+### After successful setup run delete_pre_installed_user.yaml
 
 ```bash
 sudo ansible-playbook delete_pre_installed_user.yaml
