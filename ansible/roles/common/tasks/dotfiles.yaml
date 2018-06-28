@@ -28,5 +28,5 @@
   become_user: "{{ default_user }}"
   lineinfile:
     create: yes
-    path: ~/.git-credentials
+    path: "{{ default_user_home }}/.git-credentials"
     line: "https://{{ default_git_user }}:{{ default_git_password }}@github.com"
