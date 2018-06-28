@@ -1,0 +1,4 @@
+---
+default_user_tv_time_export_path: "/home/{{ default_user }}/tv_time_export"
+tv_time_export_virual_env_path: /usr/local/virtualenv/tv_time_export
+tv_time_export_save_path: "{{ main_drive_path }}/Sync/tv_time_export"
