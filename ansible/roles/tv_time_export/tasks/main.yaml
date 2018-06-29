@@ -48,12 +48,20 @@
     requirements: "{{ default_user_tv_time_export_path }}/requirements.txt"
     virtualenv: "{{ tv_time_export_virual_env_path }}"
 
+- name: Create tv_time_export.sh script to run main.py
+  blockinfile:
+    path: "{{ default_user_tv_time_export_path }}/tv_time_export.sh"
+    create: yes
+    content: |
+      source {{ tv_time_export_virual_env_path }}
+      python {{ default_user_tv_time_export_path }}/main.py
+
 - name: Crown job for tv_time_export
   become: yes
   become_user: root
   cron:
     hour: 4
-    job: "source {{ tv_time_export_virual_env_path }}/bin/activate && {{ default_user_tv_time_export_path }}/main.py >/dev/null 2>&1"
+    job: "{{ default_user_tv_time_export_path }}/tv_time_export.sh >/dev/null 2>&1"
 
 - name: Restart cron service
   become: yes
