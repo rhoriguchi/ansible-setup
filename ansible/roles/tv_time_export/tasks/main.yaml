@@ -52,10 +52,10 @@
   blockinfile:
     path: "{{ default_user_tv_time_export_path }}/tv_time_export.sh"
     create: yes
-    mode: 0777
+    mode: +x
     content: |
-      source {{ tv_time_export_virual_env_path }}/bin/activate
-      python {{ default_user_tv_time_export_path }}/main.py
+      "{{ tv_time_export_virual_env_path }}/bin/python {{ default_user_tv_time_export_path }}/main.py >/dev/null 2>&1"
+      sudo chown -R rslsync:rslsync {{ tv_time_export_save_path }}
 
 - name: Crown job for tv_time_export
   become: yes
