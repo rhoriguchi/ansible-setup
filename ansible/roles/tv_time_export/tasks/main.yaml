@@ -54,7 +54,7 @@
     create: yes
     mode: 0777
     content: |
-      source {{ tv_time_export_virual_env_path }}
+      source {{ tv_time_export_virual_env_path }}/bin/activate
       python {{ default_user_tv_time_export_path }}/main.py
 
 - name: Crown job for tv_time_export
