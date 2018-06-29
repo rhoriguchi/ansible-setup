@@ -25,9 +25,9 @@
     path: "{{ default_user_tv_time_export_path }}/config.yaml"
     create: yes
     content: |
-      "username: {{ tv_time_export_user }}"
-      "password: {{ tv_time_export_password }}"
-      "save_path: {{ tv_time_export_save_path }}"
+      username: {{ tv_time_export_user }}
+      password: {{ tv_time_export_password }}
+      save_path: {{ tv_time_export_save_path }}
 
 - name: Check if tv_time_export virtual env dir exists
   stat:
