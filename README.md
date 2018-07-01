@@ -122,8 +122,6 @@ exit
 ### secrets.yaml template
 
 ```yml
-asuswrt_password: ****
-asuswrt_username: ****
 darksky_api_key: ****
 homeassistant_elevation: ****
 homeassistant_latitude: ****
@@ -136,6 +134,8 @@ lametric_client_id: ****
 lametric_client_secret: ****
 openweathermap_api_key: ****
 telegram_bot_api_key: ****
+unifi_password: ****
+unifi_username: ****
 ```
 
 ### Update Home Assistant files
