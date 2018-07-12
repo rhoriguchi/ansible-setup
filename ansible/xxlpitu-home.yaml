@@ -8,6 +8,7 @@
   roles:
     - common
     - resilio
+    - unifi_controller
     - glances
     - ssh_tunnel
     - homeassistant_init
