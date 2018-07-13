@@ -60,13 +60,6 @@ ryan_pixel_2:
   track: true
   hide_if_away: false
 
-# TODO homeassistant temp
-ryan_nexus_5x:
-  name: Ryan Nexus 5X
-  mac: D0:13:FD:3C:8D:6F
-  track: true
-  hide_if_away: false
-
 giulia_huawei_p10:
   name: Giulia Huawei P10
   mac: 8C:25:05:35:7D:88

@@ -1,7 +1,7 @@
 alias: Turn off lights when Ryan leaves network
 trigger:
   platform: state
-  entity_id: device_tracker.ryan_nexus_5x
+  entity_id: device_tracker.ryan_pixel_2
   from: home
   to: not_home
 action:
