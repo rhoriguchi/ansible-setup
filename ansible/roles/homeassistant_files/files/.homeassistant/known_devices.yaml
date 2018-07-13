@@ -48,7 +48,7 @@ hp_envy_5530:
 
 ryan_desktop:
   name: Ryan Desktop
-  mac: 90:2b:34:57:67:09
+  mac: 90:2B:34:57:67:09
   icon: mdi:desktop-classic
   track: true
   hide_if_away: false
