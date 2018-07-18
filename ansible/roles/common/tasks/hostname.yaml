@@ -7,3 +7,8 @@
   copy:
     content: "{{ hostname }}"
     dest: /etc/hosts
+
+- name: Restart networking
+  service:
+    name: networking
+    state: restarted
