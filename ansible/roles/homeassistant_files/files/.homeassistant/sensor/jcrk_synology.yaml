@@ -4,6 +4,7 @@
   host: jcrk.synology.me
   username: !secret jcrk_synology_username
   password: !secret jcrk_synology_password
+  ssl: false
   monitored_conditions:
     - cpu_total_load
     - memory_real_usage
