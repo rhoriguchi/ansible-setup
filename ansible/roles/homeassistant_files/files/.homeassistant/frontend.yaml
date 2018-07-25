@@ -35,7 +35,6 @@ themes:
     paper-listbox-color: 'hsl(var(--huesat) 50%)'
     paper-grey-50: 'hsl(var(--huesat) 50%)'
     paper-grey-200: 'hsla(var(--huesat) 26%)'
-    iron-icon-fill-color:
     # Paper card
     paper-item-icon-color: 'hsl(var(--base-hue), 90%, 50%)'
     paper-item-icon-active-color: 'var(--paper-item-icon-color)'
