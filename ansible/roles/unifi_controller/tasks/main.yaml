@@ -34,6 +34,6 @@
 
 - name: Restart unifi and enable
   service:
-    name: unifi
+    name: unifi.service
     state: restarted
     enabled: yes
