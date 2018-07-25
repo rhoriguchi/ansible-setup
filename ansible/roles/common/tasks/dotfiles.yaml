@@ -30,3 +30,8 @@
     create: yes
     path: "{{ default_user_home }}/.git-credentials"
     line: "https://{{ default_git_user }}:{{ default_git_password }}@github.com"
+
+- name: Ensure that locale en_US.UTF-8 exists
+  locale_gen:
+    name: en_US.UTF-8
+    state: present
