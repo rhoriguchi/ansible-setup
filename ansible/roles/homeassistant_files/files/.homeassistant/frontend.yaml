@@ -36,7 +36,7 @@ themes:
     paper-grey-50: 'hsl(var(--huesat) 50%)'
     paper-grey-200: 'hsla(var(--huesat) 26%)'
     # Paper card
-    paper-item-icon-color: 'hsl(var(--base-hue), 90%, 50%)'
+    paper-item-icon-color: 'hsl(var(--base-hue), 80%, 40%)'
     paper-item-icon-active-color: 'var(--paper-item-icon-color)'
     paper-item-icon_-_color: 'var(--paper-item-icon-color)'
     paper-item-selected_-_background-color: 'hsla(0, 0%, 0%, 0.2)'
