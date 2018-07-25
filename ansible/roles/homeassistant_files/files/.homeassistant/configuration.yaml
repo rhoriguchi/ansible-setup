@@ -66,12 +66,12 @@ sensor: !include_dir_merge_list sensor/
 
 frontend: !include frontend.yaml
 group: !include group.yaml
+history: !include history.yaml
 input_boolean: !include input_boolean.yaml
 light: !include light.yaml
 scene: !include scene.yaml
 
 config:
-history:
 sun:
 switch:
 
