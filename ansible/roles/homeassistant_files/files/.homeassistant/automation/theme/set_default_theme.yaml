@@ -1,10 +1,9 @@
-automation:
-  - alias: Set default theme at startup
-    initial_state: on
-    trigger:
-     - platform: homeassistant
-       event: start
-    action:
-      service: frontend.set_theme
-      data:
-        name: dark_green
+alias: Set default theme at startup
+initial_state: on
+trigger:
+  platform: homeassistant
+  event: start
+action:
+  service: frontend.set_theme
+  data:
+    name: dark_green
