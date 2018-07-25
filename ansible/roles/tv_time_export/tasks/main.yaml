@@ -63,10 +63,3 @@
   cron:
     hour: 4
     job: "{{ default_user_tv_time_export_path }}/tv_time_export.sh >/dev/null 2>&1"
-
-- name: Restart cron service
-  become: yes
-  become_user: root
-  service:
-    name: cron
-    state: restarted

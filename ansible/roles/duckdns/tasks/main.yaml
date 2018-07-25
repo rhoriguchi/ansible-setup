@@ -13,10 +13,3 @@
   cron:
     minute: 5
     job: "{{ root_user_duckdns_path }}/.duckdns/duck.sh >/dev/null 2>&1"
-
-- name: Restart cron service
-  become: yes
-  become_user: root
-  service:
-    name: cron
-    state: restarted
