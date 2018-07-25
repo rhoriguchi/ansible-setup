@@ -70,11 +70,11 @@ input_boolean: !include input_boolean.yaml
 light: !include light.yaml
 scene: !include scene.yaml
 
-logger:
-  default: error
-
-sun:
 config:
 history:
 logbook:
+sun:
 switch:
+
+logger:
+  default: error
