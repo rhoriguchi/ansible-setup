@@ -38,6 +38,7 @@ automations:
   name: Automations
   view: yes
   entities:
+    - automation.set_default_theme_at_startup
     - automation.mute_sonos_when_daniela_and_marcel_leaves_network
     - automation.notify_daily_at_600_about_weather_forcast
     - automation.notify_on_home_assistant_shutdown
