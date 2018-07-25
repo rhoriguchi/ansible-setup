@@ -1,7 +1,0 @@
-  - platform: sensirion_sht31
-    mac: CA:9C:5B:82:0A:22
-    name: Bedroom SHT31 Smart-Gadget
-    monitored_conditions:
-      - battery
-      - temperature
-      - humidity
