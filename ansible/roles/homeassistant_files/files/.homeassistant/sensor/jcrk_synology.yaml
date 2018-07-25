@@ -2,6 +2,7 @@
 
 - platform: synologydsm
   host: jcrk.synology.me
+  port: 5000
   username: !secret jcrk_synology_username
   password: !secret jcrk_synology_password
   ssl: false
