@@ -72,7 +72,6 @@ scene: !include scene.yaml
 
 config:
 history:
-logbook:
 sun:
 switch:
 
