@@ -54,8 +54,8 @@ notify:
     platform: telegram
     chat_id: -253163504
 
-media_player:
-  - platform: sonos
+sonos:
+  media_player:
 
 # TODO homeassistant does not work correctly
 updater:
