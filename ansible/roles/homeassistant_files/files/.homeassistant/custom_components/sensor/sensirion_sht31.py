@@ -170,11 +170,9 @@ class SHT31SmartGadgetClient(object):
         """Get the latest data from the SHT31 Smart-Gadget sensor."""
         battery, temperature, humidity = self.sensor.read_values()
 
-        if battery is None and temperature is None and humidity is None:
-            self.battery = None
-            self.temperature = None
-            self.humidity = None
-        else:
+        if battery is not None \
+                and temperature is not None \
+                and humidity is not None:
             if isinstance(battery, int) and math.isnan(battery):
                 _LOGGER.warning("Bad Battery sample from "
                                 "SHT31 Smart-Gadget")
@@ -192,15 +190,14 @@ class SHT31SmartGadgetClient(object):
                 _LOGGER.warning("Bad Humidity sample from "
                                 "SHT31 Smart-Gadget")
             else:
-                self.get_humidity_with_deviation_guard(self.humidity,
-                                                       humidity)
-                self.humidity = humidity
+                self.humidity = self.get_humidity_with_deviation_guard(
+                    self.humidity, humidity)
 
     @staticmethod
     def get_humidity_with_deviation_guard(old_value, new_value):
         """Check if humidity has a certain deviation and return value."""
         if old_value is None:
-            return True
+            return new_value
 
         diff = abs(old_value - new_value)
 
