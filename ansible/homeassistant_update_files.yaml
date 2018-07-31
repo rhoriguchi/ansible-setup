@@ -1,5 +1,3 @@
-# TODO ansible roles should import variables and not playbooks
-
 - name: Update homeassistant files
   hosts: localhost
   vars_files:

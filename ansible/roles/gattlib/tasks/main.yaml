@@ -1,3 +1,5 @@
+# TODO ansible sub task of homeassistant_init
+
 - name: Copy .profile to homeassistant home
   copy:
     src: .profile
