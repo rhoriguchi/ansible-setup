@@ -10,9 +10,9 @@
     - resilio
     - unifi_controller
     - glances
-    - ssh_tunnel
     - homeassistant_init
     - homeassistant_files
+    - ssh_tunnel
     - dehydrated
     # - gattlib
     - tv_time_export
