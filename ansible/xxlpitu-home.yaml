@@ -14,5 +14,5 @@
     - homeassistant_init
     - homeassistant_files
     - dehydrated
-    - gattlib
+    # - gattlib
     - tv_time_export
