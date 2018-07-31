@@ -108,6 +108,7 @@ exit
 - Raspberry - 192.168.2.150
 - Hue Bridge - 192.168.2.151
 - Xiaomi Mi Bedside Lamp - 192.168.2.152
+- Sonos Bridge - 192.168.2.153
 
 ## Default Ports
 

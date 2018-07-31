@@ -56,6 +56,7 @@ notify:
 
 sonos:
   media_player:
+    interface_addr: 192.168.2.153
 
 # TODO homeassistant does not work correctly
 updater:
