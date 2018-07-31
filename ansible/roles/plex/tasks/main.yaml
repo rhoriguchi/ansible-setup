@@ -72,3 +72,4 @@
     name: plexmediaserver.service
     state: restarted
     enabled: yes
+    daemon_reload: yes

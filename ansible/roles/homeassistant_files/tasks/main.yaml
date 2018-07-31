@@ -8,6 +8,7 @@
   service:
     name: home-assistant@homeassistant.service
     state: stopped
+    daemon_reload: yes
 
 - name: Create .homeassistant in homeassistant home
   file:
@@ -74,3 +75,4 @@
     name: home-assistant@homeassistant.service
     state: restarted
     enabled: yes
+    daemon_reload: yes
