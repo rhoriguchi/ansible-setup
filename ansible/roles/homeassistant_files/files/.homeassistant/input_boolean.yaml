@@ -1,4 +1,3 @@
-# TODO homeassistant rename
 nokia_sleep_trigger:
   name: Nokia Sleep trigger
   initial: on
