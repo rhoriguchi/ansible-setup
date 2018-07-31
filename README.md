@@ -125,6 +125,8 @@ exit
 
 ```yml
 darksky_api_key: ****
+google_client_id: ****
+google_client_secret: ****
 homeassistant_elevation: ****
 homeassistant_latitude: ****
 homeassistant_longitude: ****

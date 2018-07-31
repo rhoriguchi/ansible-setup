@@ -58,6 +58,10 @@ sonos:
   media_player:
     interface_addr: 192.168.2.153
 
+google:
+  client_id: !secret google_client_id
+  client_secret: !secret google_client_secret
+
 # TODO homeassistant does not work correctly
 updater:
   include_used_components: true
