@@ -59,6 +59,7 @@ sonos:
 google:
   client_id: !secret google_client_id
   client_secret: !secret google_client_secret
+  track_new_calendar: false
 
 # TODO homeassistant does not work correctly
 updater:

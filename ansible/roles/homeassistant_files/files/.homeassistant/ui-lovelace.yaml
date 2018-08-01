@@ -13,6 +13,10 @@ views:
           - light.xiaomi_mi_bedside_lamp
           - sensor.bedroom_sht31_smartgadget_temperature
           - sensor.bedroom_sht31_smartgadget_humidity
+      - title: Contact birthdays
+        type: entities
+        entities:
+          - calendar.contacts_birthdays
       - title: Devices
         type: entities
         entities:
