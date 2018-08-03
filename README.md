@@ -178,6 +178,10 @@ source /srv/homeassistant/bin/activate
 pip3 install --upgrade homeassistant
 ```
 
+## Generate rsa key
+
+![Generate rsa key](images/Generate_rsa_key.png?raw=true "Title")
+
 ## Harddrive
 
 ### If superblock can't be read
@@ -188,4 +192,4 @@ sudo fsck /dev/sda1
 
 ### Format drive
 
-![Format drive](Format_drive.png?raw=true "Title")
+![Format drive](images/Format_drive.png?raw=true "Title")
