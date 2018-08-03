@@ -2,4 +2,4 @@
 homeassistant_home_path: /home/homeassistant
 dot_homeassistant_path: "{{ homeassistant_home_path }}/.homeassistant"
 homeassistant_virual_env_path: /srv/homeassistant
-homeassistant_version: 0.74.2
+homeassistant_version: 0.75.0
