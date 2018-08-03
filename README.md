@@ -180,6 +180,24 @@ pip3 install --upgrade homeassistant
 
 ## Generate rsa key
 
+### Command
+
+Create key and save to /home/homeassistant/.ssh and then change permissions
+
+```bash
+sudo ssh-keygen -t rsa -b 4096 -C "homeassistant@XXLPitu-Raspberry-Pi-Home"
+sudo chmod 600 -R /home/homeassistant/.ssh/id_rsa
+sudo chown -R homeassistant:homeassistant /home/homeassistant/.ssh
+```
+
+On xxlpitu-jcrk.duckdns.org change permission of authorized_keys when newly pulled
+
+```bash
+sudo chmod 600 -R /home/xxlpitu/.ssh/authorized_keys
+```
+
+### Generate key
+
 ![Generate rsa key](images/Generate_rsa_key.png?raw=true "Title")
 
 ## Harddrive
