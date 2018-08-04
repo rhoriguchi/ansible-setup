@@ -8,6 +8,19 @@ Python 3.5.3
 ### Ansible
 Python 3.5
 
+## Static IP
+
+- Raspberry - 192.168.2.150
+
+## Default Ports
+
+- SSH - 22
+- Home Assistant - 8123
+- UniFi Controller - 8443
+- Resilio Sync - 8888
+- Plex - 32400
+- Glances - 61208
+
 ## Setup
 
 Install Ansible requirements
@@ -103,44 +116,7 @@ scan off
 exit
 ```
 
-## Static IP
-
-- Raspberry - 192.168.2.150
-- Hue Bridge - 192.168.2.151
-- Xiaomi Mi Bedside Lamp - 192.168.2.152
-- Sonos Bridge - 192.168.2.153
-
-## Default Ports
-
-- SSH - 22
-- Home Assistant - 8123
-- UniFi Controller - 8443
-- Resilio Sync - 8888
-- Plex - 32400
-- Glances - 61208
-
 ## Home Assistant
-
-### secrets.yaml template
-
-```yml
-darksky_api_key: ****
-google_client_id: ****
-google_client_secret: ****
-homeassistant_elevation: ****
-homeassistant_latitude: ****
-homeassistant_longitude: ****
-http_api_password: ****
-hue_token: ****
-jcrk_synology_password: ****
-jcrk_synology_username: ****
-lametric_client_id: ****
-lametric_client_secret: ****
-openweathermap_api_key: ****
-telegram_bot_api_key: ****
-unifi_password: ****
-unifi_username: ****
-```
 
 ### Update Home Assistant files
 
