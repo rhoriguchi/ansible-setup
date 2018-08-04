@@ -1,6 +1,0 @@
-- cal_id: '#contacts@group.v.calendar.google.com'
-  entities:
-  - device_id: contacts_birthdays
-    name: Contacts birthdays
-    track: true
-    ignore_availability: false

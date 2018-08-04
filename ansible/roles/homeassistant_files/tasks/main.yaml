@@ -15,12 +15,22 @@
     path: "{{ homeassistant_home_path }}/.homeassistant"
     state: directory
 
-- name: Synchronize .homeassistant to homeassistant home
+- name: Clone homeassistant to tmp
+  git:
+    repo: "https://rhoriguchi:{{ default_git_password }}@github.com/rhoriguchi/homeassistant.git"
+    dest: "{{ homeassistant_tmp_repo_path }}"
+
+- name: Synchronize .homeassistant to /home/homeassistant/.homeassistant
   synchronize:
-    src: .homeassistant/
+    src: "{{ homeassistant_tmp_repo_path }}"
     dest: "{{ homeassistant_home_path }}/.homeassistant"
     delete: no
     recursive: yes
+
+- name: Delete homeassistant repo
+  file:
+    path: "{{ homeassistant_tmp_repo_path }}"
+    state: absent
 
 - name: Clone homeassistant_secrets to tmp
   git:

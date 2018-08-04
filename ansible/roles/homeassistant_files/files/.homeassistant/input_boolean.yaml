@@ -1,8 +1,0 @@
-nokia_sleep_trigger:
-  name: Nokia Sleep trigger
-  initial: on
-  icon: mdi:playlist-play
-
-# Triggers for atomation
-turn_on_lightstrips_when_ryan_gets_out_of_bed:
-turn_off_lightstrips_when_ryan_gets_in_to_bed:
