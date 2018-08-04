@@ -1,4 +1,4 @@
-# TODO ansible sub task of homeassistant_init
+# TODO sub task of homeassistant_init
 
 - name: Copy .profile to homeassistant home
   copy:
@@ -90,5 +90,5 @@
 - name: Install gatlibb to homeassistant virtualenv
   command: "python3 {{ gattlib_tmp_repo_path }}/setup.py install"
 
-# TODO ansible run this command
+# TODO run this command
 # sudo setcap 'cap_net_raw,cap_net_admin+eip' `readlink -f \`which python3\``

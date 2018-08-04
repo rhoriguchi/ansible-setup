@@ -1,4 +1,4 @@
-# TODO ansible sub task of homeassistant_init
+# TODO sub task of homeassistant_init
 
 - name: Install autossh
   apt:
