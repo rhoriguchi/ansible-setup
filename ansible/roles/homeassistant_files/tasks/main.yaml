@@ -12,7 +12,7 @@
 
 - name: Create .homeassistant in homeassistant home
   file:
-    path: "{{ homeassistant_home_path }}/.homeassistant"
+    path: "{{ dot_homeassistant_path }}"
     state: directory
 
 - name: Clone homeassistant to tmp
@@ -22,8 +22,8 @@
 
 - name: Synchronize .homeassistant to /home/homeassistant/.homeassistant
   synchronize:
-    src: "{{ homeassistant_tmp_repo_path }}"
-    dest: "{{ homeassistant_home_path }}/.homeassistant"
+    src: "{{ homeassistant_tmp_repo_path }}/.homeassistant"
+    dest: "{{ homeassistant_home_path }}"
     delete: no
     recursive: yes
 

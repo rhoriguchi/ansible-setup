@@ -68,4 +68,4 @@
   lineinfile:
     path: /etc/systemd/system/home-assistant@homeassistant.service
     regexp: "^ExecStart=$"
-    line: "ExecStart={{ homeassistant_virual_env_path }}/bin/hass -c '{{ homeassistant_home_path }}/.homeassistant'"
+    line: "ExecStart={{ homeassistant_virual_env_path }}/bin/hass -c '{{ dot_homeassistant_path }}'"
