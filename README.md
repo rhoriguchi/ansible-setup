@@ -16,7 +16,6 @@ Python 3.5
 
 - SSH - 22
 - Home Assistant - 8123
-- UniFi Controller - 8443
 - Resilio Sync - 8888
 - Plex - 32400
 - Glances - 61208
