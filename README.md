@@ -147,7 +147,7 @@ sudo systemctl restart home-assistant@homeassistant
 ### Upgrade Home Assistant
 
 ```bash
-sudo su -s /bin/bash homeassistant
+sudo su homeassistant
 source /srv/homeassistant/bin/activate
 
 pip3 install --upgrade homeassistant
