@@ -15,6 +15,11 @@
     path: "{{ dot_homeassistant_path }}"
     state: directory
 
+- name: Delete homeassistant repo
+  file:
+    path: "{{ homeassistant_tmp_repo_path }}"
+    state: absent
+
 - name: Clone homeassistant to tmp
   git:
     repo: "https://rhoriguchi:{{ default_git_password }}@github.com/rhoriguchi/homeassistant.git"
@@ -30,6 +35,11 @@
 - name: Delete homeassistant repo
   file:
     path: "{{ homeassistant_tmp_repo_path }}"
+    state: absent
+
+- name: Delete homeassistant_secrets repo
+  file:
+    path: "{{ homeassistant_secrets_tmp_repo_path }}"
     state: absent
 
 - name: Clone homeassistant_secrets to tmp
