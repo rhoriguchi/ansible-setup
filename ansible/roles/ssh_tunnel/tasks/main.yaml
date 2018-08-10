@@ -26,10 +26,11 @@
     src: xxlpitu-jcrk-tunnel.service
     dest: /etc/systemd/system
 
-- name: Add environment variable AUTOSSH_LOGFILE to .bashrc
-  blockinfile:
-    path: "{{ homeassistant_home_path }}/.bashrc"
-    content: AUTOSSH_LOGFILE="$HOME/autossh.log"
+- name: Add line with enviroment variable AUTOSSH_LOGFILE to xxlpitu-jcrk-tunnel.service
+  lineinfile:
+    path: /etc/systemd/system/xxlpitu-jcrk-tunnel.service
+    insertafter: ^Environment="AUTOSSH_GATETIME=0"$
+    line: "AUTOSSH_LOGFILE={{ homeassistant_home_path }}/autossh.log"
 
 - name: Restart xxlpitu-jcrk-tunnel.service and enable
   service:
