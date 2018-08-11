@@ -58,15 +58,6 @@
     path: "{{ homeassistant_secrets_tmp_repo_path }}"
     state: absent
 
-- name: Check if .homeassistant/secrets.yaml exists
-  stat:
-    path: "{{ dot_homeassistant_path }}/secrets.yaml"
-  register: stat_result
-
-- fail:
-    msg: .homeassistant/secrets.yaml does not exist
-  when: stat_result.stat.exists == False
-
 - name: Include vars of secrets.yaml into secrets variable
   include_vars:
     file: "{{ dot_homeassistant_path }}/secrets.yaml"
