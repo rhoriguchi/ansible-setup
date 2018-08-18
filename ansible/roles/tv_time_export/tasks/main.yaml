@@ -25,8 +25,8 @@
     path: "{{ default_user_tv_time_export_path }}/config.yaml"
     create: yes
     content: |
-      username: {{ tv_time_export_user }}
-      password: {{ tv_time_export_password }}
+      username: {{ tv_time_user }}
+      password: {{ tv_time_password }}
       save_path: {{ tv_time_export_save_path }}
 
 - name: Check if tv_time_export virtual env dir exists
@@ -48,13 +48,13 @@
     requirements: "{{ default_user_tv_time_export_path }}/requirements.txt"
     virtualenv: "{{ tv_time_export_virual_env_path }}"
 
-- name: Create tv_time_export.sh script to run main.py
+- name: Create tv_time_export.sh script to run tv_time_export.py
   blockinfile:
     path: "{{ default_user_tv_time_export_path }}/tv_time_export.sh"
     create: yes
     mode: +x
     content: |
-      {{ tv_time_export_virual_env_path }}/bin/python {{ default_user_tv_time_export_path }}/main.py >/dev/null 2>&1
+      {{ tv_time_export_virual_env_path }}/bin/python {{ default_user_tv_time_export_path }}/src/tv_time_export.py >/dev/null 2>&1
       sudo chown -R rslsync:rslsync {{ tv_time_export_save_path }}
 
 - name: Crown job for tv_time_export
