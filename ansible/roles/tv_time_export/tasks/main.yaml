@@ -22,7 +22,7 @@
   become: yes
   become_user: "{{ default_user }}"
   blockinfile:
-    path: "{{ default_user_tv_time_export_path }}/config.yaml"
+    path: "{{ default_user_tv_time_export_path }}/main/config.yaml"
     create: yes
     content: |
       username: {{ tv_time_user }}
