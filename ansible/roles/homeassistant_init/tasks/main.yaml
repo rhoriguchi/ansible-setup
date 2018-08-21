@@ -27,7 +27,6 @@
     name: homeassistant
     login_class: system
     shell: /bin/bash
-    groups: dialout
     append: yes
 
 - name: Check if homeassistant virtual env dir exists
