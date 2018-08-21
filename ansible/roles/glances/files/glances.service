@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User=glances
-ExecStart=/usr/local/virtualenv/glances -w
+ExecStart=/usr/local/virtualenv/glances/bin/glances -w
 Restart=on-abort
 
 [Install]
