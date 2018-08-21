@@ -3,7 +3,8 @@ Description=Glances
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/glances -w
+User=glances
+ExecStart=/usr/local/virtualenv/glances -w
 Restart=on-abort
 
 [Install]

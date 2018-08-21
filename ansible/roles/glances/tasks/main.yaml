@@ -1,24 +1,58 @@
-# TODO install in own virtual enviroment
+- name: Add user glances
+  user:
+    name: glances
+    login_class: system
+    shell: /bin/bash
+    append: yes
+
+- name: Check if glances virtual env dir exists
+  stat:
+    path: "{{ glances_virual_env_path }}"
+  register: stat_result
+
+- name: Create glances virtual env dir
+  file:
+    path: "{{ glances_virual_env_path }}"
+    state: directory
+    when: stat_result.stat.exists == False
+
+- name: Create glances virtual env
+  command: "python3 -m venv {{ glances_virual_env_path }}"
+  when: stat_result.stat.exists == False
 
 - name: Pip install setuptools
   pip:
     name: setuptools
+    virtualenv: "{{ glances_virual_env_path }}"
 
 - name: Pip install glances
   pip:
     name: glances
+    virtualenv: "{{ glances_virual_env_path }}"
 
 - name: Pip install bottle
   pip:
     name: bottle
+    virtualenv: "{{ glances_virual_env_path }}"
 
 - name: Pip install hddtemp
   pip:
     name: hddtemp
+    virtualenv: "{{ glances_virual_env_path }}"
 
 - name: Pip install requests
   pip:
     name: requests
+    virtualenv: "{{ glances_virual_env_path }}"
+
+- name: Change permissions glances virtual env
+  become: yes
+  become_user: root
+  file:
+    path: "{{ glances_virual_env_path }}"
+    owner: glances
+    group: glances
+    recurse: yes
 
 - name: Copy glances.service to /etc/systemd/system/
   copy:
