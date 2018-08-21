@@ -37,6 +37,11 @@
     name: hddtemp
     virtualenv: "{{ glances_virual_env_path }}"
 
+- name: Pip install wifi
+  pip:
+    name: wifi
+    virtualenv: "{{ glances_virual_env_path }}"
+
 - name: Pip install requests
   pip:
     name: requests
