@@ -1,3 +1,5 @@
 ---
+# TODO maybe read out of repo or something
+homeassistant_version: 0.76.0
 homeassistant_tmp_repo_path: /tmp/homeassistant
 homeassistant_secrets_tmp_repo_path: /tmp/homeassistant_secrets
