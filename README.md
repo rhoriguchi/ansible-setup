@@ -148,7 +148,7 @@ sudo systemctl restart home-assistant@homeassistant
 
 ```bash
 sudo su homeassistant
-source /srv/homeassistant/bin/activate
+source /usr/local/virtualenv/homeassistant/bin/activate
 
 pip3 install --upgrade homeassistant
 ```
