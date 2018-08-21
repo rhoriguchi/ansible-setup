@@ -3,7 +3,6 @@
     name: glances
     login_class: system
     shell: /bin/bash
-    append: yes
 
 - name: Check if glances virtual env dir exists
   stat:
