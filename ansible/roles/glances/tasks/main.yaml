@@ -1,3 +1,5 @@
+# TODO install in own virtual enviroment
+
 - name: Pip install setuptools
   pip:
     name: setuptools
