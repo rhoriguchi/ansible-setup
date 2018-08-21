@@ -38,7 +38,6 @@
   file:
     path: "{{ tv_time_export_virual_env_path }}"
     state: directory
-    when: stat_result.stat.exists == False
 
 - name: Create tv_time_export virtual env
   command: "python3 -m venv {{ tv_time_export_virual_env_path }}"

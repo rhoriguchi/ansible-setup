@@ -26,7 +26,6 @@
   user:
     name: homeassistant
     login_class: system
-    shell: /bin/bash
 
 - name: Check if homeassistant virtual env dir exists
   stat:
@@ -37,7 +36,6 @@
   file:
     path: "{{ homeassistant_virual_env_path }}"
     state: directory
-    when: stat_result.stat.exists == False
 
 - name: Create homeassistant virtual env
   command: "python3 -m venv {{ homeassistant_virual_env_path }}"
