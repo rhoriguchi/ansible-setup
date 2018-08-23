@@ -173,7 +173,7 @@ sudo chmod 600 -R /home/xxlpitu/.ssh/authorized_keys
 
 ### Generate key
 
-![Generate rsa key](images/Generate_rsa_key.png?raw=true "Title")
+![Generate rsa key](images/Generate_rsa_key.png?raw=true)
 
 ## Harddrive
 
@@ -185,4 +185,4 @@ sudo fsck /dev/sda1
 
 ### Format drive
 
-![Format drive](images/Format_drive.png?raw=true "Title")
+![Format drive](images/Format_drive.png?raw=true)
