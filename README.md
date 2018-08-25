@@ -29,7 +29,7 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
 
-sudo apt-get install ansible aptitude build-essential git python python-apt python-dev python-pip python3 python3-apt python3-pip python3-venv
+sudo apt-get install ansible aptitude build-essential git python python-apt python-dev python-pip python3 python3-apt python3-pip python3-venv rsync
 
 sudo apt-get autoremove
 

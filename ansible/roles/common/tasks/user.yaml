@@ -4,9 +4,9 @@
     state: latest
     install_recommends: no
 
-- name: Install git
+- name: Install stow
   apt:
-    name: git
+    name: stow
     state: latest
     install_recommends: no
 
@@ -18,9 +18,3 @@
     shell: /usr/bin/zsh
     groups: adm,dialout,cdrom,sudo,audio,plugdev,games,users,input,netdev,spi,i2c,gpio
     append: yes
-
-- name: Install stow
-  apt:
-    name: stow
-    state: latest
-    install_recommends: no

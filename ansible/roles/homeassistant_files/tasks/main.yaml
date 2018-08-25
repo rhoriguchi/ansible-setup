@@ -1,9 +1,3 @@
-- name: Install rsync
-  apt:
-    name: rsync
-    state: latest
-    install_recommends: no
-
 - name: Stop home-assistant@homeassistant.service
   service:
     name: home-assistant@homeassistant.service
@@ -22,7 +16,7 @@
 
 - name: Clone homeassistant to tmp
   git:
-    repo: "https://rhoriguchi:{{ default_git_password }}@github.com/rhoriguchi/homeassistant.git"
+    repo: "{{ homeassistant_repo_url }}"
     dest: "{{ homeassistant_tmp_repo_path }}"
 
 - name: Synchronize .homeassistant to /home/homeassistant/.homeassistant
