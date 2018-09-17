@@ -1,3 +1,7 @@
 ---
+# plex
 plex_data_path: "{{ main_drive_path }}/library/plex-data"
 default_plex_data_path: /var/lib/plexmediaserver/Library/Application Support/Plex Media Server
+
+# tautulli
+tautulli_repo_path: /opt/Tautulli

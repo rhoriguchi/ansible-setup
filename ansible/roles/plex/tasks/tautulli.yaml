@@ -1,0 +1,51 @@
+- name: Install git-core
+  apt:
+    name: git-core
+    state: latest
+    install_recommends: no
+
+- name: Install python-setuptools
+  apt:
+    name: python-setuptools
+    state: latest
+    install_recommends: no
+
+- name: Install tzdata
+  apt:
+    name: tzdata
+    state: latest
+    install_recommends: no
+
+- name: Clone Tautulli to /opt/Tautulli
+  git:
+    repo: https://github.com/Tautulli/Tautulli.git
+    dest: "{{ tautulli_repo_path }}"
+
+- name: Add user tautulli
+  user:
+    name: tautulli
+    login_class: system
+    create_home: no
+    groups: tautulli
+    append: yes
+
+- name: Change permissions of Tautulli dir
+  become: yes
+  become_user: root
+  file:
+    path: "{{ tautulli_repo_path }}"
+    owner: tautulli
+    group: nogroup
+    recurse: yes
+
+- name: Copy Tautulli/init-scripts/init.systemd to /etc/systemd/system
+  copy:
+    src: "{{ tautulli_repo_path }}/init-scripts/init.systemd"
+    dest: /etc/systemd/system/tautulli.service
+
+- name: Restart tautulli
+  service:
+    name: tautulli.service
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
