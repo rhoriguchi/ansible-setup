@@ -1,2 +1,3 @@
 ---
+# dotfiles
 default_user_dotfiles_path: "{{ default_user_home }}/.dotfiles"
