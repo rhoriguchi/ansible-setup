@@ -26,13 +26,13 @@
 
 - name: Copy config to dehydrated repo path
   copy:
-    src: config
+    src: dehydrated/config
     dest: "{{ dehydrated_repo_path }}"
   when: stat_result.stat.exists == False
 
 - name: Copy hook.sh to dehydrated repo path
   copy:
-    src: hook.sh
+    src: dehydrated/hook.sh
     dest: "{{ dehydrated_repo_path }}"
     mode: 0755
   when: stat_result.stat.exists == False

@@ -12,6 +12,3 @@
     - glances
     - homeassistant_init
     - homeassistant_files
-    - ssh_tunnel
-    - dehydrated
-    # - gattlib
