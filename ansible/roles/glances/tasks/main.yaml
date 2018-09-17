@@ -2,6 +2,7 @@
   user:
     name: glances
     login_class: system
+    create_home: no
 
 - name: Check if glances virtual env dir exists
   stat:
