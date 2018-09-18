@@ -1,26 +1,13 @@
-- name: Install net-tools
+- name: Install apt requirements
   apt:
-    name: net-tools
+    name: "{{ item }}"
     state: latest
     install_recommends: no
-
-- name: Install nmap
-  apt:
-    name: nmap
-    state: latest
-    install_recommends: no
-
-- name: Install libssl-dev
-  apt:
-    name: libssl-dev
-    state: latest
-    install_recommends: no
-
-- name: Install openssl
-  apt:
-    name: openssl
-    state: latest
-    install_recommends: no
+  with_items:
+    - net-tools
+    - nmap
+    - libssl-dev
+    - openssl
 
 - name: Add user homeassistant
   user:

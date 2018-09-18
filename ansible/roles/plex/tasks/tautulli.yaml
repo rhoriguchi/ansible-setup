@@ -1,20 +1,12 @@
-- name: Install git-core
+- name: Install apt requirements
   apt:
-    name: git-core
+    name: "{{ item }}"
     state: latest
     install_recommends: no
-
-- name: Install python-setuptools
-  apt:
-    name: python-setuptools
-    state: latest
-    install_recommends: no
-
-- name: Install tzdata
-  apt:
-    name: tzdata
-    state: latest
-    install_recommends: no
+  with_items:
+    - git-core
+    - python-setuptools
+    - tzdata
 
 - name: Clone Tautulli to /opt/Tautulli
   git:
