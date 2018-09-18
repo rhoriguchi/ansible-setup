@@ -18,35 +18,17 @@
   command: "python3 -m venv {{ glances_virual_env_path }}"
   when: stat_result.stat.exists == False
 
-- name: Pip install setuptools
-  pip:
-    name: setuptools
+- name: Install pip requirements
+  apt:
+    name: "{{ item }}"
     virtualenv: "{{ glances_virual_env_path }}"
-
-- name: Pip install glances
-  pip:
-    name: glances
-    virtualenv: "{{ glances_virual_env_path }}"
-
-- name: Pip install bottle
-  pip:
-    name: bottle
-    virtualenv: "{{ glances_virual_env_path }}"
-
-- name: Pip install hddtemp
-  pip:
-    name: hddtemp
-    virtualenv: "{{ glances_virual_env_path }}"
-
-- name: Pip install wifi
-  pip:
-    name: wifi
-    virtualenv: "{{ glances_virual_env_path }}"
-
-- name: Pip install requests
-  pip:
-    name: requests
-    virtualenv: "{{ glances_virual_env_path }}"
+  with_items:
+    - setuptools
+    - glances
+    - bottle
+    - hddtemp
+    - wifi
+    - requests
 
 - name: Change permissions glances virtual env
   become: yes
