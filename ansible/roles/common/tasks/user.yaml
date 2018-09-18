@@ -10,7 +10,6 @@
     state: latest
     install_recommends: no
 
-# TODO create SSH key with ansible
 - name: Add default user
   user:
     name: "{{ default_user }}"

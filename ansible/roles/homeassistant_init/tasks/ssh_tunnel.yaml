@@ -4,7 +4,15 @@
     state: latest
     install_recommends: no
 
-- name: Create .ssh in homeassistant home
+- name: Add ssh key to user homeassistant
+  user:
+    name: homeassistant
+    login_class: system
+    generate_ssh_key: yes
+    ssh_key_bits: 4096
+    ssh_key_comment: "homeassistant@{{ hostname }}"
+
+- name: Change owner of .ssh in homeassistant home
   file:
     path: "{{ homeassistant_home_path }}/.ssh"
     state: directory
