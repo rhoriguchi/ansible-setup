@@ -8,10 +8,20 @@
     - python-setuptools
     - tzdata
 
+- name: Delete tautulli repo if exist
+  file:
+    path: "{{ tautulli_repo_path }}"
+    state: absent
+
 - name: Clone Tautulli to /opt/Tautulli
   git:
     repo: https://github.com/Tautulli/Tautulli.git
     dest: "{{ tautulli_repo_path }}"
+
+- name: Ensure group tautulli exists
+  group:
+    name: tautulli
+    state: present
 
 - name: Add user tautulli
   user:
