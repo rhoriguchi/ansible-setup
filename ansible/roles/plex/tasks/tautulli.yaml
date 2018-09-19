@@ -18,7 +18,7 @@
     name: tautulli
     login_class: system
     create_home: no
-    groups: tautulli
+    groups: tautulli,rslsync,plex
     append: yes
 
 - name: Change permissions of Tautulli dir
