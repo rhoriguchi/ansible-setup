@@ -51,7 +51,6 @@ ExecStart=
 GuessMainPID=no
 Type=forking
 User=tautulli
-Group=tautlli
 
 [Install]
 WantedBy=multi-user.target

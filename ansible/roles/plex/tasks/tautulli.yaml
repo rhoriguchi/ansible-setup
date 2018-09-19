@@ -37,7 +37,7 @@
   file:
     path: "{{ tautulli_repo_path }}"
     owner: tautulli
-    group: nogroup
+    group: tautulli
     recurse: yes
     mode: 0744
 
