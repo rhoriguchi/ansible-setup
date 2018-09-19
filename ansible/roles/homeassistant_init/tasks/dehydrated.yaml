@@ -34,7 +34,7 @@
   copy:
     src: dehydrated/hook.sh
     dest: "{{ dehydrated_repo_path }}"
-    mode: 0755
+    mode: 0700
   when: stat_result.stat.exists == False
 
 - name: Replace DUCKDNS_DOMAIN with real domain in hook.sh

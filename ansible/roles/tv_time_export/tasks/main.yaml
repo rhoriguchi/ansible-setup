@@ -16,7 +16,7 @@
     state: directory
     owner: rslsync
     group: rslsync
-    mode: 0755
+    mode: 0744
 
 - name: Create config.yaml in tv_time_export repo and add correct values
   become: yes

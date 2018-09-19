@@ -39,6 +39,7 @@
     owner: tautulli
     group: nogroup
     recurse: yes
+    mode: 0744
 
 - name: Copy Tautulli/init-scripts/init.systemd to /etc/systemd/system
   copy:
