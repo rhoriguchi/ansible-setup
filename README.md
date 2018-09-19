@@ -16,6 +16,7 @@ Python 3.5
 
 - SSH - 22
 - Home Assistant - 8123
+- Tautulli - 8181
 - Resilio Sync - 8888
 - Plex - 32400
 - Glances - 61208
