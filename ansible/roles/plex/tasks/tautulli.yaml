@@ -41,10 +41,10 @@
     recurse: yes
     mode: 0744
 
-- name: Copy Tautulli/init-scripts/init.systemd to /etc/systemd/system
+- name: Copy tautulli.service to /etc/systemd/system/
   copy:
-    src: "{{ tautulli_repo_path }}/init-scripts/init.systemd"
-    dest: /etc/systemd/system/tautulli.service
+    src: tautulli/tautulli.service
+    dest: /etc/systemd/system
 
 - name: Restart tautulli
   service:
