@@ -44,6 +44,12 @@
     src: glances.service
     dest: /etc/systemd/system
 
+- name: Replace ExecStart= line with correct value in glances.service
+  lineinfile:
+    path: /etc/systemd/system/glances.service
+    regexp: "^ExecStart=$"
+    line: "ExecStart={{ glances_virual_env_path }}/bin/glances -w"
+
 - name: Restart glances.service and enable
   service:
     name: glances.service

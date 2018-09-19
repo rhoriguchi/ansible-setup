@@ -46,6 +46,12 @@
     src: tautulli/tautulli.service
     dest: /etc/systemd/system
 
+- name: Replace ExecStart= line with correct value in tautulli.service
+  lineinfile:
+    path: /etc/systemd/system/tautulli.service
+    regexp: "^ExecStart=$"
+    line: "ExecStart=/usr/bin/python2 {{ tautulli_repo_path }}/Tautulli.py --config {{ tautulli_repo_path }}/config.ini --datadir {{ tautulli_repo_path }} --quiet --daemon --nolaunch"
+
 - name: Restart tautulli
   service:
     name: tautulli.service
