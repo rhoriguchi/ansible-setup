@@ -19,7 +19,7 @@
   when: stat_result.stat.exists == False
 
 - name: Install pip requirements
-  apt:
+  pip:
     name: "{{ item }}"
     virtualenv: "{{ glances_virual_env_path }}"
   with_items:
