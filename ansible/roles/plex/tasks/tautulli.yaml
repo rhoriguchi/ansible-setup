@@ -57,7 +57,7 @@
   lineinfile:
     path: /etc/systemd/system/tautulli.service
     regexp: "^ExecStart=$"
-    line: "ExecStart=/usr/bin/python2 {{ tautulli_repo_path }}/Tautulli.py --config {{ tautulli_repo_path }}/config.ini --datadir {{ tautulli_data_path }} --quiet --daemon --nolaunch"
+    line: "ExecStart=/usr/bin/python2 {{ tautulli_repo_path }}/Tautulli.py --config {{ tautulli_data_path }}/config.ini --datadir {{ tautulli_data_path }} --quiet --daemon --nolaunch"
 
 - name: Restart tautulli
   service:
