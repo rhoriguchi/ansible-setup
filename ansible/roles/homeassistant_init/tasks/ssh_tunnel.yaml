@@ -10,7 +10,7 @@
     login_class: system
     generate_ssh_key: yes
     ssh_key_bits: 4096
-    ssh_key_comment: "key-{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.date }}-homeassistant@{{ hostname }}"
+    ssh_key_comment: "key-{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}-homeassistant@{{ hostname }}"
 
 - name: Change owner of .ssh in homeassistant home
   file:
