@@ -4,17 +4,13 @@
     state: latest
     install_recommends: no
 
-- name: Save current date in to variable
-  vars:
-    date: "{{ lookup('pipe', 'date +%Y%m%d') }}"
-
 - name: Add ssh key to user homeassistant
   user:
     name: homeassistant
     login_class: system
     generate_ssh_key: yes
     ssh_key_bits: 4096
-    ssh_key_comment: "key-{{ date }}-homeassistant@{{ hostname }}"
+    ssh_key_comment: "key-{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.date }}-homeassistant@{{ hostname }}"
 
 - name: Change owner of .ssh in homeassistant home
   file:
