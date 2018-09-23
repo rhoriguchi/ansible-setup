@@ -48,7 +48,7 @@
     owner: tautulli
     group: tautulli
 
-- name: Copy tautulli.service to /etc/systemd/system/
+- name: Copy tautulli.service to /etc/systemd/system
   copy:
     src: tautulli/tautulli.service
     dest: /etc/systemd/system

@@ -39,7 +39,7 @@
     group: glances
     recurse: yes
 
-- name: Copy glances.service to /etc/systemd/system/
+- name: Copy glances.service to /etc/systemd/system
   copy:
     src: glances.service
     dest: /etc/systemd/system

@@ -27,7 +27,7 @@
     group: homeassistant
     mode: 0x700
 
-- name: Copy xxlpitu-jcrk-tunnel.service to /etc/systemd/system/
+- name: Copy xxlpitu-jcrk-tunnel.service to /etc/systemd/system
   copy:
     src: ssh_tunnel/xxlpitu-jcrk-tunnel.service
     dest: /etc/systemd/system

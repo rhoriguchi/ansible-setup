@@ -59,10 +59,10 @@
     group: homeassistant
     recurse: yes
 
-- name: Copy home-assistant@homeassistant.service to /etc/systemd/system/
+- name: Copy home-assistant@homeassistant.service to /etc/systemd/system
   copy:
     src: homeassistant/home-assistant@homeassistant.service
-    dest: /etc/systemd/system/
+    dest: /etc/systemd/system
 
 - name: Replace ExecStart= line with correct value in home-assistant@homeassistant.service
   lineinfile:
