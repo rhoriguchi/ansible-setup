@@ -48,6 +48,7 @@
     name: homeassistant
     version: "{{ homeassistant.version }}"
     virtualenv: "{{ homeassistant_virual_env_path }}"
+  when: stat_result.stat.exists == False
 
 - name: Change permissions homeassistant virtual env
   become: yes
