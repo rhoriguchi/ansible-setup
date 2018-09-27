@@ -39,7 +39,7 @@
     owner: tautulli
     group: tautulli
     recurse: yes
-    mode: 0744
+    mode: 0755
 
 - name: Create tatulli data dir
   file:

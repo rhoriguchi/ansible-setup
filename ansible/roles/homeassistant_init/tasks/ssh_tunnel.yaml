@@ -25,7 +25,7 @@
     dest: "{{ homeassistant_home_path }}/.ssh"
     owner: homeassistant
     group: homeassistant
-    mode: 0x700
+    mode: 0700
 
 - name: Copy xxlpitu-jcrk-tunnel.service to /etc/systemd/system
   copy:

@@ -31,7 +31,7 @@
     state: directory
     owner: rslsync
     group: rslsync
-    mode: 0744
+    mode: 0755
 
 - name: Create resilio-sync SyncDownloads dir
   file:
@@ -39,7 +39,7 @@
     state: directory
     owner: rslsync
     group: rslsync
-    mode: 0744
+    mode: 0755
 
 - name: Restart resilio-sync and enable
   service:
