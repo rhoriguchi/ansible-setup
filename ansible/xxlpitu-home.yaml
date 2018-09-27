@@ -9,6 +9,7 @@
     - common
     - duckdns
     - resilio
+    - log2ram
     - glances
     - homeassistant_init
     - homeassistant_files

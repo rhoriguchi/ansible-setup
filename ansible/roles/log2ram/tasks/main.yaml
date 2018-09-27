@@ -1,0 +1,35 @@
+- name: Install rsync
+  apt:
+    name: rsync
+    install_recommends: no
+
+- name: Delete log2ram temp folder
+  file:
+    path: "{{ log2ram_tmp_path }}"
+    state: absent
+
+- name: Create log2ram temp folder
+  file:
+    path: "{{ log2ram_tmp_path }}"
+    state: directory
+
+- name: Download and unarchive master.tar.gz to log2ram temp folder
+  unarchive:
+    src: https://github.com/azlux/log2ram/archive/master.tar.gz
+    dest: "{{ log2ram_tmp_path }}"
+    remote_src: yes
+
+- name: Execute install.sh
+  become: yes
+  become_user: root
+  command: "sh {{ log2ram_tmp_path }}/log2ram-master/install.sh"
+
+- name: Copy log2ram.conf to /etc
+  copy:
+    src: log2ram.conf
+    dest: /etc
+
+- name: Delete log2ram temp folder
+  file:
+    path: "{{ log2ram_tmp_path }}"
+    state: absent

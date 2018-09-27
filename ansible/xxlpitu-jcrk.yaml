@@ -8,6 +8,7 @@
     - common
     - duckdns
     - resilio
-    - plex
+    - log2ram
     - glances
+    - plex
     - tv_time_export
