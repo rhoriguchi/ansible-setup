@@ -12,4 +12,4 @@
   become_user: root
   cron:
     minute: 5
-    job: "{{ root_user_duckdns_path }}/.duckdns/duck.sh >/dev/null 2>&1"
+    job: "{{ root_user_duckdns_path }}/duck.sh >/dev/null 2>&1"
