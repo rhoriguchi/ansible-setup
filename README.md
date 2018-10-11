@@ -31,7 +31,7 @@ sudo apt-get install ansible aptitude build-essential git python python-apt pyth
 sudo apt-get autoremove
 
 sudo pip install --upgrade pip virtualenv virtualenvwrapper wheel
-sudo pip3 install ansible==2.5.4
+sudo pip3 install ansible==2.7
 
 git clone https://github.com/rhoriguchi/raspbian_setup.git /tmp/raspbian_setup
 cd /tmp/raspbian_setup/ansible
