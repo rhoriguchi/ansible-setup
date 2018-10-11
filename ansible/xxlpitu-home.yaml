@@ -5,6 +5,7 @@
     - vars/drives.yaml
     - vars/homeassistant.yaml
     - vars/xxlpitu-home.yaml
+    - vars/private.yaml
   roles:
     - common
     - duckdns

@@ -3,5 +3,6 @@
   vars_files:
     - vars/default.yaml
     - vars/homeassistant.yaml
+    - vars/private.yaml
   roles:
     - homeassistant_files

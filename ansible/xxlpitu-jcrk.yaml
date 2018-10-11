@@ -4,6 +4,7 @@
     - vars/default.yaml
     - vars/drives.yaml
     - vars/xxlpitu-jcrk.yaml
+    - vars/private.yaml
   roles:
     - common
     - duckdns

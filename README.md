@@ -37,8 +37,6 @@ git clone https://github.com/rhoriguchi/raspbian_setup.git /tmp/raspbian_setup
 cd /tmp/raspbian_setup/ansible
 ```
 
-Change `****` in `/tmp/raspbian_setup/ansible/vars/default.yaml`
-
 ```bash
 nano /tmp/raspbian_setup/ansible/vars/default.yaml
 ```
@@ -46,7 +44,7 @@ nano /tmp/raspbian_setup/ansible/vars/default.yaml
 ### Run for xxlpitu-home.yaml
 
 ```bash
-sudo ansible-playbook xxlpitu-home.yaml
+sudo ansible-playbook --vault-id @prompt xxlpitu-home.yaml
 ```
 
 Once xxlpitu-home.yaml is finish manually login to resilio sync web ui and configure.
@@ -68,7 +66,7 @@ chmod 600 /home/homeassistant/.ssh/id_rsa
 ### Run for xxlpitu-jcrk.yaml
 
 ```bash
-sudo ansible-playbook xxlpitu-jcrk.yaml
+sudo ansible-playbook --vault-id @prompt xxlpitu-jcrk.yaml
 ```
 
 Once xxlpitu-home.yaml is finish manually login to resilio sync and plex web ui and configure.
@@ -118,7 +116,7 @@ exit
 git clone https://github.com/rhoriguchi/raspbian_setup.git /tmp/raspbian_setup
 cd /tmp/raspbian_setup/ansible
 
-sudo ansible-playbook homeassistant_update_files.yaml
+sudo ansible-playbook --vault-id @prompt homeassistant_update_files.yaml
 ```
 
 ### Start Home Assistant
