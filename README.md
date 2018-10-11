@@ -3,14 +3,10 @@
 ## Requirements
 
 ### Home Assistant
-Python 3.5.3
+Python >= 3.5.3
 
 ### Ansible
-Python 3.5
-
-## Static IP
-
-- Raspberry - 192.168.2.150
+Python >= 3.5
 
 ## Default Ports
 
