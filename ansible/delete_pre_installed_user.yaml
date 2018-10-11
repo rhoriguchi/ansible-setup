@@ -1,4 +1,4 @@
-- name: Delete user pi
+- name: Delete default user
   hosts: localhost
   vars_files:
     - vars/default.yaml
