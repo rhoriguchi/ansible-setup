@@ -1,4 +1,4 @@
-- name: Delete user pi
+- name: "Delete user {{ pre_installed_user }}"
   become: yes
   become_user: root
   user:
