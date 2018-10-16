@@ -41,7 +41,6 @@
   copy:
     src: "{{ default_plex_data_path }}"
     dest: "{{ plex_data_path }}"
-    state: directory
     owner: plex
     group: plex
   when: stat_result.stat.exists == True and stat_result.stat.islnk == False
