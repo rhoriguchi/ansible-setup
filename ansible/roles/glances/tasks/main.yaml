@@ -20,15 +20,8 @@
 
 - name: Install pip requirements
   pip:
-    name: "{{ item }}"
+    name: [setuptools, glances, bottle, hddtemp, wifi, requests]
     virtualenv: "{{ glances_virual_env_path }}"
-  with_items:
-    - setuptools
-    - glances
-    - bottle
-    - hddtemp
-    - wifi
-    - requests
 
 - name: Change permissions glances virtual env
   become: yes

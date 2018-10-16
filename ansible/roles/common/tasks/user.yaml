@@ -1,11 +1,8 @@
 - name: Install apt requirements
   apt:
-    name: "{{ item }}"
+    name: [stow, zsh]
     state: latest
     install_recommends: no
-  with_items:
-    - stow
-    - zsh
 
 - name: Add default user
   user:

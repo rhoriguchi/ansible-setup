@@ -1,12 +1,8 @@
 - name: Install apt requirements
   apt:
-    name: "{{ item }}"
+    name: [git-core, python-setuptools, tzdata]
     state: latest
     install_recommends: no
-  with_items:
-    - git-core
-    - python-setuptools
-    - tzdata
 
 - name: Delete tautulli repo if exist
   file:
