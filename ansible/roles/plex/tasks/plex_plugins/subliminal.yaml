@@ -1,0 +1,9 @@
+- name: Delete Subliminal.bundle folder in plex plugin folder if exist
+  file:
+    path: "{{ subliminal_plugin_path }}"
+    state: absent
+
+- name: Clone Subliminal.bundle to plex plugin folder
+  git:
+    repo: https://github.com/bramwalet/Subliminal.bundle.git
+    dest: "{{ subliminal_plugin_path }}"

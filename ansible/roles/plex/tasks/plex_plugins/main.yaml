@@ -1,0 +1,15 @@
+- name: Create plex plug-ins folder if not exists
+  file:
+    path: "{{ plex_plugins_path }}"
+    state: directory
+
+- include: open_movie_database.yaml
+- include: subliminal.yaml
+
+- name: Change owner and group of  plex plug-ins folder
+  file:
+    path: "{{ plex_plugins_path }}"
+    state: directory
+    owner: plex
+    group: plex
+    recurse: yes

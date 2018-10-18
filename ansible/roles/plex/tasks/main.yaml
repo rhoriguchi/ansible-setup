@@ -1,2 +1,3 @@
 - include: plex.yaml
+- include: plex_plugins/main.yaml
 - include: tautulli.yaml

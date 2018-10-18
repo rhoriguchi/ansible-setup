@@ -6,3 +6,12 @@ default_plex_data_path: /var/lib/plexmediaserver/Library/Application Support/Ple
 # tautulli
 tautulli_repo_path: /opt/Tautulli
 tautulli_data_path: "{{ main_drive_path }}/library/Tautulli-data"
+
+# plex_plugins
+plex_plugins_path: "{{ plex_data_path }}/Plex Media Server/Plug-ins"
+
+# subliminal
+subliminal_plugin_path: "{{ plex_plugins_path }}/Subliminal.bundle"
+
+# open_movie_database
+open_movie_database_plugin_path: "{{ plex_plugins_path }}/OpenMovieDatabase.bundle"

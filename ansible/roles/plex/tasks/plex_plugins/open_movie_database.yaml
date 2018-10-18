@@ -1,0 +1,9 @@
+- name: Delete OpenMovieDatabase.bundle folder in plex plugin folder if exist
+  file:
+    path: "{{ open_movie_database_plugin_path }}"
+    state: absent
+
+- name: Clone OpenMovieDatabase.bundle to plex plugin folder
+  git:
+    repo: https://github.com/piplongrun/OpenMovieDatabase.bundle.git
+    dest: "{{ open_movie_database_plugin_path }}"
