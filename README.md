@@ -49,12 +49,6 @@ sudo ansible-playbook --vault-id @prompt xxlpitu-home.yaml
 
 Once xxlpitu-home.yaml is finish manually login to resilio sync web ui and configure.
 
-Enable Bluetooth LE scan as non root
-
-```bash
-sudo setcap 'cap_net_raw,cap_net_admin+eip' `readlink -f \`which python3\``
-```
-
 Generate new rsa key for SSH tunnels and add it to authorized_keys in dotfiles repo and add private key to `/home/homeassistant/.ssh/id_rsa`. The private key has to be in the openssh format.
 
 Change permissions of id_rsa to 600.
