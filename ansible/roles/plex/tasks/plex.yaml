@@ -25,6 +25,12 @@
     state: latest
     install_recommends: no
 
+- name: Stop plexmediaserver.service
+  service:
+    name: plexmediaserver.service
+    state: stopped
+    daemon_reload: yes
+
 - name: Create plex-data dir
   file:
     path: "{{ plex_data_path }}"
@@ -66,7 +72,7 @@
     group: rslsync
     append: yes
 
-- name: Restart plexmediaserver and enable
+- name: Restart plexmediaserver.service and enable
   service:
     name: plexmediaserver.service
     state: restarted
