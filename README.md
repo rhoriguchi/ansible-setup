@@ -37,10 +37,6 @@ git clone https://github.com/rhoriguchi/raspbian_setup.git /tmp/raspbian_setup
 cd /tmp/raspbian_setup/ansible
 ```
 
-```bash
-nano /tmp/raspbian_setup/ansible/vars/default.yaml
-```
-
 ### Run for xxlpitu-home.yaml
 
 ```bash
