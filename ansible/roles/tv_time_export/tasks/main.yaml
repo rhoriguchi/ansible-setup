@@ -24,6 +24,7 @@
   blockinfile:
     path: "{{ default_user_tv_time_export_path }}/src/config.yaml"
     create: yes
+    mode: 0755
     content: |
       username: {{ tv_time_user }}
       password: {{ tv_time_password }}
