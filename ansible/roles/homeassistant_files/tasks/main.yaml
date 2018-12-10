@@ -9,7 +9,7 @@
     path: "{{ dot_homeassistant_path }}"
     state: directory
 
-- name: Delete homeassistant repo
+- name: Delete homeassistant temp repo
   file:
     path: "{{ homeassistant_tmp_repo_path }}"
     state: absent
