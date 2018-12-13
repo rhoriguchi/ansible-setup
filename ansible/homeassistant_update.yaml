@@ -5,4 +5,4 @@
     - vars/homeassistant.yaml
     - vars/private.yaml
   roles:
-    - homeassistant_files
+    - homeassistant_update

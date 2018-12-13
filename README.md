@@ -100,13 +100,13 @@ exit
 
 ## Home Assistant
 
-### Update Home Assistant files
+### Update Home Assistant virtualenv version and files
 
 ```bash
 git clone https://github.com/rhoriguchi/raspbian_setup.git /tmp/raspbian_setup
 cd /tmp/raspbian_setup/ansible
 
-sudo ansible-playbook --vault-id @prompt homeassistant_update_files.yaml
+sudo ansible-playbook --vault-id @prompt homeassistant_update.yaml
 ```
 
 ### Start Home Assistant

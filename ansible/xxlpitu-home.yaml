@@ -13,4 +13,4 @@
     - log2ram
     - glances
     - homeassistant_init
-    - homeassistant_files
+    - homeassistant_update

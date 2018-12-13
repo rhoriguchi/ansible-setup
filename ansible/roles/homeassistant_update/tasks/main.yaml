@@ -19,6 +19,17 @@
     repo: "{{ homeassistant_repo_url }}"
     dest: "{{ homeassistant_tmp_repo_path }}"
 
+- name: Include vars of homeassistant config.yaml into homeassistant variable
+  include_vars:
+    file: "{{ homeassistant_tmp_repo_path }}/config.yaml"
+    name: homeassistant
+
+- name: Pip install config homeassistant version
+  pip:
+    name: homeassistant
+    version: "{{ homeassistant.version }}"
+    virtualenv: "{{ homeassistant_virual_env_path }}"
+
 - name: Synchronize .homeassistant to /home/homeassistant/.homeassistant
   synchronize:
     src: "{{ homeassistant_tmp_repo_path }}/.homeassistant"
