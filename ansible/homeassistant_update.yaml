@@ -1,4 +1,4 @@
-- name: Update homeassistant files
+- name: Update homeassistant files and install correct homeassistant version
   hosts: localhost
   vars_files:
     - vars/default.yaml
