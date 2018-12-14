@@ -14,3 +14,4 @@
     - glances
     - homeassistant_init
     - homeassistant_update
+    - tv_time_export
