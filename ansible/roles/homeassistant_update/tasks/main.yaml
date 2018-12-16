@@ -30,6 +30,15 @@
     version: "{{ homeassistant.version }}"
     virtualenv: "{{ homeassistant_virual_env_path }}"
 
+- name: Change permissions homeassistant virtual env
+  become: yes
+  become_user: root
+  file:
+    path: "{{ homeassistant_virual_env_path }}"
+    owner: homeassistant
+    group: homeassistant
+    recurse: yes
+
 - name: Synchronize .homeassistant to /home/homeassistant/.homeassistant
   synchronize:
     src: "{{ homeassistant_tmp_repo_path }}/.homeassistant"
