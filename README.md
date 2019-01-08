@@ -151,6 +151,9 @@ On xxlpitu-jcrk.duckdns.org change permission of authorized_keys when updated
 sudo chmod 600 -R /home/xxlpitu/.ssh/authorized_keys
 ```
 
+## USB boot raspberry
+(Install Raspbian on a USB Flash drive from MacOS or Linux)[https://www.stewright.me/2017/06/install-raspbian-usb-flash-drive-macos-linux/]
+
 ## Harddrive
 
 ### If superblock can't be read
