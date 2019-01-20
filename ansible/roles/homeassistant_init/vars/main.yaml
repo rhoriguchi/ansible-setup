@@ -1,4 +1,7 @@
 ---
+# homeassistant
+symbolic_link_dot_homeassistant_path: "{{ main_drive_path }}}/library/homeassistant-data/.homeassistant"
+
 # dehydrated
 dehydrated_repo_path: "{{ homeassistant_home_path }}/dehydrated"
 duckdns_domain_full: "{{ duckdns_domain }}.duckdns.org"

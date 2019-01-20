@@ -47,3 +47,18 @@
     path: /etc/systemd/system/home-assistant@homeassistant.service
     regexp: "^ExecStart=$"
     line: "ExecStart={{ homeassistant_virual_env_path }}/bin/hass -c '{{ dot_homeassistant_path }}'"
+
+- name: Create symbolic link .homeassistant dir
+  file:
+    path: "{{ symbolic_link_dot_homeassistant_path }}"
+    state: directory
+    owner: homeassistant
+    group: homeassistant
+
+- name: Create symbolic link from .homeassistant to symbolic link .homeassistant dir
+  file:
+    src: "{{ dot_homeassistant_path }}"
+    dest: "{{ symbolic_link_dot_homeassistant_path }}"
+    state: link
+    force: yes
+    owner: homeassistant
