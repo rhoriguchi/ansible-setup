@@ -59,8 +59,8 @@
 
 - name: Create symbolic link from .homeassistant to symbolic link .homeassistant dir
   file:
-    src: "{{ dot_homeassistant_path }}"
-    dest: "{{ symbolic_link_dot_homeassistant_path }}"
+    src: "{{ symbolic_link_dot_homeassistant_path }}"
+    dest: "{{ dot_homeassistant_path }}"
     state: link
     force: yes
     owner: homeassistant

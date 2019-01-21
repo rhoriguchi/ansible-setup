@@ -61,8 +61,8 @@
 
 - name: Create symbolic link from Plex Media Server to copy
   file:
-    src: "{{ symbolic_link_plex_data_path }}"
-    dest: "{{ plex_data_path }}"
+    src: "{{ plex_data_path }}"
+    dest: "{{ symbolic_link_plex_data_path }}"
     state: link
     force: yes
     owner: plex
