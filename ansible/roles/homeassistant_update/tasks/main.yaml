@@ -7,13 +7,13 @@
 - name: Check if .homeassistant in homeassistant home exists
   stat:
     path: "{{ dot_homeassistant_path }}"
-    register: stat_result
+  register: stat_result
 
 - name: Create .homeassistant in homeassistant home
   file:
     path: "{{ dot_homeassistant_path }}"
     state: directory
-    when: stat_result.stat.exists == False
+  when: stat_result.stat.exists == False
 
 - name: Delete homeassistant temp repo
   file:
