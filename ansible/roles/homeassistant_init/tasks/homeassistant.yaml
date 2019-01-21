@@ -54,6 +54,8 @@
     state: directory
     owner: homeassistant
     group: homeassistant
+    mode: 0775
+    recurse: yes
 
 - name: Create symbolic link from .homeassistant to symbolic link .homeassistant dir
   file:

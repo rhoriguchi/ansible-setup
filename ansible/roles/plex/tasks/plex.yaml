@@ -37,6 +37,8 @@
     state: directory
     owner: plex
     group: plex
+    mode: 0775
+    recurse: yes
 
 - name: Check if Plex Media Server data exists
   stat:
