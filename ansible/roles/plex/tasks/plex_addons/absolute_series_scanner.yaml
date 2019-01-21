@@ -10,15 +10,15 @@
 
 - name: Create Scanners folder in plex dir if not exists
   file:
-    path: "{{ plex_data_path }}/Plex Media Server/Scanners"
+    path: "{{ plex_data_path }}/Scanners"
     state: directory
 
 - name: Create Scanners/Series folder in plex dir if not exists
   file:
-    path: "{{ plex_data_path }}/Plex Media Server/Scanners/Series"
+    path: "{{ plex_data_path }}/Scanners/Series"
     state: directory
 
 - name: Copy "Absolute Series Scanner.py" to plex Scanners/Series path
   copy:
     src: "{{ absolute_series_scanner_tmp_path }}/Scanners/Series/Absolute Series Scanner.py"
-    dest: "{{ plex_data_path }}/Plex Media Server/Scanners/Series"
+    dest: "{{ plex_data_path }}/Scanners/Series"
