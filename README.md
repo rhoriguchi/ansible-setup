@@ -19,16 +19,14 @@ Python >= 3.5
 
 ## Setup
 
-Install Ansible requirements
+### Update Raspberry and install Ansible requirements
 
 ```bash
 sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y
-
 sudo apt-get install -y ansible aptitude build-essential git python python-apt python-dev python-pip python3 python3-apt python3-pip python3-venv rsync
-
 sudo apt-get autoremove -y
 
-sudo pip install --upgrade pip virtualenv virtualenvwrapper wheel
+sudo pip3 install --upgrade pip virtualenv virtualenvwrapper wheel
 sudo pip3 install ansible==2.7
 
 git clone https://github.com/rhoriguchi/raspbian_setup.git /tmp/raspbian_setup
@@ -57,7 +55,7 @@ chmod 600 /home/homeassistant/.ssh/id_rsa
 sudo ansible-playbook --vault-id @prompt xxlpitu-jcrk.yaml
 ```
 
-Once xxlpitu-home.yaml is finish manually login to resilio sync and plex web ui and configure.
+Once xxlpitu-home.yaml is finish manually login to Resilio Sync and Plex web ui and configure.
 
 ### After successful setup run delete_pre_installed_user.yaml
 
@@ -74,26 +72,7 @@ sudo blkid | grep -i "PARTUUID="
 ## Generate Password for Ansible in user module
 
 ```bash
-mkpasswd --method=sha-512 PASSWORD
-```
-
-## Find Sensirio SHT31 sensor MAC address
-
-```bash
-sudo bluetoothctl
-
-agent on
-default-agent
-scan on
-```
-
-Search for device "Smart Humigadget" and get MAC address
-
-`[NEW] Device CA:9C:5B:82:0A:22 Smart Humigadget`
-
-```bash
-scan off
-exit
+mkpasswd --method=sha-512 [PASSWORD]
 ```
 
 ## Home Assistant
@@ -138,21 +117,23 @@ pip3 install --upgrade homeassistant
 
 ### Command
 
-Move ssh key to remote xxlpitu@xxlpitu-jcrk.duckdns.org
+Move ssh key to remote `xxlpitu-jcrk.duckdns.org`
 
 ```bash
 sudo su homeassistant
 cat /home/homeassistant/.ssh/id_rsa.pub | ssh xxlpitu@xxlpitu-jcrk.duckdns.org "mkdir -p ~/.ssh && cat >> /home/xxlpitu/.ssh/authorized_keys"
 ```
 
-On xxlpitu-jcrk.duckdns.org change permission of authorized_keys when updated
+On `xxlpitu-jcrk.duckdns.org` change permission of authorized_keys when updated
 
 ```bash
+ssh xxlpitu@xxlpitu-jcrk.duckdns.org
 sudo chmod 600 -R /home/xxlpitu/.ssh/authorized_keys
 ```
 
-## USB boot raspberry
-(Install Raspbian on a USB Flash drive from MacOS or Linux)[https://www.stewright.me/2017/06/install-raspbian-usb-flash-drive-macos-linux/]
+## USB boot Raspberry
+
+[Instructions](ressources/USB_boot_raspberry.md)
 
 ## Harddrive
 
@@ -164,4 +145,4 @@ sudo fsck /dev/sda1
 
 ### Format drive
 
-![Format drive](images/Format_drive.png?raw=true)
+[Instructions](ressources/Format_drive.md)
