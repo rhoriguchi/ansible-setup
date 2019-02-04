@@ -22,9 +22,9 @@ Python >= 3.5
 ### Update Raspberry and install Ansible requirements
 
 ```bash
-sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y
-sudo apt-get install -y ansible aptitude build-essential git python python-apt python-dev python-pip python3 python3-apt python3-pip python3-venv rsync
-sudo apt-get autoremove -y
+sudo apt update -y && sudo apt upgrade -y && sudo apt full-upgrade -y
+sudo apt install -y ansible aptitude build-essential git python python-apt python-dev python-pip python3 python3-apt python3-pip python3-venv rsync
+sudo apt autoremove -y
 
 sudo pip3 install --upgrade pip virtualenv virtualenvwrapper wheel
 sudo pip3 install ansible==2.7
