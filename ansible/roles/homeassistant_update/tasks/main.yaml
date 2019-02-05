@@ -8,7 +8,7 @@
     path: "{{ dot_homeassistant_path }}"
   register: stat_result
 
-- name: Create .homeassistant in homeassistant home if not exists or no symbolic link exists
+- name: Create .homeassistant in homeassistant home if no dir or no symbolic link exists
   file:
     path: "{{ dot_homeassistant_path }}"
     state: directory
@@ -52,7 +52,7 @@
     recursive: yes
   when: stat_result.stat.islnk == False
 
-- name: Synchronize .homeassistant to symbolic link location
+- name: Synchronize .homeassistant to homeassistant symbolic link location
   synchronize:
     src: "{{ homeassistant_tmp_repo_path }}/.homeassistant"
     dest: "{{ stat_result.stat.lnk_source }}"
