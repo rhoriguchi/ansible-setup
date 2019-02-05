@@ -4,12 +4,11 @@
     state: stopped
     daemon_reload: yes
 
-- name: Check if .homeassistant in homeassistant home exists or is symbolic link
-  stat:
+- stat:
     path: "{{ dot_homeassistant_path }}"
   register: stat_result
 
-- name: Create .homeassistant in homeassistant home
+- name: Create .homeassistant in homeassistant home if not exists or no symbolic link exists
   file:
     path: "{{ dot_homeassistant_path }}"
     state: directory

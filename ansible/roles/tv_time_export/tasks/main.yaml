@@ -30,8 +30,7 @@
       password: {{ tv_time_password }}
       save_path: {{ tv_time_export_save_path }}
 
-- name: Check if tv_time_export virtual env dir exists
-  stat:
+- stat:
     path: "{{ tv_time_export_virual_env_path }}"
   register: stat_result
 
@@ -40,7 +39,7 @@
     path: "{{ tv_time_export_virual_env_path }}"
     state: directory
 
-- name: Create tv_time_export virtual env
+- name: Create tv_time_export virtual env if not exist
   command: "python3 -m venv {{ tv_time_export_virual_env_path }}"
   when: stat_result.stat.exists == False
 

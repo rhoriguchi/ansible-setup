@@ -4,8 +4,7 @@
     login_class: system
     create_home: no
 
-- name: Check if glances virtual env dir exists
-  stat:
+- stat:
     path: "{{ glances_virual_env_path }}"
   register: stat_result
 
@@ -14,7 +13,7 @@
     path: "{{ glances_virual_env_path }}"
     state: directory
 
-- name: Create glances virtual env
+- name: Create glances virtual env if not exists
   command: "python3 -m venv {{ glances_virual_env_path }}"
   when: stat_result.stat.exists == False
 

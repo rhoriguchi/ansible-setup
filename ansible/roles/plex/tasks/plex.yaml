@@ -40,12 +40,11 @@
     mode: 0775
     recurse: yes
 
-- name: Check if Plex Media Server data exists or is symbolic link
-  stat:
+- stat:
     path: "{{ plex_data_path }}"
   register: stat_result
 
-- name: Copy Plex Media Server data
+- name: Copy Plex Media Server data if plex data dir exist and no symbolic link
   copy:
     src: "{{ plex_data_path }}"
     dest: "{{ symbolic_link_plex_data_path }}"
@@ -53,7 +52,7 @@
     group: plex
   when: stat_result.stat.exists == True and stat_result.stat.islnk == False
 
-- name: Delete Plex Media Server data
+- name: Delete Plex Media Server data if plex data dir exist and no symbolic link
   file:
     path: "{{ plex_data_path }}"
     state: absent
