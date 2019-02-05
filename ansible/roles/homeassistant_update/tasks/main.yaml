@@ -96,12 +96,21 @@
     path: "{{ dot_homeassistant_path }}/home-assistant.log"
     state: absent
 
-- name: Change owner and group of .homeassistant to homeassistant
+- name: Change owner and group of /home/homeassistant/.homeassistant to homeassistant
   file:
     path: "{{ dot_homeassistant_path }}"
     owner: homeassistant
     group: homeassistant
     recurse: yes
+  when: stat_result.stat.islnk == False
+
+- name: Change owner and group of homeassistant symbolic link location to homeassistant
+  file:
+    path: "{{ stat_result.stat.lnk_source }}"
+    owner: homeassistant
+    group: homeassistant
+    recurse: yes
+  when: stat_result.stat.islnk == True
 
 - name: Restart home-assistant@homeassistant.service and enable
   service:
