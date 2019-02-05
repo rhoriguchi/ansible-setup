@@ -54,8 +54,8 @@
 
 - name: Synchronize .homeassistant to homeassistant symbolic link location
   synchronize:
-    src: "{{ homeassistant_tmp_repo_path }}"
-    dest: "{{ stat_result.stat.lnk_source }}"
+    src: "{{ homeassistant_tmp_repo_path }}/.homeassistant"
+    dest: "{{ stat_result.stat.lnk_source }}/.."
     delete: no
     recursive: yes
   when: stat_result.stat.islnk == True
