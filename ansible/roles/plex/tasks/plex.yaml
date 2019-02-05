@@ -40,7 +40,7 @@
     mode: 0775
     recurse: yes
 
-- name: Check if Plex Media Server data exists
+- name: Check if Plex Media Server data exists or is symbolic link
   stat:
     path: "{{ plex_data_path }}"
   register: stat_result

@@ -4,7 +4,7 @@
     state: stopped
     daemon_reload: yes
 
-- name: Check if .homeassistant in homeassistant home exists
+- name: Check if .homeassistant in homeassistant home exists or is symbolic link
   stat:
     path: "{{ dot_homeassistant_path }}"
   register: stat_result
@@ -13,7 +13,7 @@
   file:
     path: "{{ dot_homeassistant_path }}"
     state: directory
-  when: stat_result.stat.exists == False
+  when: stat_result.stat.exists == False and stat_result.stat.islnk == False
 
 - name: Delete homeassistant temp repo
   file:
@@ -51,6 +51,15 @@
     dest: "{{ homeassistant_home_path }}"
     delete: no
     recursive: yes
+  when: stat_result.stat.islnk == False
+
+- name: Synchronize .homeassistant to symbolic link location
+  synchronize:
+    src: "{{ homeassistant_tmp_repo_path }}/.homeassistant"
+    dest: "{{ stat_result.stat.lnk_source }}"
+    delete: no
+    recursive: yes
+  when: stat_result.stat.islnk == True
 
 - name: Delete homeassistant repo
   file:
