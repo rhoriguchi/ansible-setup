@@ -75,21 +75,24 @@
     repo: "https://rhoriguchi:{{ default_git_password }}@github.com/rhoriguchi/homeassistant_secrets.git"
     dest: "{{ homeassistant_secrets_tmp_repo_path }}"
 
-- name: Copy secrets.yaml to .homeassistant
+- name: Copy secrets.yaml to /home/homeassistant/.homeassistant
   copy:
     src: "{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml"
     dest: "{{ dot_homeassistant_path }}"
     force: yes
+  when: stat_result.stat.islnk == False
+
+- name: Copy secrets.yaml to homeassistant symbolic link location
+  copy:
+    src: "{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml"
+    dest: "{{ stat_result.stat.lnk_source }}"
+    force: yes
+  when: stat_result.stat.islnk == True
 
 - name: Delete homeassistant_secrets repo
   file:
     path: "{{ homeassistant_secrets_tmp_repo_path }}"
     state: absent
-
-- name: Include vars of secrets.yaml into secrets variable
-  include_vars:
-    file: "{{ dot_homeassistant_path }}/secrets.yaml"
-    name: secrets
 
 - name: Delete home-assistant.log
   file:
