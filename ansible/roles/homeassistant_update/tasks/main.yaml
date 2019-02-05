@@ -91,12 +91,6 @@
     file: "{{ dot_homeassistant_path }}/secrets.yaml"
     name: secrets
 
-- name: Replace HUE_TOKEN with real hue token in phue.conf
-  replace:
-    path: "{{ dot_homeassistant_path }}/phue.conf"
-    regexp: "HUE_TOKEN"
-    replace: "{{ secrets.hue_token }}"
-
 - name: Delete home-assistant.log
   file:
     path: "{{ dot_homeassistant_path }}/home-assistant.log"
