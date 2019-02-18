@@ -1,12 +1,4 @@
 ---
-# plex
-symbolic_link_plex_data_path: "{{ main_drive_path }}/library/plex-data/Plex Media Server/"
-plex_data_path: /var/lib/plexmediaserver/Library/Application Support/Plex Media Server
-
-# tautulli
-tautulli_repo_path: /opt/Tautulli
-tautulli_data_path: "{{ main_drive_path }}/library/Tautulli-data"
-
 # plex addons
 plex_plugins_path: "{{ plex_data_path }}/Plug-ins"
 

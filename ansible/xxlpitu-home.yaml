@@ -2,16 +2,16 @@
   hosts: localhost
   vars_files:
     - vars/default.yaml
+    - vars/data_path.yaml
     - vars/drives.yaml
-    - vars/homeassistant.yaml
     - vars/xxlpitu-home.yaml
-    - vars/private.yaml
+    - ansible_setup_secrets/secrets.yaml
   roles:
     - common
-    - duckdns
-    - resilio
-    - log2ram
+    - docker
     - glances
-    - homeassistant_init
-    - homeassistant_update
+    - duckdns
     - tv_time_export
+    - resilio_sync
+    - log2ram
+    - homeassistant

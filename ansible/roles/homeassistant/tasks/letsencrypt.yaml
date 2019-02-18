@@ -1,0 +1,26 @@
+- name: Build letsencrypt image
+  docker_image:
+    name: linuxserver/letsencrypt
+
+- name: Create letsencrypt data dir
+  file:
+    path: "{{ letsencrypt_data_path }}"
+    state: directory
+
+- name: Delete letsencrypt container
+  shell: docker rm --force letsencrypt
+  ignore_errors: yes
+
+- name: Create letsencrypt container
+  shell: >-
+    docker run
+    --detach
+    --env DUCKDNSTOKEN='{{ duckdns_token }}'
+    --env SUBDOMAINS=wildcard
+    --env TZ='{{ timezone }}'
+    --env URL={{ duckdns_domain }}.duckdns.org
+    --env VALIDATION=duckdns
+    --mount src='{{ letsencrypt_data_path }}',target=/config/etc/letsencrypt,type=bind
+    --name letsencrypt
+    --restart unless-stopped
+    linuxserver/letsencrypt

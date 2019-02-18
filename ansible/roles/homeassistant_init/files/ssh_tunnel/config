@@ -1,7 +1,0 @@
-Host *
-    AddressFamily any
-    Compression yes
-    IdentityFile ~/.ssh/id_rsa
-    AddKeysToAgent yes
-    RSAAuthentication yes
-    PubkeyAuthentication yes

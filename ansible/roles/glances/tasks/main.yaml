@@ -1,50 +1,48 @@
-- name: Add user glances
-  user:
-    name: glances
-    login_class: system
-    create_home: no
+# TODO external drive not showing
 
-- stat:
-    path: "{{ glances_virual_env_path }}"
-  register: stat_result
+# TODO broken
 
-- name: Create glances virtual env dir
+- name: Generate glances.conf with correct values
+  template:
+    src: glances.conf
+    dest: "{{ role_path }}/files/glances.conf"
+
+- name: Build glances image
+  docker_image:
+    name: rhoriguchi/glances
+    path: "{{ role_path }}/files"
+
+- name: Delete glances.conf
   file:
-    path: "{{ glances_virual_env_path }}"
-    state: directory
+    path: glances.conf
+    state: absent
 
-- name: Create glances virtual env if not exists
-  command: "python3 -m venv {{ glances_virual_env_path }}"
-  when: stat_result.stat.exists == False
+- name: Set glances server options
+  set_fact:
+    glances_options: "--webserver --password --server"
+    glances_docker_container_name: glances-server
+  when: glances_mode == "server"
 
-- name: Install pip requirements
-  pip:
-    name: [setuptools, glances, bottle, hddtemp, wifi, requests]
-    virtualenv: "{{ glances_virual_env_path }}"
+- name: Set glances client options
+  set_fact:
+    glances_options: "--webserver --password --client xxlpitu-home.duckdns.org"
+    glances_docker_container_name: glances-client
+  when: glances_mode == "client"
 
-- name: Change permissions glances virtual env
-  become: yes
-  become_user: root
-  file:
-    path: "{{ glances_virual_env_path }}"
-    owner: glances
-    group: glances
-    recurse: yes
+- name: Delete glances container
+  shell: "docker rm --force {{ glances_docker_container_name }}"
+  ignore_errors: yes
 
-- name: Copy glances.service to /etc/systemd/system
-  copy:
-    src: glances.service
-    dest: /etc/systemd/system
-
-- name: Replace ExecStart= line with correct value in glances.service
-  lineinfile:
-    path: /etc/systemd/system/glances.service
-    regexp: "^ExecStart=$"
-    line: "ExecStart={{ glances_virual_env_path }}/bin/glances -w"
-
-- name: Restart glances.service and enable
-  service:
-    name: glances.service
-    state: restarted
-    enabled: yes
-    daemon_reload: yes
+- name: Create glances container
+  shell: >-
+    docker run
+    --detach
+  --env GLANCES_OPT='{{ glances_options }}'
+  --mount src=/var/run/docker.sock,target=/var/run/docker.sock,type=bind
+  --name '{{ glances_docker_container_name }}'
+  --network host
+  --pid host
+  --restart unless-stopped
+  --volume /etc/localtime:/etc/localtime:ro
+  -it
+    rhoriguchi/glances

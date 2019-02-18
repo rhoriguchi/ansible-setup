@@ -1,66 +1,32 @@
-- name: Delete tv_time_export repo if exist
+- name: Generate config.yaml with correct values
+  template:
+    src: config.yaml
+    dest: "{{ role_path }}/files/config.yaml"
+
+- name: Build tv_time_export image
+  docker_image:
+    name: "rhoriguchi/tv_time_export/{{ tv_time_user | replace('@', '_at_') }}"
+    path: "{{ role_path }}/files"
+
+- name: Delete config.yaml
   file:
-    path: "{{ default_user_tv_time_export_path }}"
+    path: config.yaml
     state: absent
 
-- name: Clone tv_time_export repo to default user
-  become: yes
-  become_user: "{{ default_user }}"
-  git:
-    repo: https://github.com/rhoriguchi/tv_time_export.git
-    dest: "{{ default_user_tv_time_export_path }}"
-
-- name: Create tv_time_export Resilio Sync dir
+- name: Create tv_time_export exports dir
   file:
-    path: "{{ tv_time_export_save_path }}"
-    state: directory
-    owner: rslsync
-    group: rslsync
-    mode: 0755
-
-- name: Create config.yaml in tv_time_export repo and add correct values
-  become: yes
-  become_user: "{{ default_user }}"
-  blockinfile:
-    path: "{{ default_user_tv_time_export_path }}/src/config.yaml"
-    create: yes
-    mode: 0755
-    content: |
-      username: {{ tv_time_user }}
-      password: {{ tv_time_password }}
-      save_path: {{ tv_time_export_save_path }}
-
-- stat:
-    path: "{{ tv_time_export_virual_env_path }}"
-  register: stat_result
-
-- name: Create tv_time_export virtual env dir
-  file:
-    path: "{{ tv_time_export_virual_env_path }}"
+    path: "{{ tv_time_export_data_path }}/exports"
     state: directory
 
-- name: Create tv_time_export virtual env if not exist
-  command: "python3 -m venv {{ tv_time_export_virual_env_path }}"
-  when: stat_result.stat.exists == False
+- name: Delete tv_time_export container
+  shell: "docker rm --force tv_time_export_{{ tv_time_user | replace('@', '_at_') }}"
+  ignore_errors: yes
 
-- name: Pip install tv_time_export requirements.txt
-  pip:
-    requirements: "{{ default_user_tv_time_export_path }}/requirements.txt"
-    virtualenv: "{{ tv_time_export_virual_env_path }}"
-
-- name: Create tv_time_export.sh script to run tv_time_export.py
-  blockinfile:
-    path: "{{ default_user_tv_time_export_path }}/tv_time_export.sh"
-    create: yes
-    mode: +x
-    content: |
-      {{ tv_time_export_virual_env_path }}/bin/python {{ default_user_tv_time_export_path }}/src/tv_time_export.py
-      sudo chown -R rslsync:rslsync {{ tv_time_export_save_path }}
-      sudo chmod -R 755 {{ tv_time_export_save_path }}
-
-- name: Crown job for tv_time_export
-  become: yes
-  become_user: root
-  cron:
-    hour: 4
-    job: "{{ default_user_tv_time_export_path }}/tv_time_export.sh >/dev/null 2>&1"
+- name: Create tv_time_export container
+  shell: >-
+    docker run
+    --detach
+    --mount src='{{ tv_time_export_data_path }}/exports',target=/tv_time_export/exports,type=bind
+    --name 'tv_time_export_{{ tv_time_user | replace('@', '_at_') }}'
+    --restart unless-stopped
+    rhoriguchi/tv_time_export/{{ tv_time_user | replace('@', '_at_') }}

@@ -1,8 +1,13 @@
+# TODO fails
+
 - name: Update homeassistant files and install correct homeassistant version
   hosts: localhost
   vars_files:
     - vars/default.yaml
-    - vars/homeassistant.yaml
-    - vars/private.yaml
-  roles:
-    - homeassistant_update
+    - vars/data_path.yaml
+    - vars/drives.yaml
+    - vars/xxlpitu-home.yaml
+    - ansible_setup_secrets/secrets.yaml
+    - roles/homeassistant/vars/main.yaml
+  tasks:
+    - include: roles/homeassistant/tasks/homeassistant.yaml

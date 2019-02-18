@@ -1,15 +1,18 @@
-- name: Create duckdns duck.sh file
-  become: yes
-  become_user: root
-  lineinfile:
-    create: yes
-    path: "{{ root_user_duckdns_path }}/duck.sh"
-    line: "echo url='https://www.duckdns.org/update?domains={{ duckdns_domain }}&token={{ duckdns_token }}&ip=' | curl -k -o ~/.duckdns/duck.log -K -"
-    mode: 0700
+- name: Build duckdns image
+  docker_image:
+    name: linuxserver/duckdns
 
-- name: Crown job for duckdns
-  become: yes
-  become_user: root
-  cron:
-    minute: 5
-    job: "{{ root_user_duckdns_path }}/duck.sh >/dev/null 2>&1"
+- name: Delete duckdns container
+  shell: docker rm --force duckdns
+  ignore_errors: yes
+
+- name: Create duckdns container
+  shell: >-
+    docker run
+    --detach
+    --env SUBDOMAINS='{{ duckdns_domain }}'
+    --env TOKEN='{{ duckdns_token }}'
+    --env TZ='{{ timezone }}'
+    --name duckdns
+    --restart unless-stopped
+    linuxserver/duckdns

@@ -1,63 +1,25 @@
-- name: Install apt requirements
-  apt:
-    name: [git-core, python-setuptools, tzdata]
-    state: latest
-    install_recommends: no
+- name: Build tautulli image
+  docker_image:
+    name: linuxserver/tautulli
 
-- name: Delete tautulli repo if exist
-  file:
-    path: "{{ tautulli_repo_path }}"
-    state: absent
-
-- name: Clone Tautulli to /opt/Tautulli
-  git:
-    repo: https://github.com/Tautulli/Tautulli.git
-    dest: "{{ tautulli_repo_path }}"
-
-- name: Ensure group tautulli exists
-  group:
-    name: tautulli
-    state: present
-
-- name: Add user tautulli
-  user:
-    name: tautulli
-    login_class: system
-    create_home: no
-    groups: tautulli,rslsync,plex
-    append: yes
-
-- name: Change permissions of Tautulli dir
-  become: yes
-  become_user: root
-  file:
-    path: "{{ tautulli_repo_path }}"
-    owner: tautulli
-    group: tautulli
-    recurse: yes
-    mode: 0755
-
-- name: Create tatulli data dir
+- name: Create tautulli data dir
   file:
     path: "{{ tautulli_data_path }}"
     state: directory
-    owner: tautulli
-    group: tautulli
 
-- name: Copy tautulli.service to /etc/systemd/system
-  copy:
-    src: tautulli/tautulli.service
-    dest: /etc/systemd/system
+- name: Delete tautulli container
+  shell: docker rm --force tautulli
+  ignore_errors: yes
 
-- name: Replace ExecStart= line with correct value in tautulli.service
-  lineinfile:
-    path: /etc/systemd/system/tautulli.service
-    regexp: "^ExecStart=$"
-    line: "ExecStart=/usr/bin/python2 {{ tautulli_repo_path }}/Tautulli.py --config {{ tautulli_data_path }}/config.ini --datadir {{ tautulli_data_path }} --quiet --daemon --nolaunch"
-
-- name: Restart tautulli
-  service:
-    name: tautulli.service
-    state: restarted
-    enabled: yes
-    daemon_reload: yes
+# TODO wrong --mount src='{{ plex_data_path }}',target=/plex_logs,type=bind
+- name: Create tautulli container
+  shell: >-
+    docker run
+    --detach
+    --env TZ='{{ timezone }}'
+    --mount src='{{ plex_data_path }}',target=/plex_logs,type=bind
+    --mount src='{{ tautulli_data_path }}',target=/config,type=bind
+    --name tautulli
+    --publish 8181:8181
+    --restart unless-stopped
+    linuxserver/tautulli

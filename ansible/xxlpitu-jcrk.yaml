@@ -2,13 +2,15 @@
   hosts: localhost
   vars_files:
     - vars/default.yaml
+    - vars/data_path.yaml
     - vars/drives.yaml
     - vars/xxlpitu-jcrk.yaml
-    - vars/private.yaml
+    - ansible_setup_secrets/secrets.yaml
   roles:
     - common
-    - duckdns
-    - resilio
-    - log2ram
+    - docker
     - glances
+    - duckdns
+    - resilio_sync
+    - log2ram
     - plex
