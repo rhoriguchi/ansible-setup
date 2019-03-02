@@ -1,4 +1,4 @@
-# Raspbian setup
+# Ansible setup
 
 ## Requirements
 
@@ -27,9 +27,9 @@ sudo apt update -y \
   && sudo apt autoremove -y \
   && sudo pip3 install ansible==2.7.8 docker
 
-git clone https://github.com/rhoriguchi/raspbian_setup.git /tmp/raspbian_setup
-git clone https://github.com/rhoriguchi/ansible_setup_secrets.git /tmp/raspbian_setup/ansible/ansible_setup_secrets
-cd /tmp/raspbian_setup/ansible
+git clone https://github.com/rhoriguchi/ansible_setup.git /tmp/ansible_setup
+git clone https://github.com/rhoriguchi/ansible_setup_secrets.git /tmp/ansible_setup/ansible/ansible_setup_secrets
+cd /tmp/ansible_setup/ansible
 ```
 
 ### Run for xxlpitu-home.yaml
@@ -64,8 +64,8 @@ sudo blkid | grep -i "PARTUUID="
 ### Update Home Assistant version and files
 
 ```bash
-git clone https://github.com/rhoriguchi/raspbian_setup.git /tmp/raspbian_setup
-cd /tmp/raspbian_setup/ansible
+git clone https://github.com/rhoriguchi/ansible_setup.git /tmp/ansible_setup
+cd /tmp/ansible_setup/ansible
 
 git clone https://github.com/rhoriguchi/ansible_setup_secrets.git
 
