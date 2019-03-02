@@ -11,8 +11,6 @@
   shell: docker rm --force plex
   ignore_errors: yes
 
-# TODO broken
-
 - name: Create plex container
   shell: >-
     docker run
