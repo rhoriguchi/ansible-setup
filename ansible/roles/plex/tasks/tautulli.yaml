@@ -11,13 +11,12 @@
   shell: docker rm --force tautulli
   ignore_errors: yes
 
-# TODO wrong --mount src='{{ plex_data_path }}',target=/plex_logs,type=bind
 - name: Create tautulli container
   shell: >-
     docker run
     --detach
     --env TZ='{{ timezone }}'
-    --mount src='{{ plex_data_path }}',target=/plex_logs,type=bind
+    --mount src='{{ plex_data_path }}/Logs',target=/logs,type=bind
     --mount src='{{ tautulli_data_path }}',target=/config,type=bind
     --name tautulli
     --publish 8181:8181
