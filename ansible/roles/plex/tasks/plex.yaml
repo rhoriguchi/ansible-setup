@@ -18,7 +18,7 @@
     --env HOSTNAME='{{ hostname }}'
     --env TZ='{{ timezone }}'
     --env VERSION=public
-    --mount src='{{ plex_data_path }}',target='/config/Library/Application Support/Plex Media Serve',type=bind
+    --mount src='{{ plex_data_path }}',target='/config/Library/Application Support/Plex Media Server',type=bind
     --mount src='{{ resilio_sync_save_path }}',target=/data/sync,type=bind
     --name plex
     --network host
