@@ -37,12 +37,12 @@
   shell: >-
     docker run
     --detach
-  --env GLANCES_OPT='{{ glances_options }}'
-  --mount src=/var/run/docker.sock,target=/var/run/docker.sock,type=bind
-  --name '{{ glances_docker_container_name }}'
-  --network host
-  --pid host
-  --restart unless-stopped
-  --volume /etc/localtime:/etc/localtime:ro
-  -it
+    --env GLANCES_OPT='{{ glances_options }}'
+    --mount src=/var/run/docker.sock,target=/var/run/docker.sock,type=bind
+    --name '{{ glances_docker_container_name }}'
+    --network host
+    --pid host
+    --restart unless-stopped
+    --volume /etc/localtime:/etc/localtime:ro
+    -it
     rhoriguchi/glances

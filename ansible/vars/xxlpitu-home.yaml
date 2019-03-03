@@ -6,4 +6,4 @@ main_drive_partuuid: "{{ ssd_partuuid }}"
 
 duckdns_domain: xxlpitu-home
 
-glances_mode: client
+glances_mode: server

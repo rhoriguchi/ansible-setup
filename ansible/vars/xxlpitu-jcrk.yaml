@@ -6,4 +6,4 @@ main_drive_partuuid: "{{ wd_red_partuuid }}"
 
 duckdns_domain: xxlpitu-jcrk
 
-glances_mode: server
+glances_mode: client
