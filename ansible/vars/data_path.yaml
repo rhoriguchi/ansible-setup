@@ -1,6 +1,5 @@
 plex_data_path: "{{ main_drive_path }}/library/plex"
 tautulli_data_path: "{{ main_drive_path }}/library/tautulli"
 homeassistant_data_path: "{{ main_drive_path }}/library/homeassistant"
-tv_time_export_data_path: "{{ main_drive_path }}/library/tv_time_export"
 letsencrypt_data_path: "{{ main_drive_path }}/library/letsencrypt"
 resilio_sync_data_path: "{{ main_drive_path }}/library/resilio-sync"
