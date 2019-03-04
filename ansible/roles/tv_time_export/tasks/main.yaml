@@ -18,6 +18,16 @@
     path: "{{ resilio_sync_save_path }}/tv_time_export"
     state: directory
 
+- name: Create tv_time_export data dir
+  file:
+    path: "{{ tv_time_export_data_path }}"
+    state: directory
+
+- name: Create tv_time_export log file
+  file:
+    path: "{{ tv_time_export_data_path }}/tv_time_export.log"
+    state: touch
+
 - name: Delete tv_time_export container
   shell: "docker rm --force tv_time_export_{{ tv_time_user | replace('@', '_at_') }}"
   ignore_errors: yes
@@ -27,6 +37,7 @@
     docker run
     --detach
     --mount src='{{ resilio_sync_save_path }}/tv_time_export',target=/tv_time_export/exports,type=bind
+    --mount src='{{ tv_time_export_data_path }}/tv_time_export.log',target=/tv_time_export/src/tv_time_export.log,type=bind
     --name 'tv_time_export_{{ tv_time_user | replace('@', '_at_') }}'
     --restart unless-stopped
     rhoriguchi/tv_time_export/{{ tv_time_user | replace('@', '_at_') }}
