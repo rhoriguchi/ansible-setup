@@ -1,0 +1,42 @@
+- name: Build transmission image
+  docker_image:
+    name: linuxserver/transmission
+
+- name: Create transmission data dir
+  file:
+    path: "{{ transmission_data_path }}"
+    state: directory
+
+- name: Create config dir
+  file:
+    path: "{{ transmission_data_path }}/config"
+    state: directory
+
+- name: Create watch dir
+  file:
+    path: "{{ transmission_data_path }}/watch"
+    state: directory
+
+- name: Create downloads dir
+  file:
+    path: "{{ transmission_data_path }}/downloads"
+    state: directory
+
+- name: Delete transmission container
+  shell: docker rm --force transmission
+  ignore_errors: yes
+
+- name: Create transmission container
+  shell: >-
+    docker run
+    --detach
+    --env TZ='{{ timezone }}'
+    --mount src='{{ transmission_data_path }}/config',target=/config,type=bind
+    --mount src='{{ transmission_data_path }}/downloads',target=/downloads,type=bind
+    --mount src='{{ transmission_data_path }}/watch',target=/watch,type=bind
+    --name transmission
+    --publish 51413:51413
+    --publish 51413:51413/udp
+    --publish 9091:9091
+    --restart unless-stopped
+    linuxserver/transmission

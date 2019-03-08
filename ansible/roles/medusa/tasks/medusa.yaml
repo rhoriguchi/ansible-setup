@@ -1,0 +1,30 @@
+- name: Build medusa image
+  docker_image:
+    name: linuxserver/medusa
+
+- name: Create medusa data dir
+  file:
+    path: "{{ medusa_data_path }}"
+    state: directory
+
+- name: Copy config.ini to medusa data dir
+  copy:
+    src: medusa/config.ini
+    dest: "{{ medusa_data_path }}"
+
+- name: Delete medusa container
+  shell: docker rm --force medusa
+  ignore_errors: yes
+
+- name: Create medusa container
+  shell: >-
+    docker run
+    --detach
+    --env TZ='{{ timezone }}'
+    --mount src='{{ medusa_data_path }}',target=/config,type=bind
+    --mount src='{{ resilio_sync_save_path }}/Series',target=/tv,type=bind
+    --mount src='{{ transmission_data_path }}/downloads',target=/downloads,type=bind
+    --name medusa
+    --publish 8081:8081
+    --restart unless-stopped
+    linuxserver/medusa

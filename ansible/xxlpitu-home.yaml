@@ -13,6 +13,7 @@
     - duckdns
     - glances
     - tv_time_export
+    - medusa
     - resilio_sync
     - letsencrypt
     - homeassistant
