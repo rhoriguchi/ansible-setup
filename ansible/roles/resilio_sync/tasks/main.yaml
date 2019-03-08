@@ -1,5 +1,3 @@
-# TODO add tv_time_export export dir to sync dir
-
 - name: Build resilio-sync image
   docker_image:
     name: linuxserver/resilio-sync
