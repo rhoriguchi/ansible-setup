@@ -1,5 +1,4 @@
 ---
-# homeassistant
 dot_homeassistant_path:  "{{ homeassistant_data_path }}/.homeassistant"
 
 homeassistant_tmp_repo_path: /tmp/homeassistant
