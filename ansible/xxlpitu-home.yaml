@@ -8,11 +8,11 @@
     - ansible_setup_secrets/secrets.yaml
   roles:
     - common
+    - log2ram
     - docker
-    - glances
     - duckdns
+    - glances
     - tv_time_export
     - resilio_sync
-    - log2ram
     - letsencrypt
     - homeassistant

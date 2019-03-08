@@ -8,9 +8,9 @@
     - ansible_setup_secrets/secrets.yaml
   roles:
     - common
-    - docker
-    - glances
-    - duckdns
-    - resilio_sync
     - log2ram
+    - docker
+    - duckdns
+    - glances
+    - resilio_sync
     - plex
