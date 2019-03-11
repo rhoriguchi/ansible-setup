@@ -12,12 +12,9 @@
     file: "{{ homeassistant_tmp_repo_path }}/config.yaml"
     name: homeassistant
 
-- name: Build homeassistant image
+- name: Build home-assistant image
   docker_image:
-    name: "rhoriguchi/homeassistant:{{ homeassistant.version }}"
-    path: "{{ role_path }}/files"
-    buildargs:
-      homeassistant_version: "{{ homeassistant.version }}"
+    name: "homeassistant/raspberrypi3-homeassistant:{{ homeassistant.version }}"
 
 - name: Create homeassistant data dir
   file:
@@ -73,10 +70,10 @@
   shell: >-
     docker run
     --detach
-    --mount src='{{ dot_homeassistant_path }}',target=/root/config,type=bind
+    --mount src='{{ dot_homeassistant_path }}',target=/config,type=bind
     --mount src='{{ letsencrypt_data_path }}',target=/le-ssl,type=bind
     --name homeassistant
     --network host
     --restart unless-stopped
     --volume /etc/localtime:/etc/localtime:ro
-    "rhoriguchi/homeassistant:{{ homeassistant.version }}"
+    homeassistant/raspberrypi3-homeassistant:{{ homeassistant.version }}
