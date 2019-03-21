@@ -1,5 +1,6 @@
 homeassistant_data_path: "{{ main_drive_path }}/library/homeassistant"
 letsencrypt_data_path: "{{ main_drive_path }}/library/letsencrypt"
+mal_export_data_path: "{{ main_drive_path }}/library/mal_exporter"
 medusa_data_path: "{{ main_drive_path }}/library/medusa"
 plex_data_path: "{{ main_drive_path }}/library/plex"
 resilio_sync_data_path: "{{ main_drive_path }}/library/resilio-sync"

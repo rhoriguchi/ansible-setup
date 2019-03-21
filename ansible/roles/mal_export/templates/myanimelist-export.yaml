@@ -1,0 +1,4 @@
+username: {{ mal_username }}
+password: {{ mal_password }}
+animeXmlPath: /export/anime.xml
+mangaXmlPath: /export/manga.xml

@@ -1,0 +1,41 @@
+# TODO fork repo and change export function to have date time in the file name
+# TODO use alpine image, since haskell is really large
+
+- name: Generate myanimelist-export.yaml with correct values
+  template:
+    src: myanimelist-export.yaml
+    dest: "{{ role_path }}/files/myanimelist-export.yaml"
+
+- name: Build mal_export image
+  docker_image:
+    name: "rhoriguchi/mal_export/{{ mal_username | replace('@', '_at_') }}"
+    path: "{{ role_path }}/files"
+
+- name: Delete myanimelist-export.yaml
+  file:
+    path: myanimelist-export.yaml
+    state: absent
+
+- name: Create mal_export exports dir
+  file:
+    path: "{{ resilio_sync_save_path }}/mal_export"
+    state: directory
+
+- name: Create mal_export data dir
+  file:
+    path: "{{ mal_export_data_path }}"
+    state: directory
+
+- name: Delete mal_export container
+  shell: "docker rm --force mal_export_{{ mal_username | replace('@', '_at_') }}"
+  ignore_errors: yes
+
+- name: Create mal_export container
+  shell: >-
+    docker run
+    --detach
+    --env TZ='{{ timezone }}'
+    --mount src='{{ resilio_sync_save_path }}/mal_export',target=/export,type=bind
+    --name 'mal_export_{{ mal_username | replace('@', '_at_') }}'
+    --restart unless-stopped
+    rhoriguchi/mal_export/{{ mal_username | replace('@', '_at_') }}
