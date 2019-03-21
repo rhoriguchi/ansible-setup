@@ -5,7 +5,7 @@
 
 - name: Build tv_time_export image
   docker_image:
-    name: "rhoriguchi/tv_time_export/{{ tv_time_user | replace('@', '_at_') }}"
+    name: "rhoriguchi/tv_time_export/{{ tv_time_username | replace('@', '_at_') }}"
     path: "{{ role_path }}/files"
 
 - name: Delete config.yaml
@@ -29,7 +29,7 @@
     state: touch
 
 - name: Delete tv_time_export container
-  shell: "docker rm --force tv_time_export_{{ tv_time_user | replace('@', '_at_') }}"
+  shell: "docker rm --force tv_time_export_{{ tv_time_username | replace('@', '_at_') }}"
   ignore_errors: yes
 
 - name: Create tv_time_export container
@@ -39,6 +39,6 @@
     --env TZ='{{ timezone }}'
     --mount src='{{ resilio_sync_save_path }}/tv_time_export',target=/tv_time_export/exports,type=bind
     --mount src='{{ tv_time_export_data_path }}/tv_time_export.log',target=/tv_time_export/src/tv_time_export.log,type=bind
-    --name 'tv_time_export_{{ tv_time_user | replace('@', '_at_') }}'
+    --name 'tv_time_export_{{ tv_time_username | replace('@', '_at_') }}'
     --restart unless-stopped
-    rhoriguchi/tv_time_export/{{ tv_time_user | replace('@', '_at_') }}
+    rhoriguchi/tv_time_export/{{ tv_time_username | replace('@', '_at_') }}

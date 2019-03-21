@@ -1,2 +1,2 @@
-username: {{ tv_time_user }}
+username: {{ tv_time_username }}
 password: {{ tv_time_password }}
