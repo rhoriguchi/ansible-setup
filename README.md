@@ -25,7 +25,7 @@ sudo apt update -y \
   && sudo apt full-upgrade -y \
   && sudo apt install -y git python3 python3-apt python3-pip rsync \
   && sudo apt autoremove -y \
-  && sudo pip3 install ansible==2.7.8 docker
+  && sudo pip3 install ansible==2.7.8
 
 git clone https://github.com/rhoriguchi/ansible_setup.git /tmp/ansible_setup
 git clone https://github.com/rhoriguchi/ansible_setup_secrets.git /tmp/ansible_setup/ansible/ansible_setup_secrets

@@ -1,3 +1,7 @@
+- name: Pip install docker
+  pip:
+    name: docker
+
 - name: Download get-docker.sh from get.docker.com
   become: yes
   become_user: root
