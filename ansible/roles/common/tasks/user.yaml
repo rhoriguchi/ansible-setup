@@ -1,7 +1,7 @@
 - name: Install apt [stow, zsh]
   apt:
     name: [stow, zsh]
-    state: latest
+    state: present
     install_recommends: no
 
 - name: Add group docker
