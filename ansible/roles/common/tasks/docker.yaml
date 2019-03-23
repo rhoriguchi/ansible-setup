@@ -2,6 +2,23 @@
   pip:
     name: docker
 
+- name: Create docker lib dir
+  file:
+    path: "{{ default_docker_lib_path }}"
+    state: directory
+
+- name: Create docker lib symbolic link dir
+  file:
+    path: "{{ symbolic_link_plex_data_path }}"
+    state: directory
+
+- name: Create symbolic link from docker lib dir to external drive
+  file:
+    src: {{ default_docker_lib_path }}
+    dest: "{{ docker_data_path }}"
+    state: link
+    force: yes
+
 - name: Add docker apt key
   apt_key:
     url: "https://download.docker.com/linux/ubuntu/gpg"
