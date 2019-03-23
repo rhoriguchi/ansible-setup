@@ -2,6 +2,7 @@
 hostname: XXLPitu-Raspberry-Pi-JCRK
 
 architecture: armhf
+os: raspbian
 
 pre_installed_user: pi
 
