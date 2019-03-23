@@ -11,9 +11,9 @@
     - log2ram
     - duckdns
     - glances
+    - resilio_sync
+    - medusa
     - tv_time_export
     - mal_export
-    - medusa
-    - resilio_sync
     - letsencrypt
     - homeassistant
