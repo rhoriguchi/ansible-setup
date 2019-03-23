@@ -2,7 +2,6 @@
 hostname: XXLPitu-Raspberry-Pi-Home
 
 architecture: armhf
-os: raspbian
 
 pre_installed_user: pi
 
