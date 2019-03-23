@@ -18,7 +18,7 @@
 
 - name: Create mal_export exports dir
   file:
-    path: "{{ resilio_sync_save_path }}/mal_export"
+    path: "{{ mal_export_path }}"
     state: directory
 
 - name: Create mal_export data dir
@@ -35,7 +35,7 @@
     docker run
     --detach
     --env TZ='{{ timezone }}'
-    --mount src='{{ resilio_sync_save_path }}/mal_export',target=/export,type=bind
+    --mount src='{{ mal_export_path }}',target=/export,type=bind
     --name 'mal_export_{{ mal_username | replace('@', '_at_') }}'
     --restart unless-stopped
     rhoriguchi/mal_export/{{ mal_username | replace('@', '_at_') }}

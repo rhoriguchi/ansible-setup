@@ -1,0 +1,2 @@
+---
+mal_export_path: {{ resilio_sync_save_path }}/tv_time_export

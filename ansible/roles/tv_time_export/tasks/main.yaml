@@ -15,7 +15,7 @@
 
 - name: Create tv_time_export exports dir
   file:
-    path: "{{ resilio_sync_save_path }}/tv_time_export"
+    path: "{{ tv_time_export_path }}t"
     state: directory
 
 - name: Create tv_time_export data dir
@@ -37,7 +37,7 @@
     docker run
     --detach
     --env TZ='{{ timezone }}'
-    --mount src='{{ resilio_sync_save_path }}/tv_time_export',target=/tv_time_export/exports,type=bind
+    --mount src='{{ tv_time_export_path }}t',target=/tv_time_export/exports,type=bind
     --mount src='{{ tv_time_export_data_path }}/tv_time_export.log',target=/tv_time_export/src/tv_time_export.log,type=bind
     --name 'tv_time_export_{{ tv_time_username | replace('@', '_at_') }}'
     --restart unless-stopped
