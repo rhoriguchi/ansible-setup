@@ -19,22 +19,37 @@
     state: link
     force: yes
 
-- name: Add docker apt key
-  apt_key:
-    url: "https://download.docker.com/linux/{{ os }}/gpg"
-    state: present
+- name: Download get-docker.sh from get.docker.com
+  become: yes
+  become_user: root
+  get_url:
+    url: https://get.docker.com
+    dest: /tmp/get-docker.sh
+    mode: +x
 
-- name: Add docker apt repository
-  apt_repository:
-    filename: docker
-    repo: "deb [arch={{ architecture }}] https://download.docker.com/linux/{{ os }} bionic stable"
-    state: present
-    update_cache: yes
+- name: Run get-docker.sh
+  become: yes
+  become_user: root
+  shell: /tmp/get-docker.sh
 
-- name: Install apt ['docker-ce', 'docker-ce-cli', 'containerd.io']
-  apt:
-    name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
-    state: latest
+# TODO commented
+#
+# - name: Add docker apt key
+#   apt_key:
+#     url: "https://download.docker.com/linux/{{ os }}/gpg"
+#     state: present
+#
+# - name: Add docker apt repository
+#   apt_repository:
+#     filename: docker
+#     repo: "deb [arch={{ architecture }}] https://download.docker.com/linux/{{ os }} bionic stable"
+#     state: present
+#     update_cache: yes
+#
+# - name: Install apt ['docker-ce', 'docker-ce-cli', 'containerd.io']
+#   apt:
+#     name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+#     state: latest
 
 - name: Add docker group
   group:
