@@ -1,6 +1,6 @@
+- include: mount_drive.yaml
 - include: docker.yaml
 - include: user.yaml
 - include: dotfiles.yaml
-- include: mount_drive.yaml
 - include: hostname.yaml
 - include: timezone.yaml
