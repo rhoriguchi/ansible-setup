@@ -9,7 +9,7 @@
 
 - name: Create docker lib symbolic link dir
   file:
-    path: "{{ symbolic_link_plex_data_path }}"
+    path: "{{ docker_data_path }}"
     state: directory
 
 - name: Create symbolic link from docker lib dir to external drive
