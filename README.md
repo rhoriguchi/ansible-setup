@@ -44,7 +44,7 @@ sudo ansible-playbook xxlpitu-raspberry-pi-home.yaml
 sudo ansible-playbook xxlpitu-raspberry-pi-jcrk.yaml
 ```
 
-### After successful setup run delete default user
+### After successful setup delete default user
 
 ```bash
 sudo ansible-playbook delete_pre_installed_user.yaml
