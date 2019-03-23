@@ -1,0 +1,25 @@
+- name: Pip install docker
+  pip:
+    name: docker
+
+- name: Add docker apt key
+  apt_key:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    state: present
+
+- name: Add docker apt repository
+  apt_repository:
+    filename: docker
+    repo: "deb [arch={{ architecture }}] https://download.docker.com/linux/ubuntu bionic stable"
+    state: present
+    update_cache: yes
+
+- name: Install apt ['docker-ce', 'docker-ce-cli', 'containerd.io']
+  apt:
+    name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+    state: present
+
+- name: Add docker group
+  group:
+    name: docker
+    state: present

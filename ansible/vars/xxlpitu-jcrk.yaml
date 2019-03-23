@@ -1,6 +1,8 @@
 ---
 hostname: XXLPitu-Raspberry-Pi-JCRK
 
+architecture: armhf
+
 main_drive_path: "{{ wd_red_path }}"
 main_drive_partuuid: "{{ wd_red_partuuid }}"
 

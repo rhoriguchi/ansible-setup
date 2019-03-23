@@ -4,10 +4,6 @@
     state: present
     install_recommends: no
 
-- name: Add group docker
-  group:
-    name: docker
-
 - name: Add default user
   user:
     name: "{{ default_user }}"
