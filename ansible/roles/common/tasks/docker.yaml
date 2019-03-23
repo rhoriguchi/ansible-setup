@@ -14,7 +14,7 @@
 
 - name: Create symbolic link from docker lib dir to external drive
   file:
-    src: {{ default_docker_lib_path }}
+    src: "{{ default_docker_lib_path }}"
     dest: "{{ docker_data_path }}"
     state: link
     force: yes
