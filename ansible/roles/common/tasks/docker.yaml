@@ -28,7 +28,7 @@
   apt_repository:
     filename: docker
     repo: "deb [arch={{ architecture }}] https://download.docker.com/linux/ubuntu bionic stable"
-    state: present
+    state: latest
     update_cache: yes
 
 - name: Install apt ['docker-ce', 'docker-ce-cli', 'containerd.io']

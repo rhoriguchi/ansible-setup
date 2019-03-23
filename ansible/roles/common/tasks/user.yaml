@@ -1,7 +1,7 @@
 - name: Install apt [stow, zsh]
   apt:
     name: [stow, zsh]
-    state: present
+    state: latest
     install_recommends: no
 
 - name: Add default user
