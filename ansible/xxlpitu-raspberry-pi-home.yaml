@@ -1,15 +1,19 @@
-- name: Setup xxlpitu-jcrk
+- name: Setup xxlpitu-home
   hosts: localhost
   vars_files:
     - vars/default.yaml
     - vars/data_path.yaml
     - vars/drives.yaml
-    - vars/xxlpitu-jcrk.yaml
+    - vars/xxlpitu-raspberry-pi-home.yaml
     - ansible_setup_secrets/secrets.yaml
   roles:
     - common
     - log2ram
     - duckdns
     - glances
+    - tv_time_export
+    - mal_export
+    - medusa
     - resilio_sync
-    - plex
+    - letsencrypt
+    - homeassistant

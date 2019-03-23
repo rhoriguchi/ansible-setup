@@ -6,7 +6,5 @@ default_user_password_hash: $6$8pvfEfnJ8Ar$nKztlUqftDFFT1VYsHiiU9NrudyEYnBHhfxxt
 
 timezone: Europe/Zurich
 
-pre_installed_user: pi
-
 resilio_sync_save_path: "{{ main_drive_path }}/sync"
 resilio_sync_downloads_save_path: "{{ main_drive_path }}/syncDownloads"

@@ -3,6 +3,8 @@ hostname: XXLPitu-Raspberry-Pi-Home
 
 architecture: armhf
 
+pre_installed_user: pi
+
 main_drive_path: "{{ ssd_path }}"
 main_drive_partuuid: "{{ ssd_partuuid }}"
 

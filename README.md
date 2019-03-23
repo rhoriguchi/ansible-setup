@@ -32,22 +32,19 @@ git clone https://github.com/rhoriguchi/ansible_setup_secrets.git /tmp/ansible_s
 cd /tmp/ansible_setup/ansible
 ```
 
-### Run for xxlpitu-home.yaml
+### Run for XXLPitu-Raspberry-Pi-Home
 
 ```bash
-sudo ansible-playbook xxlpitu-home.yaml
+sudo ansible-playbook xxlpitu-raspberry-pi-home.yaml
 ```
-Once xxlpitu-home.yaml is finish manually login to resilio sync web ui and configure.
 
-### Run for xxlpitu-jcrk.yaml
+### Run for XXLPitu-Raspberry-Pi-JCRK
 
 ```bash
-sudo ansible-playbook xxlpitu-jcrk.yaml
+sudo ansible-playbook xxlpitu-raspberry-pi-jcrk.yaml
 ```
 
-Once xxlpitu-home.yaml is finish manually login to resilio sync and plex web ui and configure.
-
-### After successful setup run delete_pre_installed_user.yaml
+### After successful setup run delete default user
 
 ```bash
 sudo ansible-playbook delete_pre_installed_user.yaml

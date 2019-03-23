@@ -3,7 +3,7 @@
   vars_files:
     - vars/data_path.yaml
     - vars/drives.yaml
-    - vars/xxlpitu-home.yaml
+    - vars/xxlpitu-raspberry-pi-home.yaml
     - ansible_setup_secrets/secrets.yaml
   roles:
     - homeassistant
