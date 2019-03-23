@@ -1,4 +1,4 @@
-- name: Setup xxlpitu-home
+- name: Setup xxlpitu-raspberry-pi-home
   hosts: localhost
   vars_files:
     - vars/default.yaml
