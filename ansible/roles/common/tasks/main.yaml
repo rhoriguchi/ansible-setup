@@ -1,6 +1,5 @@
 - include: mount_drive.yaml
 - include: docker.yaml
-- include: user.yaml
-- include: dotfiles.yaml
 - include: hostname.yaml
 - include: timezone.yaml
+- include: default_user/main.yaml
