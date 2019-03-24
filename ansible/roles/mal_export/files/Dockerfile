@@ -11,13 +11,15 @@ RUN apt-get update \
 
 RUN cabal update
 
+# TODO find solution without this
 WORKDIR /myanimelist-export
 
-RUN cabal new-build --only-dependencies --jobs
+RUN cabal new-build --only-dependencies --jobs \
+	&& cabal new-install exe:myanimelist-export
 
-RUN cabal new-install exe:myanimelist-export
+FROM haskell:8.4.4
 
-FROM haskell:8.4.4 AS run
+LABEL maintainer="ryan.horiguchi@gmail.com"
 
 COPY --from=build /root/.cabal/bin/myanimelist-export /myanimelist-export
 

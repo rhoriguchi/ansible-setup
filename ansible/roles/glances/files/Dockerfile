@@ -9,12 +9,9 @@ RUN apk add --no-cache --virtual .build_deps \
 	&& pip install bottle docker hddtemp psutil requests setuptools wifi \
 	&& apk del .build_deps
 
-RUN apk add --no-cache --virtual .build_deps \
-	git \
+RUN apk add --no-cache --virtual .build_deps git \
 	&& git clone -b develop https://github.com/nicolargo/glances.git \
 	&& apk del .build_deps
-
-WORKDIR /glances
 
 EXPOSE 61208
 
