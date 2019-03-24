@@ -9,19 +9,17 @@ RUN apt-get update \
 	&& apt-get clean \
  	&& rm -rf /var/lib/apt/lists/*
 
-RUN cabal update
+RUN stack setup
 
-# TODO find solution without this
-WORKDIR /myanimelist-export
-
-RUN cabal new-build --only-dependencies --jobs \
-	&& cabal new-install exe:myanimelist-export
+RUN stack init /myanimelist-export \
+	&& stack build /myanimelist-export \
+	&& stack install /myanimelist-export
 
 FROM haskell:8.4.4
 
 LABEL maintainer="ryan.horiguchi@gmail.com"
 
-COPY --from=build /root/.cabal/bin/myanimelist-export /myanimelist-export
+COPY --from=build /root/.local/bin/myanimelist-export /myanimelist-export
 
 RUN chmod +x /myanimelist-export
 
