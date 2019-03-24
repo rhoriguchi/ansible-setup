@@ -1,4 +1,4 @@
-FROM haskell:8.4.4 AS build
+FROM haskell:8.4.4
 
 LABEL maintainer="ryan.horiguchi@gmail.com"
 
