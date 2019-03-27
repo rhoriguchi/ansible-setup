@@ -1,4 +1,4 @@
-# TODO fork repo and change export function to have date time in the file name
+# TODO fork repo and change export function to have date time in the file name or just run a script that changes the name
 # TODO use alpine image, since haskell is really large
 
 - name: Generate myanimelist-export.yaml with correct values
