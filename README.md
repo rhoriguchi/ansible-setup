@@ -62,9 +62,8 @@ sudo blkid | grep -i "PARTUUID="
 
 ```bash
 git clone https://github.com/rhoriguchi/ansible_setup.git /tmp/ansible_setup
+git clone https://github.com/rhoriguchi/ansible_setup_secrets.git /tmp/ansible_setup/ansible/ansible_setup_secrets
 cd /tmp/ansible_setup/ansible
-
-git clone https://github.com/rhoriguchi/ansible_setup_secrets.git
 
 sudo ansible-playbook homeassistant_update.yaml
 ```
