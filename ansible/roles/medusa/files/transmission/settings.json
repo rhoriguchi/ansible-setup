@@ -5,5 +5,6 @@
     "peer-limit-per-torrent": 100,
     "ratio-limit": 0,
     "ratio-limit-enabled": true,
-    "rpc-host-whitelist-enabled": false
+    "rpc-host-whitelist-enabled": false,
+    "rpc-whitelist-enabled": false
 }
