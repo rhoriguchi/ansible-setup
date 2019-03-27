@@ -1,0 +1,8 @@
+{
+    "download-queue-size": 10,
+    "lpd-enabled": true,
+    "peer-limit-global": 1000,
+    "peer-limit-per-torrent": 100,
+    "ratio-limit": 0,
+    "ratio-limit-enabled": true
+}

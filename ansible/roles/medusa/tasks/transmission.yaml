@@ -12,6 +12,11 @@
     path: "{{ transmission_data_path }}/config"
     state: directory
 
+- name: Copy config.ini to medusa data dir
+  copy:
+    src: transmission/settings.json
+    dest: "{{ transmission_data_path }}/config"
+
 - name: Create watch dir
   file:
     path: "{{ transmission_data_path }}/watch"
