@@ -6,6 +6,11 @@
     src: myanimelist-export.yaml
     dest: "{{ role_path }}/files/myanimelist-export.yaml"
 
+- name: Generate myanimelist-export.sh with correct values
+  template:
+    src: myanimelist-export.sh
+    dest: "{{ role_path }}/files/myanimelist-export.sh"
+
 - name: Build mal_export image
   docker_image:
     name: "rhoriguchi/mal_export/{{ mal_username | replace('@', '_at_') }}"

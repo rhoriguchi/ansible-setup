@@ -28,9 +28,10 @@ RUN apt-get update \
 	&& apt-get clean \
  	&& rm -rf /var/lib/apt/lists/*
 
-RUN crontab -l | { cat; echo "0    *       *       *       *       /myanimelist-export"; } | crontab -
+RUN crontab -l | { cat; echo "0    *       *       *       *       /myanimelist-export.sh"; } | crontab -
 
 COPY myanimelist-export.yaml /root/.config/
+COPY myanimelist-export.sh /
 
 RUN mkdir /export
 
