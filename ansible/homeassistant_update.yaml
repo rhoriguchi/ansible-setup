@@ -1,6 +1,7 @@
 - name: Update homeassistant files and install correct homeassistant version
   hosts: localhost
   vars_files:
+    - vars/default.yaml
     - vars/data_path.yaml
     - vars/drives.yaml
     - vars/xxlpitu-raspberry-pi-home.yaml
