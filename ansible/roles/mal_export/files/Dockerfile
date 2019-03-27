@@ -30,8 +30,8 @@ RUN apt-get update \
 
 RUN crontab -l | { cat; echo "0    *       *       *       *       /myanimelist-export.sh"; } | crontab -
 
-COPY myanimelist-export.yaml /root/.config/
-COPY myanimelist-export.sh /
+COPY myanimelist-export.yaml /root/.config/myanimelist-export.yaml
+COPY myanimelist-export.sh /myanimelist-export.sh
 
 RUN mkdir /export
 

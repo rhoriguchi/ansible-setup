@@ -8,7 +8,7 @@ RUN apk add --no-cache --virtual .build_deps git \
 
 RUN pip install --no-cache-dir -r /tv_time_export/requirements.txt
 
-COPY config.yaml /tv_time_export/src/
+COPY config.yaml /tv_time_export/src/config.yaml
 
 VOLUME /tv_time_export/exports
 
