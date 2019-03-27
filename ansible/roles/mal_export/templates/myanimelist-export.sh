@@ -1,3 +1,5 @@
+echo Run myanimelist-export
+
 ./myanimelist-export
 
 cd /export
