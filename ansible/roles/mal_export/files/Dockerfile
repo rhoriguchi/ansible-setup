@@ -33,7 +33,9 @@ RUN crontab -l | { cat; echo "0    3       *       *       *       /myanimelist-
 COPY myanimelist-export.yaml /root/.config/myanimelist-export.yaml
 
 COPY myanimelist-export.sh /myanimelist-export.sh
+
 RUN sed -i '1s/^.*#//;s/\r$//' /myanimelist-export.sh
+
 RUN chmod +x /myanimelist-export.sh
 
 RUN mkdir /export
