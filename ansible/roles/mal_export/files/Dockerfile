@@ -4,7 +4,7 @@ LABEL maintainer="ryan.horiguchi@gmail.com"
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends git \
-	&& git clone -b master https://github.com/mat8913/myanimelist-export.git \
+	&& git clone -b master https://github.com/rhoriguchi/myanimelist-export.git \
 	&& apt-get purge -y git \
 	&& apt-get clean \
  	&& rm -rf /var/lib/apt/lists/*
