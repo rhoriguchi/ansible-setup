@@ -1,8 +1,8 @@
-- name: "Delete user {{ pre_installed_user }}"
+- name: Delete user pre installed user
   become: yes
   become_user: root
   user:
-    name: "{{ pre_installed_user }}"
+    name: pi
     state: absent
     remove: yes
     force: yes
