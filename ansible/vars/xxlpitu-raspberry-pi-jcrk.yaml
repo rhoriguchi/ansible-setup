@@ -1,8 +1,6 @@
 ---
 hostname: XXLPitu-Raspberry-Pi-JCRK
 
-pre_installed_user: pi
-
 main_drive_path: "{{ wd_red_path }}"
 main_drive_partuuid: "{{ wd_red_partuuid }}"
 
