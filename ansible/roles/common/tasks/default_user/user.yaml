@@ -9,6 +9,11 @@
     name: spi
     state: present
 
+- name: Add docker gpio
+  group:
+    name: gpio
+    state: present
+
 - name: Add default user
   user:
     name: "{{ default_user }}"
