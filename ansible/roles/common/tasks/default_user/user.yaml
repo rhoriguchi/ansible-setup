@@ -14,6 +14,11 @@
     name: gpio
     state: present
 
+- name: Add docker i2c
+  group:
+    name: i2c
+    state: present
+
 - name: Add default user
   user:
     name: "{{ default_user }}"
