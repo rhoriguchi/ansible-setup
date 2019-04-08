@@ -17,7 +17,7 @@ Python >= 3.5
 
 ## Setup
 
-### Update Raspberry and install Ansible requirements
+### Update system and install Ansible requirements
 
 ```bash
 sudo apt update -y \
@@ -48,6 +48,14 @@ sudo ansible-playbook xxlpitu-raspberry-pi-jcrk.yaml
 
 ```bash
 sudo ansible-playbook delete_pre_installed_user.yaml
+```
+
+---
+
+### Run for XXLPitu-Odroid-Home
+
+```bash
+sudo ansible-playbook xxlpitu-odroid-home.yaml
 ```
 
 ## Find PARTUUID for drives
