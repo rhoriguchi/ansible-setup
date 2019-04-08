@@ -23,7 +23,7 @@ Python >= 3.5
 sudo apt update -y \
   && sudo apt upgrade -y \
   && sudo apt full-upgrade -y \
-  && sudo apt install -y ansible git python3 python3-apt python3-dev python3-pip rsync \
+  && sudo apt install -y ansible git python-pip python3 python3-apt python3-dev python3-pip rsync \
   && sudo apt autoremove -y
 
 git clone https://github.com/rhoriguchi/ansible_setup.git /tmp/ansible_setup
@@ -43,18 +43,16 @@ sudo ansible-playbook xxlpitu-raspberry-pi-home.yaml
 sudo ansible-playbook xxlpitu-raspberry-pi-jcrk.yaml
 ```
 
-### After successful setup delete default user
-
-```bash
-sudo ansible-playbook delete_pre_installed_user.yaml
-```
-
----
-
 ### Run for XXLPitu-Odroid-Home
 
 ```bash
 sudo ansible-playbook xxlpitu-odroid-home.yaml
+```
+
+### After successful setup delete default user
+
+```bash
+sudo ansible-playbook delete_pre_installed_user.yaml
 ```
 
 ## Find PARTUUID for drives
