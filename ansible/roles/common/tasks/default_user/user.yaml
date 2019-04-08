@@ -4,17 +4,17 @@
     state: latest
     install_recommends: no
 
-- name: Add docker spi
+- name: Add spi group
   group:
     name: spi
     state: present
 
-- name: Add docker gpio
+- name: Add gpio group
   group:
     name: gpio
     state: present
 
-- name: Add docker i2c
+- name: Add i2c group
   group:
     name: i2c
     state: present
