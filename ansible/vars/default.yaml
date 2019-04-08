@@ -2,8 +2,6 @@
 default_user: xxlpitu
 default_user_home: "/home/{{ default_user }}"
 
-default_user_password_hash: $6$8pvfEfnJ8Ar$nKztlUqftDFFT1VYsHiiU9NrudyEYnBHhfxxt8X91JUZCDM1tP8l9/EHMkNu.RlWChthcn3pNCDYTGKT/8GQB/
-
 timezone: Europe/Zurich
 
 resilio_sync_save_path: "{{ main_drive_path }}/sync"
