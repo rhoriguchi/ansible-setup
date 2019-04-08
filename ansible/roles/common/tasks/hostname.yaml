@@ -13,3 +13,4 @@
     name: networking
     state: restarted
     daemon_reload: yes
+  ignore_errors: yes
