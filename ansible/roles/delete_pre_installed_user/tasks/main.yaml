@@ -1,4 +1,4 @@
-- name: Delete user pre installed user
+- name: Delete pre installed user pi
   become: yes
   become_user: root
   user:
