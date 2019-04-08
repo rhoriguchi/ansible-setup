@@ -4,6 +4,11 @@
     state: latest
     install_recommends: no
 
+- name: Add docker spi
+  group:
+    name: spi
+    state: present
+
 - name: Add default user
   user:
     name: "{{ default_user }}"
