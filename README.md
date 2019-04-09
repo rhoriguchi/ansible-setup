@@ -73,6 +73,12 @@ cd /tmp/ansible_setup/ansible
 sudo ansible-playbook homeassistant_update.yaml
 ```
 
+## Encrypt password
+
+```bash
+mkpasswd  -m sha-512 -S "SALT" -s <<< "PASSWORD"
+```
+
 ## USB boot Raspberry
 
 [Instructions](ressources/USB_boot_raspberry.md)
