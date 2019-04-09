@@ -16,4 +16,4 @@ RUN mkdir /tv_time_export/exports
 
 VOLUME /tv_time_export/exports
 
-CMD ["cron", "-f"]
+CMD ["/usr/sbin/crond", "-f"]
