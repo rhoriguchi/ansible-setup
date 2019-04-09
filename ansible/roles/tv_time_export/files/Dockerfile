@@ -10,8 +10,6 @@ RUN pip install --no-cache-dir -r /tv_time_export/requirements.txt
 
 COPY config.yaml /tv_time_export/src/config.yaml
 
-RUN apk add --no-cache cron
-
 RUN crontab -l | { cat; echo "0    4       *       *       *       python /tv_time_export/src/tv_time_export.py"; } | crontab -
 
 RUN mkdir /tv_time_export/exports
