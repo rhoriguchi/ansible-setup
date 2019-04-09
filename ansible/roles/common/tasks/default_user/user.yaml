@@ -19,6 +19,11 @@
     name: i2c
     state: present
 
+- name: Add docker group
+  group:
+    name: docker
+    state: present
+
 - name: Add default user
   user:
     name: "{{ default_user }}"
