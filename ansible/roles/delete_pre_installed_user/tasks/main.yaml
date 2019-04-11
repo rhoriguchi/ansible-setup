@@ -1,3 +1,9 @@
+# TODO os would be better
+
+- name: Hostname stdout
+  command: hostname
+  register: hostname
+
 - name: Delete pre installed user pi
   become: yes
   become_user: root
@@ -6,8 +12,9 @@
     state: absent
     remove: yes
     force: yes
+  when: hostname.stdout == "XXLPitu-Raspberry-Pi-Home" or hostname.stdout == "XXLPitu-Raspberry-Pi-JCRK"
 
-- name: Delete pre installed user pi
+- name: Delete pre installed user root
   become: yes
   become_user: root
   user:
@@ -15,3 +22,5 @@
     state: absent
     remove: yes
     force: yes
+    force: yes
+  when: hostname.stdout == "XXLPitu-Odroid-Home"
