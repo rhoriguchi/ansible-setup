@@ -3,6 +3,7 @@
     name: [stow, zsh]
     state: latest
     install_recommends: no
+    update_cache: yes
 
 - name: Add spi group
   group:
