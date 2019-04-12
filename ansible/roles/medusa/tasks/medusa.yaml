@@ -7,6 +7,8 @@
     path: "{{ medusa_data_path }}"
     state: directory
 
+# TODO not configured correctly
+
 - name: Copy config.ini to medusa data dir
   copy:
     src: medusa/config.ini
