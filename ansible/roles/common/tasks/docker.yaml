@@ -50,11 +50,6 @@
     install_recommends: no
     update_cache: yes
 
-- name: Start docker engine
-  become: yes
-  become_user: root
-  shell: docker engine start
-
 - name: Add docker group
   group:
     name: docker
