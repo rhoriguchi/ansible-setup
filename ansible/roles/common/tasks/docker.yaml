@@ -20,19 +20,16 @@
     name: docker
 
 # TODO not perfect solution
-- name: Hostname stdout
-  command: hostname
-  register: hostname
 
 - name: Hardware architecture is armhf
   set_fact:
     hardware_architecture: armhf
-  when: hostname.stdout == "XXLPitu-Raspberry-Pi-Home" or hostname.stdout == "XXLPitu-Raspberry-Pi-JCRK"
+  when: hostname == "XXLPitu-Raspberry-Pi-Home" or hostname.stdout == "XXLPitu-Raspberry-Pi-JCRK"
 
 - name: Hardware architecture is amd64
   set_fact:
     hardware_architecture: amd64
-  when: hostname.stdout == "XXLPitu-Odroid-Home"
+  when: hostname == "XXLPitu-Odroid-Home"
 
 - name: Add apt key for docker
   apt_key:
