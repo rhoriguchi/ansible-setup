@@ -15,12 +15,12 @@
 - name: Use raspberrypi3 homeassistant image
   set_fact:
     homeassistant_docker_image: "homeassistant/raspberrypi3-homeassistant"
-  when: ansible_lsb.codename == "stretch"
+  when: ansible_lsb.id == "Raspbian"
 
 - name: Use default homeassistant image
   set_fact:
     homeassistant_docker_image: "homeassistant/home-assistant-homeassistant"
-  when: ansible_lsb.codename != "jessie"
+  when: ansible_lsb.id != "Raspbian"
 
 - name: Build home-assistant image
   docker_image:
