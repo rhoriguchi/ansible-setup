@@ -1,3 +1,5 @@
+# TODO use default way to install docker
+
 - name: Pip install docker
   pip:
     name: docker
