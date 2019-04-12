@@ -12,11 +12,19 @@
     file: "{{ homeassistant_tmp_repo_path }}/config.yaml"
     name: homeassistant
 
-# TODO if condition only if raspberry pi, else use normal
+- name: Use raspberrypi3 homeassistant image
+  set_fact:
+    homeassistant_docker_image: "homeassistant/raspberrypi3-homeassistant"
+  when: ansible_lsb.codename == "stretch"
+
+- name: Use default homeassistant image
+  set_fact:
+    homeassistant_docker_image: "homeassistant/home-assistant-homeassistant"
+  when: ansible_lsb.codename != "jessie"
 
 - name: Build home-assistant image
   docker_image:
-    name: "homeassistant/home-assistant:{{ homeassistant.version }}"
+    name: "{{ homeassistant_docker_image }}:{{ homeassistant.version }}"
 
 - name: Create homeassistant data dir
   file:
@@ -78,4 +86,4 @@
     --network host
     --restart unless-stopped
     --volume /etc/localtime:/etc/localtime:ro
-    homeassistant/home-assistant:{{ homeassistant.version }}
+    {{ homeassistant_docker_image }}:{{ homeassistant.version }}

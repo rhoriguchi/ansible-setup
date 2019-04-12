@@ -1,0 +1,23 @@
+- name: Hostname stdout
+  command: hostname
+  register: hostname
+
+- name: OS default user is pi
+  set_fact:
+    os_default_user: pi
+  when: ansible_lsb.id == "Raspbian"
+
+- name: OS default user is root
+  set_fact:
+    os_default_user: root
+  when: ansible_lsb.id == "Ubuntu"
+
+- name: Delete OS default user
+  become: yes
+  become_user: root
+  user:
+    name: {{ os_default_user }}
+    state: absent
+    remove: yes
+    force: yes
+    force: yes

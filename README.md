@@ -50,10 +50,10 @@ sudo ansible-playbook xxlpitu-raspberry-pi-jcrk.yaml
 sudo ansible-playbook xxlpitu-odroid-home.yaml
 ```
 
-### After successful setup delete default user
+### After successful setup delete OS default user
 
 ```bash
-sudo ansible-playbook delete_pre_installed_user.yaml
+sudo ansible-playbook delete_os_default_user.yaml
 ```
 
 ## Find PARTUUID for drives

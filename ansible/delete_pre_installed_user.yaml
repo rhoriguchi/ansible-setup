@@ -1,6 +1,6 @@
-- name: Delete default user
+- name: Delete OS default user
   hosts: localhost
   vars_files:
     - vars/default.yaml
   roles:
-    - delete_pre_installed_user
+    - delete_os_default_user
