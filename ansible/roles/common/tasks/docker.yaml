@@ -19,15 +19,20 @@
   pip:
     name: docker
 
+# TODO not perfect solution
+- name: Hostname stdout
+  command: hostname
+  register: hostname
+
 - name: Hardware architecture is armhf
   set_fact:
     hardware_architecture: armhf
-  when: ansible_hostname == "XXLPitu-Raspberry-Pi-Home" or ansible_hostname == "XXLPitu-Raspberry-Pi-JCRK"
+  when: hostname.stdout == "XXLPitu-Raspberry-Pi-Home" or hostname.stdout == "XXLPitu-Raspberry-Pi-JCRK"
 
 - name: Hardware architecture is amd64
   set_fact:
     hardware_architecture: amd64
-  when: ansible_hostname == "XXLPitu-Odroid-Home"
+  when: hostname.stdout == "XXLPitu-Odroid-Home"
 
 - name: Add apt key for docker
   apt_key:
