@@ -1,13 +1,16 @@
+FROM python:3.7.2-alpine AS download
+
+LABEL maintainer="ryan.horiguchi@gmail.com"
+
+RUN apk add --no-cache git
+
+RUN git clone -b master https://github.com/rhoriguchi/myanimelist-export.git
+
 FROM haskell:8.6.3 AS build
 
 LABEL maintainer="ryan.horiguchi@gmail.com"
 
-RUN apt-get update \
-	&& apt-get install -y --no-install-recommends git \
-	&& git clone -b master https://github.com/rhoriguchi/myanimelist-export.git \
-	&& apt-get purge -y git \
-	&& apt-get clean \
- 	&& rm -rf /var/lib/apt/lists/*
+COPY --from=download /myanimelist-export /myanimelist-export
 
 RUN stack setup
 
