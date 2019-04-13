@@ -1,3 +1,4 @@
+---
 - name: Create plex plug-ins dir
   file:
     path: "{{ plex_plugins_path }}"

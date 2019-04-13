@@ -1,3 +1,4 @@
+---
 - name: Delete Absolute-Series-Scanner temp folder if exist
   file:
     path: "{{ absolute_series_scanner_tmp_path }}"

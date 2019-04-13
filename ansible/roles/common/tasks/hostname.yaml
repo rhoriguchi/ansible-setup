@@ -1,3 +1,4 @@
+---
 - name: Change hostname in /etc/hostname
   copy:
     content: "{{ hostname }}"

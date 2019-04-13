@@ -1,3 +1,4 @@
+---
 - include: open_movie_database_plugin.yaml
 - include: subliminal_plugin.yaml
 - include: absolute_series_scanner.yaml

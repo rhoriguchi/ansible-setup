@@ -1,3 +1,4 @@
+---
 - name: Mount drive by PARTUUID
   mount:
     path: "{{ main_drive_path }}"

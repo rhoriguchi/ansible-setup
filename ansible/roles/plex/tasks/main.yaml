@@ -1,3 +1,4 @@
+---
 - include: plex_addons/main.yaml
 - include: plex.yaml
 - include: tautulli.yaml

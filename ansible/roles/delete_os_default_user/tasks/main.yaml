@@ -1,3 +1,4 @@
+---
 - name: Hostname stdout
   command: hostname
   register: hostname

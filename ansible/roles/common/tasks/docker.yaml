@@ -1,3 +1,4 @@
+---
 - name: Create docker lib dir
   file:
     path: "{{ default_docker_lib_path }}"

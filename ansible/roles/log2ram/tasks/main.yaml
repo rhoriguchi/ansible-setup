@@ -1,3 +1,4 @@
+---
 - name: Delete log2ram temp folder
   file:
     path: "{{ log2ram_tmp_path }}"

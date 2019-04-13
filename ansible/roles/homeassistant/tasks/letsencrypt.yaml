@@ -1,3 +1,4 @@
+---
 - name: Build letsencrypt image
   docker_image:
     name: linuxserver/letsencrypt

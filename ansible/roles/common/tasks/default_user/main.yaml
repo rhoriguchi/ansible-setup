@@ -1,2 +1,3 @@
+---
 - include: user.yaml
 - include: dotfiles.yaml

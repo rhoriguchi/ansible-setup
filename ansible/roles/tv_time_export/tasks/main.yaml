@@ -1,3 +1,4 @@
+---
 - name: Generate config.yaml with correct values
   template:
     src: config.yaml

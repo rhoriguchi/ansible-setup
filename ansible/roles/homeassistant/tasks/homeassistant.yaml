@@ -1,3 +1,4 @@
+---
 - name: Delete homeassistant tmp repo
   file:
     path: "{{ homeassistant_tmp_repo_path }}"

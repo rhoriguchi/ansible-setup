@@ -1,3 +1,4 @@
+---
 - name: Install apt [stow, zsh]
   apt:
     name: [stow, zsh]

@@ -1,3 +1,4 @@
+---
 - name: Setup xxlpitu-raspberry-pi-jcrk
   hosts: localhost
   vars_files:
