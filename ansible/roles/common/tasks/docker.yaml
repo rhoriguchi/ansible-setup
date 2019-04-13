@@ -42,6 +42,17 @@
     state: present
     update_cache: yes
 
+- name: Purge apt docker docker-engine docker.io lxc-docker
+  apt:
+    name:
+      - docker
+      - docker-engine
+      - docker.io
+      - lxc-docker
+    state: absent
+    purge: yes
+    update_cache: yes
+
 - name: Install apt apt-transport-https ca-certificates curl software-properties-common
   apt:
     name:
