@@ -1,7 +1,9 @@
 ---
-- name: Install apt [stow, zsh]
+- name: Install apt stow, zsh
   apt:
-    name: [stow, zsh]
+    name:
+      - stow
+      - zsh
     state: latest
     install_recommends: no
     update_cache: yes
