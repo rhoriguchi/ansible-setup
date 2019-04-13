@@ -52,6 +52,8 @@ sudo ansible-playbook xxlpitu-odroid-home.yaml
 
 ### After successful setup delete OS default user
 
+Switch to newly create user and run playbook
+
 ```bash
 sudo ansible-playbook delete_os_default_user.yaml
 ```
