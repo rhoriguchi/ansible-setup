@@ -33,6 +33,8 @@
   shell: "docker rm --force tv_time_export_{{ tv_time_username | replace('@', '_at_') }}"
   ignore_errors: yes
 
+# TODO Use correct user so that resilio sync can read and write
+
 - name: Create tv_time_export container
   shell: >-
     docker run

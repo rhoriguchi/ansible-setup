@@ -37,6 +37,8 @@
   shell: "docker rm --force mal_export_{{ mal_username | replace('@', '_at_') }}"
   ignore_errors: yes
 
+# TODO Use correct user so that resilio sync can read and write
+
 - name: Create mal_export container
   shell: >-
     docker run
