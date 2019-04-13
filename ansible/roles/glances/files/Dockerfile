@@ -9,10 +9,6 @@ RUN apk add --no-cache --virtual .build_deps \
 	&& pip install bottle docker glances hddtemp psutil requests setuptools wifi \
 	&& apk del .build_deps
 
-RUN apk add --no-cache --virtual .build_deps git \
-	&& git clone -b develop https://github.com/nicolargo/glances.git \
-	&& apk del .build_deps
-
 EXPOSE 61208
 
 COPY glances.conf /glances/conf/glances.conf
