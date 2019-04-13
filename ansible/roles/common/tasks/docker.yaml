@@ -28,9 +28,9 @@
 - name: Hardware architecture is armhf
   set_fact:
     hardware_architecture: armhf
-  when: hostname == "XXLPitu-Raspberry-Pi-Home" or hostname.stdout == "XXLPitu-Raspberry-Pi-JCRK"
+  when: hostname == "XXLPitu-Raspberry-Pi-Home" or hostname == "XXLPitu-Raspberry-Pi-JCRK"
 
-- name: Hardware architecture is amd64
+- name: Hardware architecture is arm64
   set_fact:
     hardware_architecture: arm64
   when: hostname == "XXLPitu-Odroid-Home"
