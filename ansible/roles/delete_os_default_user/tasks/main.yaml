@@ -17,7 +17,7 @@
   become: yes
   become_user: root
   user:
-    name: {{ os_default_user }}
+    name: "{{ os_default_user }}"
     state: absent
     remove: yes
     force: yes
