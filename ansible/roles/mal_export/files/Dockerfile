@@ -12,7 +12,7 @@ LABEL maintainer="ryan.horiguchi@gmail.com"
 
 COPY --from=download /myanimelist-export /myanimelist-export
 
-RUN stack setup
+RUN stack setup --install-ghc
 
 RUN stack init /myanimelist-export \
 	&& stack build /myanimelist-export \
