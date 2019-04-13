@@ -32,7 +32,7 @@
 
 - name: Hardware architecture is amd64
   set_fact:
-    hardware_architecture: amd64
+    hardware_architecture: arm64
   when: hostname == "XXLPitu-Odroid-Home"
 
 - name: Add apt repository for docker
