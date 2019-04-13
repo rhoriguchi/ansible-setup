@@ -42,9 +42,12 @@
     state: present
     update_cache: yes
 
-- name: Install apt [docker-ce, docker-ce-cli, containerd.io]
+- name: Install apt containerd.io docker-ce docker-ce-cli
   apt:
-    name: [docker-ce, docker-ce-cli, containerd.io]
+    name:
+      - containerd.io
+      - docker-ce
+      - docker-ce-cli
     state: latest
     install_recommends: no
     update_cache: yes
