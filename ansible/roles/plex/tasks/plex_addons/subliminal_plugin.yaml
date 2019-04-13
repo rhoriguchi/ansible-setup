@@ -4,12 +4,12 @@
     path: "{{ plex_plugins_path }}"
     state: directory
 
-- name: Delete Subliminal.bundle folder in plex plugin folder if exist
+- name: Delete Subliminal.bundle dir in plex plugin dir if exist
   file:
     path: "{{ subliminal_plugin_path }}"
     state: absent
 
-- name: Clone Subliminal.bundle to plex plugin folder
+- name: Clone Subliminal.bundle to plex plugin dir
   git:
     repo: https://github.com/bramwalet/Subliminal.bundle.git
     dest: "{{ subliminal_plugin_path }}"

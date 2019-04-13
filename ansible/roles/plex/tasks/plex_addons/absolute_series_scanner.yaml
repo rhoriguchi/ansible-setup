@@ -1,20 +1,20 @@
 ---
-- name: Delete Absolute-Series-Scanner temp folder if exist
+- name: Delete Absolute-Series-Scanner temp dir if exist
   file:
     path: "{{ absolute_series_scanner_tmp_path }}"
     state: absent
 
-- name: Clone Absolute-Series-Scanner to temp folder
+- name: Clone Absolute-Series-Scanner to temp dir
   git:
     repo: https://github.com/ZeroQI/Absolute-Series-Scanner.git
     dest: "{{ absolute_series_scanner_tmp_path }}"
 
-- name: Create Scanners folder in plex dir if not exists
+- name: Create Scanners dir in plex dir if not exists
   file:
     path: "{{ plex_data_path }}/Scanners"
     state: directory
 
-- name: Create Scanners/Series folder in plex dir if not exists
+- name: Create Scanners/Series dir in plex dir if not exists
   file:
     path: "{{ plex_data_path }}/Scanners/Series"
     state: directory
