@@ -42,6 +42,17 @@
     state: present
     update_cache: yes
 
+- name: Install apt apt-transport-https ca-certificates curl software-properties-common
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    state: latest
+    install_recommends: no
+    update_cache: yes
+
 - name: Install apt containerd.io docker-ce docker-ce-cli
   apt:
     name:
