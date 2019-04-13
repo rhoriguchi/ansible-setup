@@ -1,10 +1,16 @@
+FROM python:3.7.2-alpine AS download
+
+LABEL maintainer="ryan.horiguchi@gmail.com"
+
+RUN apk add --no-cache git
+
+RUN git clone -b master https://github.com/rhoriguchi/tv_time_export.git
+
 FROM python:3.7.2-alpine
 
 LABEL maintainer="ryan.horiguchi@gmail.com"
 
-RUN apk add --no-cache --virtual .build_deps git \
-	&& git clone -b master https://github.com/rhoriguchi/tv_time_export.git \
-	&& apk del .build_deps
+COPY --from=download /tv_time_export /tv_time_export
 
 RUN pip install --no-cache-dir -r /tv_time_export/requirements.txt
 
