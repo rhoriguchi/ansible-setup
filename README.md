@@ -23,7 +23,7 @@ Python >= 3.5
 sudo apt update -y \
   && sudo apt upgrade -y \
   && sudo apt full-upgrade -y \
-  && sudo apt install -y git python3 python3-apt python3-pip rsync \
+  && sudo apt install -y git libffi-dev python3 python3-apt python3-pip rsync \
   && sudo apt autoremove -y \
   && sudo pip3 install ansible==2.7.8
 
