@@ -1,5 +1,5 @@
 FROM alpine/git:1.0.7 AS download
-RUN git clone -b master https://github.com/rhoriguchi/myanimelist-export.git /myanimelist-export
+RUN git clone --single-branch --branch master https://github.com/rhoriguchi/myanimelist-export.git /myanimelist-export
 
 FROM haskell:8.6.3 AS build
 COPY --from=download /myanimelist-export /myanimelist-export

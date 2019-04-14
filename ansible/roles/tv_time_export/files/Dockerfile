@@ -1,5 +1,5 @@
 FROM alpine/git:1.0.7 AS download
-RUN git clone -b master https://github.com/rhoriguchi/tv_time_export.git /tv_time_export
+RUN git clone --single-branch --branch master https://github.com/rhoriguchi/tv_time_export.git /tv_time_export
 
 FROM python:3.7.3-alpine
 LABEL maintainer="ryan.horiguchi@gmail.com"
