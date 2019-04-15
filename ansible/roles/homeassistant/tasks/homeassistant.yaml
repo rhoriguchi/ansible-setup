@@ -20,7 +20,7 @@
 
 - name: Use default homeassistant image
   set_fact:
-    homeassistant_docker_image: "homeassistant/home-assistant-homeassistant"
+    homeassistant_docker_image: "homeassistant/home-assistant"
   when: ansible_lsb.id != "Raspbian"
 
 - name: Build home-assistant image
