@@ -15,5 +15,6 @@
     - resilio_sync
     - medusa
     - tv_time_export
-    - mal_export
+    # TODO commented
+    # - mal_export
     - homeassistant
