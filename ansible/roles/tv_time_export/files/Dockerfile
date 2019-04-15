@@ -1,4 +1,5 @@
-FROM alpine/git:1.0.7 AS download
+FROM alpine:3.9.3 AS download
+RUN apk add --no-cache git
 RUN git clone --single-branch --branch master https://github.com/rhoriguchi/tv_time_export.git /tv_time_export
 
 FROM python:3.7.3-alpine
