@@ -1,4 +1,6 @@
-FROM python:3.7.3-alpine
+ARG python_version=alpine
+
+FROM python:${python_version}
 LABEL maintainer="ryan.horiguchi@gmail.com"
 RUN apk add --no-cache --virtual .build_deps \
 	gcc \

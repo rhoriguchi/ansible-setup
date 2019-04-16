@@ -1,15 +1,18 @@
-FROM alpine:3.9.3 AS download
+ARG alpine_version=latest
+ARG haskell_version=latest
+
+FROM python:${alpine_version} AS download
 RUN apk add --no-cache git
 RUN git clone --single-branch --branch master https://github.com/rhoriguchi/myanimelist-export.git /myanimelist-export
 
-FROM haskell:8.6.3 AS build
+FROM haskell:${haskell_version} AS build
 COPY --from=download /myanimelist-export /myanimelist-export
 RUN stack setup
 RUN stack init /myanimelist-export \
 	&& stack build /myanimelist-export \
 	&& stack install /myanimelist-export
 
-FROM haskell:8.6.3
+FROM haskell:${haskell_version}
 LABEL maintainer="ryan.horiguchi@gmail.com"
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends cron \

@@ -8,6 +8,9 @@
   docker_image:
     name: "rhoriguchi/tv_time_export/{{ tv_time_username | replace('@', '_at_') }}"
     path: "{{ role_path }}/files"
+    buildargs:
+      alpine_version: "{{ alpine_version }}"
+      python_version: "{{ python_version }}"
 
 - name: Delete config.yaml
   file:

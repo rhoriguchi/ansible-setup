@@ -11,6 +11,8 @@
   docker_image:
     name: rhoriguchi/glances
     path: "{{ role_path }}/files"
+    buildargs:
+      python_version: "{{ python_version }}"
 
 - name: Delete glances.conf
   file:

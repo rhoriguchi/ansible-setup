@@ -13,6 +13,9 @@
   docker_image:
     name: "rhoriguchi/mal_export/{{ mal_username | replace('@', '_at_') }}"
     path: "{{ role_path }}/files"
+    buildargs:
+      alpine_version: "{{ alpine_version }}"
+      haskell_version: "{{ haskell_version }}"
 
 - name: Delete myanimelist-export.yaml
   file:
