@@ -1,4 +1,13 @@
 ---
+- name: Install apt stow zsh
+  apt:
+    name:
+      - stow
+      - zsh
+    state: latest
+    install_recommends: no
+    update_cache: yes
+
 - name: Delete dotfiles repo if exist
   file:
     path: "{{ default_user_dotfiles_path }}"
