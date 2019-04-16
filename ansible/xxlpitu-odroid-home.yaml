@@ -12,7 +12,9 @@
     - glances
     - resilio_sync
     - medusa
+    # TODO somethings is wrong, does not work
     - tv_time_export
     # TODO commented
     # - mal_export
+    # TODO somethings is wrong, does not work
     - homeassistant
