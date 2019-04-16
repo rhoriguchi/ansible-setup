@@ -1,7 +1,7 @@
 ARG alpine_version=latest
 ARG python_version=alpine
 
-FROM python:${alpine_version} AS download
+FROM alpine:${alpine_version} AS download
 RUN apk add --no-cache git
 RUN git clone --single-branch --branch master https://github.com/rhoriguchi/tv_time_export.git /tv_time_export
 

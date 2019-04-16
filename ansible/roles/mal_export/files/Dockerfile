@@ -1,7 +1,7 @@
 ARG alpine_version=latest
 ARG haskell_version=latest
 
-FROM python:${alpine_version} AS download
+FROM alpine:${alpine_version} AS download
 RUN apk add --no-cache git
 RUN git clone --single-branch --branch master https://github.com/rhoriguchi/myanimelist-export.git /myanimelist-export
 
