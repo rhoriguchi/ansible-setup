@@ -3,11 +3,8 @@
   hosts: localhost
   vars_files:
     - vars/default.yaml
-    - vars/data_path.yaml
-    - vars/drives.yaml
-    - vars/docker_version.yaml
-    - vars/xxlpitu-raspberry-pi-home.yaml
     - ansible_setup_secrets/secrets.yaml
+    - vars/xxlpitu-raspberry-pi-home.yaml
   roles:
     - common
     - log2ram
