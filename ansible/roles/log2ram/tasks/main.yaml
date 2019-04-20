@@ -16,8 +16,6 @@
     remote_src: yes
 
 - name: Execute install.sh
-  become: yes
-  become_user: root
   shell: "sh {{ log2ram_tmp_path }}/log2ram-master/install.sh"
 
 - name: Copy log2ram.conf to /etc

@@ -2,5 +2,4 @@
 - include: mount_drive.yaml
 - include: hostname.yaml
 - include: timezone.yaml
-- include: docker.yaml
 - include: default_user/main.yaml

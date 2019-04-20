@@ -16,7 +16,7 @@
   shell: >-
     docker run
     --detach
-    --env DUCKDNSTOKEN='{{ duckdns_token }}'
+    --env DUCKDNSTOKEN='{{ vault_duckdns_token }}'
     --env SUBDOMAINS=wildcard
     --env TZ='{{ timezone }}'
     --env URL={{ duckdns_domain }}.duckdns.org

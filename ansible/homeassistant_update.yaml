@@ -1,8 +1,11 @@
 ---
 - name: Update homeassistant files and install correct homeassistant version
-  hosts: localhost
+  # TODO just use all and then some will fail?
+  hosts: "{{ target_host }}"
+  become: yes
+  become_user: ansible
   vars_files:
     - vars/default.yaml
-    - ansible_setup_secrets/secrets.yaml
+    - vars/vault.yaml
   roles:
     - homeassistant

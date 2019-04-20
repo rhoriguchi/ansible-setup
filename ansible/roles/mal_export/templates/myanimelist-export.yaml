@@ -1,5 +1,5 @@
 ---
-username: {{ mal_username }}
-password: {{ mal_password }}
+username: {{ vault_mal_username }}
+password: {{ vault_mal_password }}
 animeXmlPath: /export/anime.xml
 mangaXmlPath: /export/manga.xml

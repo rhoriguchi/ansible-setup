@@ -1,0 +1,13 @@
+---
+- name: Add docker group
+  group:
+    name: docker
+    state: present
+
+- name: Add ansible user
+  user:
+    name: ansible
+    password: "{{ vault_ansible_user_password | password_hash('sha512') }}"
+    uid: 3131
+    groups: docker,sudo,users
+    append: yes

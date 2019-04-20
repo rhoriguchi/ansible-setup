@@ -3,11 +3,18 @@
   template:
     src: config.yaml
     dest: "{{ role_path }}/files/config.yaml"
+  delegate_to: localhost
+
+- name: Copy docker files to remote host
+  copy:
+    src: "{{ role_path }}/files/"
+    dest: "{{ tmp_docker_dir }}"
+    force: yes
 
 - name: Build tv_time_export image
   docker_image:
-    name: "rhoriguchi/tv_time_export/{{ tv_time_username | replace('@', '_at_') }}"
-    path: "{{ role_path }}/files"
+    name: "rhoriguchi/tv_time_export/{{ vault_tv_time_username | replace('@', '_at_') }}"
+    path: "{{ tmp_docker_dir }}"
     buildargs:
       alpine_version: "{{ alpine_version }}"
       python_version: "{{ python_version }}"
@@ -33,10 +40,8 @@
     state: touch
 
 - name: Delete tv_time_export container
-  shell: "docker rm --force tv_time_export_{{ tv_time_username | replace('@', '_at_') }}"
+  shell: "docker rm --force tv_time_export_{{ vault_tv_time_username | replace('@', '_at_') }}"
   ignore_errors: yes
-
-# TODO Use correct user so that resilio sync can read and write
 
 - name: Create tv_time_export container
   shell: >-
@@ -45,6 +50,11 @@
     --env TZ='{{ timezone }}'
     --mount src='{{ tv_time_export_path }}t',target=/tv_time_export/exports,type=bind
     --mount src='{{ tv_time_export_data_path }}/tv_time_export.log',target=/tv_time_export/src/tv_time_export.log,type=bind
-    --name 'tv_time_export_{{ tv_time_username | replace('@', '_at_') }}'
+    --name 'tv_time_export_{{ vault_tv_time_username | replace('@', '_at_') }}'
     --restart unless-stopped
-    rhoriguchi/tv_time_export/{{ tv_time_username | replace('@', '_at_') }}
+    rhoriguchi/tv_time_export/{{ vault_tv_time_username | replace('@', '_at_') }}
+
+- name: Delete docker files from remote host
+  file:
+    path: "{{ tmp_docker_dir }}"
+    state: absent

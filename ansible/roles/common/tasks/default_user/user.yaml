@@ -1,29 +1,14 @@
 ---
-- name: Add spi group
-  group:
-    name: spi
-    state: present
-
-- name: Add gpio group
-  group:
-    name: gpio
-    state: present
-
-- name: Add i2c group
-  group:
-    name: i2c
-    state: present
-
 - name: Add docker group
   group:
     name: docker
     state: present
 
-- name: Add default user
+- name: "Add default user {{ default_user }}"
   user:
     name: "{{ default_user }}"
-    password: "{{ default_user_password }}"
+    password: "{{ vault_default_user_password | password_hash('sha512') }}"
     uid: 4242
     shell: /usr/bin/zsh
-    groups: adm,dialout,cdrom,sudo,audio,plugdev,games,users,input,netdev,spi,i2c,gpio,docker
+    groups: docker,sudo,users
     append: yes

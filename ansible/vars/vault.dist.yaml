@@ -1,0 +1,20 @@
+# TOD add vault_ before every variable
+
+vault_default_user_password:
+vault_ansible_user_password:
+
+vault_git_user:
+vault_git_password:
+
+vault_tv_time_username:
+vault_tv_time_password:
+
+vault_mal_username:
+vault_mal_password:
+
+vault_docker_hub_username:
+vault_docker_hub_password:
+
+vault_duckdns_token:
+
+vault_glances_password:

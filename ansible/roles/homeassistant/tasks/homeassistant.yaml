@@ -46,8 +46,9 @@
 
 - name: Clone homeassistant_secrets to tmp
   git:
-    repo: "https://{{ git_user }}:{{ git_password }}@github.com/rhoriguchi/homeassistant_secrets.git"
+    repo: "https://{{ vault_git_user }}:{{ vault_git_password }}@github.com/rhoriguchi/homeassistant_secrets.git"
     dest: "{{ homeassistant_secrets_tmp_repo_path }}"
+  no_log: true
 
 - include_vars:
     file: "{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml"

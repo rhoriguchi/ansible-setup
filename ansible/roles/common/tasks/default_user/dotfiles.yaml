@@ -21,8 +21,6 @@
     dest: "{{ default_user_dotfiles_path }}"
 
 - name: Change permissions for init.sh for dotfiles
-  become: yes
-  become_user: root
   file:
     path: "{{ default_user_dotfiles_path }}/init.sh"
     mode: +x
@@ -39,7 +37,8 @@
   lineinfile:
     create: yes
     path: "{{ default_user_home }}/.git-credentials"
-    line: "https://{{ git_user }}:{{ git_password }}@github.com"
+    line: "https://{{ vault_git_user }}:{{ vault_git_password }}@github.com"
+  no_log: true
 
 - name: Ensure that locale en_US.UTF-8 exists
   locale_gen:

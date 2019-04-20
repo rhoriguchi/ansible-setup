@@ -1,0 +1,5 @@
+---
+- include: install_requirements.yaml
+- include: ansible_user.yaml
+- include: docker.yaml
+- include: delete_os_default_user.yaml

@@ -1,10 +1,5 @@
 # Ansible setup
 
-## Requirements
-
-### Ansible
-Python >= 3.5
-
 ## Default Ports
 
 - SSH - 22
@@ -13,50 +8,60 @@ Python >= 3.5
 - Resilio Sync - 8888
 - Plex - 32400
 - Glances - 61208
-- Glances client - 61209
 
 ## Setup
 
-### Update system and install Ansible requirements
+Clone repo
 
 ```bash
-sudo apt update -y \
-  && sudo apt upgrade -y \
-  && sudo apt full-upgrade -y \
-  && sudo apt install -y git libffi-dev python3 python3-apt python3-pip rsync \
-  && sudo apt autoremove -y \
-  && sudo pip3 install ansible==2.7.10
-  && sudo reboot
-
 git clone https://github.com/rhoriguchi/ansible_setup.git /tmp/ansible_setup
-git clone https://github.com/rhoriguchi/ansible_setup_secrets.git /tmp/ansible_setup/ansible/ansible_setup_secrets
-cd /tmp/ansible_setup/ansible
 ```
 
-### Run for XXLPitu-Raspberry-Pi-Home
+Edit .env and enter ansible vault password and set the IP address of the host to configure.
 
 ```bash
-sudo ansible-playbook xxlpitu-raspberry-pi-home.yaml
+docker-compose up --detach --build
+docker exec -it ansible zsh
 ```
 
-### Run for XXLPitu-Raspberry-Pi-JCRK
+### Run in container for all
+
+Choose value for target_host variable `raspberry` or `odroid`.
 
 ```bash
-sudo ansible-playbook xxlpitu-raspberry-pi-jcrk.yaml
+ansible-playbook init_system.yaml --extra-vars target_host=
 ```
 
-### Run for XXLPitu-Odroid-Home
+### Run in container for XXLPitu-Raspberry-Pi-Home
 
 ```bash
-sudo ansible-playbook xxlpitu-odroid-home.yaml
+ansible-playbook xxlpitu-raspberry-pi-home.yaml
 ```
 
-### After successful setup delete OS default user
-
-Switch to newly create user and run playbook
+### Run in container for XXLPitu-Raspberry-Pi-JCRK
 
 ```bash
-sudo ansible-playbook delete_os_default_user.yaml
+ansible-playbook xxlpitu-raspberry-pi-jcrk.yaml
+```
+
+### Run in container for XXLPitu-Odroid-Home
+
+```bash
+ansible-playbook xxlpitu-odroid-home.yaml
+```
+
+## Ansible
+
+### Encrypt vault
+
+```bash
+ansible-vault encrypt vault.dist.yaml
+```
+
+### Show all ansible variables
+
+```bash
+ansible -m setup HOST
 ```
 
 ## Find PARTUUID for drives
@@ -71,16 +76,17 @@ sudo blkid | grep -i "PARTUUID="
 
 ```bash
 git clone https://github.com/rhoriguchi/ansible_setup.git /tmp/ansible_setup
-git clone https://github.com/rhoriguchi/ansible_setup_secrets.git /tmp/ansible_setup/ansible/ansible_setup_secrets
-cd /tmp/ansible_setup/ansible
 
-sudo ansible-playbook homeassistant_update.yaml
+docker-compose up --detach --build
+docker exec -it ansible_setup_ansible_1 bash
+ 
+ansible-playbook homeassistant_update.yaml --extra-vars target_host=TARGET_HOST
 ```
 
 ## Encrypt password
 
 ```bash
-mkpasswd  -m sha-512 -S "SALT" -s <<< "PASSWORD"
+mkpasswd -m sha-512 -S "SALT" -s <<< "PASSWORD"
 ```
 
 ## USB boot Raspberry

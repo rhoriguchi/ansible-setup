@@ -3,24 +3,27 @@
   template:
     src: myanimelist-export.yaml
     dest: "{{ role_path }}/files/myanimelist-export.yaml"
+  delegate_to: localhost
 
 - name: Generate myanimelist-export.sh with correct values
   template:
     src: myanimelist-export.sh
     dest: "{{ role_path }}/files/myanimelist-export.sh"
+  delegate_to: localhost
+
+- name: Copy docker files to remote host
+  copy:
+    src: "{{ role_path }}/files/"
+    dest: "{{ tmp_docker_dir }}"
+    force: yes
 
 - name: Build mal_export image
   docker_image:
-    name: "rhoriguchi/mal_export/{{ mal_username | replace('@', '_at_') }}"
-    path: "{{ role_path }}/files"
+    name: "rhoriguchi/mal_export/{{ vault_mal_username | replace('@', '_at_') }}"
+    path: "{{ tmp_docker_dir }}"
     buildargs:
       alpine_version: "{{ alpine_version }}"
       haskell_version: "{{ haskell_version }}"
-
-- name: Delete myanimelist-export.yaml
-  file:
-    path: myanimelist-export.yaml
-    state: absent
 
 - name: Create mal_export exports dir
   file:
@@ -33,10 +36,8 @@
     state: directory
 
 - name: Delete mal_export container
-  shell: "docker rm --force mal_export_{{ mal_username | replace('@', '_at_') }}"
+  shell: "docker rm --force mal_export_{{ vault_mal_username | replace('@', '_at_') }}"
   ignore_errors: yes
-
-# TODO Use correct user so that resilio sync can read and write
 
 - name: Create mal_export container
   shell: >-
@@ -44,6 +45,11 @@
     --detach
     --env TZ='{{ timezone }}'
     --mount src='{{ mal_export_path }}',target=/export,type=bind
-    --name 'mal_export_{{ mal_username | replace('@', '_at_') }}'
+    --name 'mal_export_{{ vault_mal_username | replace('@', '_at_') }}'
     --restart unless-stopped
-    rhoriguchi/mal_export/{{ mal_username | replace('@', '_at_') }}
+    rhoriguchi/mal_export/{{ vault_mal_username | replace('@', '_at_') }}
+
+- name: Delete docker files from remote host
+  file:
+    path: "{{ tmp_docker_dir }}"
+    state: absent

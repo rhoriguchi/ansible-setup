@@ -1,9 +1,11 @@
 ---
 - name: Setup xxlpitu-odroid-home
-  hosts: localhost
+  hosts: XXLPitu-Odroid-Home
+  become: yes
+  become_user: root
   vars_files:
     - vars/default.yaml
-    - ansible_setup_secrets/secrets.yaml
+    - vars/vault.yaml
     - vars/xxlpitu-odroid-home.yaml
   roles:
     - common
@@ -11,10 +13,10 @@
     - duckdns
     - glances
     - resilio_sync
-    - medusa
+    - medusa # TODO replace with sickchill
     # TODO somethings is wrong, does not work
     - tv_time_export
-    # TODO commented
-    # - mal_export
+    # TODO somethings is wrong, does not work
+    - mal_export
     # TODO somethings is wrong, does not work
     - homeassistant

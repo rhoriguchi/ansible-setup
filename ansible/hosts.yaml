@@ -1,0 +1,35 @@
+---
+# TODO find better solution for duplicate
+all:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  hosts:
+    raspberry:
+      ansible_host: "{{ lookup('env','TARGET_ADDRESS') }}"
+      ansible_port: 22
+      ansible_user: pi
+      ansible_ssh_pass: raspberry
+    odroid:
+      ansible_host: "{{ lookup('env','TARGET_ADDRESS') }}"
+      ansible_port: 22
+      ansible_user: root
+      ansible_ssh_pass: odroid
+
+    XXLPitu-Odroid-Home:
+      ansible_host: "{{ lookup('env','TARGET_ADDRESS') }}"
+      ansible_port: 22
+      ansible_user: ansible
+      ansible_ssh_pass: "{{ vault_ansible_user_password }}"
+      ansible_become_pass: "{{ vault_ansible_user_password }}"
+    XXLPitu-Raspberry-Pi-Home:
+      ansible_host: "{{ lookup('env','TARGET_ADDRESS') }}"
+      ansible_port: 22
+      ansible_user: ansible
+      ansible_ssh_pass: "{{ vault_ansible_user_password }}"
+      ansible_become_pass: "{{ vault_ansible_user_password }}"
+    XXLPitu-Raspberry-Pi-JCRK:
+      ansible_host: "{{ lookup('env','TARGET_ADDRESS') }}"
+      ansible_port: 22
+      ansible_user: ansible
+      ansible_ssh_pass: "{{ vault_ansible_user_password }}"
+      ansible_become_pass: "{{ vault_ansible_user_password }}"

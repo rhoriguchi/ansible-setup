@@ -12,7 +12,7 @@
     docker run
     --detach
     --env SUBDOMAINS='{{ duckdns_domain }}'
-    --env TOKEN='{{ duckdns_token }}'
+    --env TOKEN='{{ vault_duckdns_token }}'
     --env TZ='{{ timezone }}'
     --name duckdns
     --restart unless-stopped

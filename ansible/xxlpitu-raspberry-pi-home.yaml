@@ -1,9 +1,11 @@
 ---
 - name: Setup xxlpitu-raspberry-pi-home
-  hosts: localhost
+  hosts: XXLPitu-Raspberry-Pi-Home
+  become: yes
+  become_user: root
   vars_files:
     - vars/default.yaml
-    - ansible_setup_secrets/secrets.yaml
+    - vars/vault.yaml
     - vars/xxlpitu-raspberry-pi-home.yaml
   roles:
     - common

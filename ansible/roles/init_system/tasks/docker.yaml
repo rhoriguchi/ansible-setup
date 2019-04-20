@@ -1,44 +1,25 @@
 ---
-- name: Create docker lib dir
-  file:
-    path: "{{ default_docker_lib_path }}"
-    state: directory
-
-- name: Create docker lib symbolic link dir
-  file:
-    path: "{{ docker_data_path }}"
-    state: directory
-
-- name: Create symbolic link from docker lib dir to external drive
-  file:
-    src: "{{ default_docker_lib_path }}"
-    dest: "{{ docker_data_path }}"
-    state: link
-    force: yes
-
-- name: Pip install docker
-  pip:
-    name: docker
-
 - name: Add apt key for docker
   apt_key:
-    url: "https://download.docker.com/linux/{{ ansible_lsb.id|lower }}/gpg"
+    url: "https://download.docker.com/linux/{{ ansible_lsb.id | lower }}/gpg"
     state: present
 
 - name: Hardware architecture is armhf
-  set_fact:
-    hardware_architecture: armhf
-  when: hostname == "XXLPitu-Raspberry-Pi-Home" or hostname == "XXLPitu-Raspberry-Pi-JCRK"
+  fail:
+  # TODO figure out what raspberry returns
+  # set_fact:
+  #   hardware_architecture: armhf
+  when: target_host == "raspberry"
 
 - name: Hardware architecture is arm64
   set_fact:
     hardware_architecture: arm64
-  when: hostname == "XXLPitu-Odroid-Home"
+  when: ansible_architecture == "aarch64"
 
 - name: Add apt repository for docker
   apt_repository:
     filename: docker
-    repo: "deb [arch={{ hardware_architecture }}] https://download.docker.com/linux/{{ ansible_lsb.id|lower }} {{ ansible_lsb.codename|lower }} stable"
+    repo: "deb [arch={{ hardware_architecture }}] https://download.docker.com/linux/{{ ansible_lsb.id | lower }} {{ ansible_lsb.codename | lower }} stable"
     state: present
     update_cache: yes
 
@@ -78,7 +59,3 @@
   group:
     name: docker
     state: present
-
-- name: Delete all unused docker resources
-  shell: docker system prune --all --force
-  ignore_errors: yes

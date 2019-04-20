@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  ansible:
+    container_name: ansible
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ansible_vault_password: "${ansible_vault_password}"
+        target_address: "${target_address}"

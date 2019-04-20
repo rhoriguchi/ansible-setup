@@ -1,0 +1,36 @@
+---
+- name: Updating package list
+  shell: apt update
+
+- name: Upgrade all packages to the latest version
+  shell: apt upgrade --yes --assume-yes
+
+- name: Upgrade distribution to the latest version
+  shell: apt full-upgrade --yes --assume-yes
+
+- name: Remove dependencies that are no longer required
+  shell: apt autoremove --yes --assume-yes
+
+- name: Reboot system
+  shell: "sleep 5 && reboot"
+  async: 1
+  poll: 0
+
+- name: Wait for the reboot to complete
+  wait_for_connection:
+    connect_timeout: 20
+    sleep: 5
+    delay: 5
+    timeout: 300
+
+- name: Install apt git python3 python3-pip python3-setuptools rsync
+  apt:
+    name:
+      - git
+      - python3
+      - python3-pip
+      - python3-setuptools
+      - rsync
+    state: latest
+    install_recommends: no
+    update_cache: yes
