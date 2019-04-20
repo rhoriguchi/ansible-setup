@@ -7,10 +7,7 @@ RUN git clone --single-branch --branch master https://github.com/rhoriguchi/myan
 
 FROM haskell:${haskell_version} AS build
 COPY --from=download /myanimelist-export /myanimelist-export
-RUN stack setup
-RUN stack init /myanimelist-export \
-	&& stack build /myanimelist-export \
-	&& stack install /myanimelist-export
+RUN stack install /myanimelist-export
 
 FROM haskell:${haskell_version}
 LABEL maintainer="ryan.horiguchi@gmail.com"
