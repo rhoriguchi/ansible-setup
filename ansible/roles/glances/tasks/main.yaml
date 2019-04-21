@@ -12,6 +12,7 @@
     name: rhoriguchi/glances
     path: "{{ role_path }}/files"
     buildargs:
+      alpine_version: "{{ alpine_version }}"
       python_version: "{{ python_version }}"
 
 - name: Delete glances.conf
