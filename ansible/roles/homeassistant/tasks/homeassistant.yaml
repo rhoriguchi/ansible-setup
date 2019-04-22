@@ -38,6 +38,7 @@
     dest: "{{ homeassistant_data_path }}"
     delete: no
     recursive: yes
+  delegate_to: "{{ inventory_hostname }}"
 
 - name: Delete homeassistant_secrets tmp repo
   file:
