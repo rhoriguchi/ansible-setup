@@ -1,6 +1,4 @@
 ---
-# TODO not set correctly
-
 - name: Change hostname in /etc/hostname
   copy:
     content: "{{ hostname }}"
@@ -8,12 +6,13 @@
 
 - name: Change hostname in /etc/hosts
   copy:
-    content: "{{ hostname }}"
+    content: |
+      127.0.0.1     localhost
+      127.0.1.1     {{ hostname }}
     dest: /etc/hosts
 
 - name: Restart networking
   service:
     name: networking
     state: restarted
-    daemon_reload: yes
   ignore_errors: yes
