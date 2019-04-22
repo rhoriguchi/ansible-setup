@@ -23,8 +23,8 @@ tv_time_export_data_path: "{{ main_drive_path }}/library/tv_time_export"
 
 # docker_version
 alpine_version: 3.9.3
-haskell_version: 8.6.3
 python_version: 3.7.3-alpine
+ubuntu_version: 19.04
 
 # drives
 ssd_path: /media/SSD

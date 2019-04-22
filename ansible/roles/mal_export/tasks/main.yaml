@@ -23,7 +23,7 @@
     path: "{{ tmp_docker_dir }}"
     buildargs:
       alpine_version: "{{ alpine_version }}"
-      haskell_version: "{{ haskell_version }}"
+      ubuntu_version: "{{ ubuntu_version }}"
 
 - name: Create mal_export exports dir
   file:

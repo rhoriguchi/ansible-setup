@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 echo Run myanimelist-export
 
 ./myanimelist-export
