@@ -3,10 +3,10 @@
   shell: apt update
 
 - name: Upgrade all packages to the latest version
-  shell: apt upgrade --yes --assume-yes
+  shell: apt upgrade --no-install-recommends --yes --assume-yes
 
 - name: Upgrade distribution to the latest version
-  shell: apt full-upgrade --yes --assume-yes
+  shell: apt full-upgrade --no-install-recommends --yes --assume-yes
 
 - name: Remove dependencies that are no longer required
   shell: apt autoremove --yes --assume-yes
