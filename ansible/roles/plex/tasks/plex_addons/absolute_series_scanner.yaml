@@ -20,6 +20,4 @@
     state: directory
 
 - name: Copy "Absolute Series Scanner.py" to plex Scanners/Series path
-  copy:
-    src: "{{ absolute_series_scanner_tmp_path }}/Scanners/Series/Absolute Series Scanner.py"
-    dest: "{{ plex_data_path }}/Scanners/Series"
+  shell: "cp '{{ absolute_series_scanner_tmp_path }}/Scanners/Series/Absolute Series Scanner.py' '{{ plex_data_path }}/Scanners/Series'"
