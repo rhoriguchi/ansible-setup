@@ -11,6 +11,7 @@ resilio_sync_save_path: "{{ main_drive_path }}/sync"
 resilio_sync_downloads_save_path: "{{ main_drive_path }}/syncDownloads"
 
 # data_path
+docker_data_path: "{{ main_drive_path }}/library/docker"
 homeassistant_data_path: "{{ main_drive_path }}/library/homeassistant"
 letsencrypt_data_path: "{{ main_drive_path }}/library/letsencrypt"
 mal_export_data_path: "{{ main_drive_path }}/library/mal_exporter"

@@ -1,0 +1,31 @@
+---
+- name: Stop docker
+  service:
+    name: docker
+    state: stopped
+
+- name: Create docker lib dir
+  file:
+    path: "{{ default_docker_lib_path }}"
+    state: directory
+
+- name: Create docker lib symbolic link dir
+  file:
+    path: "{{ docker_data_path }}"
+    state: directory
+
+- name: Move docker lib dir to docker lib symbolic link dir
+  shell: "mv {{ default_docker_lib_path }} {{ docker_data_path }}"
+
+- name: Create symbolic link from docker lib dir to external drive
+  file:
+    src: "{{ default_docker_lib_path }}"
+    dest: "{{ docker_data_path }}"
+    state: link
+    force: yes
+
+- name: Start docker
+  service:
+    name: docker
+    state: restarted
+    enabled: yes
