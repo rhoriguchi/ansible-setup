@@ -5,11 +5,9 @@
     state: present
 
 - name: Hardware architecture is armhf
-  fail:
-  # TODO figure out what raspberry returns
-  # set_fact:
-  #   hardware_architecture: armhf
-  when: target_host == "raspberry"
+  set_fact:
+    hardware_architecture: armhf
+  when: ansible_architecture == "armv7l"
 
 - name: Hardware architecture is arm64
   set_fact:
