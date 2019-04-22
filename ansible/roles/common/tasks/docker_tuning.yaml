@@ -14,13 +14,34 @@
     path: "{{ docker_data_path }}"
     state: directory
 
-- name: Move docker lib dir to docker lib symbolic link dir
-  shell: "mv {{ default_docker_lib_path }} {{ docker_data_path }}"
+- name: Get stat of docker lib dir
+  stat:
+    path: "{{ default_docker_lib_path }}"
+  register: links
+
+- name: Synchronize docker lib dir to docker lib symbolic link dir
+  synchronize:
+    src: "{{ default_docker_lib_path }}"
+    dest: "{{ docker_data_path }}"
+    recursive: yes
+  delegate_to: "{{ inventory_hostname }}"
+  when: links.stat.islnk is defined and links.stat.islnk == false
+
+- name: Get content of docker lib dir
+  shell: "ls -1 {{ default_docker_lib_path }}"
+  register: contents
+
+- name: Delete content of docker lib dir
+  file:
+    path: "{{ default_docker_lib_path }}/{{ item }}"
+    state: absent
+  with_items: "{{ contents.stdout_lines }}"
+  when: links.stat.islnk is defined and links.stat.islnk == false
 
 - name: Create symbolic link from docker lib dir to external drive
   file:
-    src: "{{ default_docker_lib_path }}"
-    dest: "{{ docker_data_path }}"
+    src: "{{ docker_data_path }}"
+    dest: "{{ default_docker_lib_path }}"
     state: link
     force: yes
 
