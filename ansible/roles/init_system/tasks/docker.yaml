@@ -57,7 +57,5 @@
     install_recommends: no
     update_cache: yes
 
-- name: Add docker group
-  group:
-    name: docker
-    state: present
+- name: Remove all unused ressources
+  shell: docker system prun --all --force
