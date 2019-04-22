@@ -9,7 +9,7 @@ RUN apk add --no-cache \
     musl-dev \
     openssl-dev
 RUN pip install ansible==${ansible_verion}
-# TODO workaround for paramiko warning
+# workaround for paramiko warning
 RUN sed -i "/__metaclass__ = type/a import warnings\nwarnings.filterwarnings(action='ignore',module='.*paramiko.*')" /usr/local/bin/ansible-playbook
 
 FROM install_ansible as install_tools
