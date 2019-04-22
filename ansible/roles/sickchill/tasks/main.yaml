@@ -1,5 +1,5 @@
 ---
 - include: transmission.yaml
-- include: medusa.yaml
+- include: sickchill.yaml
 
 # TODO use compose

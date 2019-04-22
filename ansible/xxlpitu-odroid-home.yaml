@@ -13,7 +13,7 @@
     - duckdns
     - glances
     - resilio_sync
-    - medusa # TODO replace with sickchill
+    - sickchill
     # TODO somethings is wrong, does not work
     - tv_time_export
     # TODO somethings is wrong, does not work

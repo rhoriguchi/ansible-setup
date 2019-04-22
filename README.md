@@ -2,12 +2,13 @@
 
 ## Default Ports
 
-- SSH - 22
-- Home Assistant - 8123
-- Tautulli - 8181
-- Resilio Sync - 8888
-- Plex - 32400
 - Glances - 61208
+- Home Assistant - 8123
+- Plex - 32400
+- Resilio Sync - 8888
+- SSH - 22
+- Sickchill 8081
+- Tautulli - 8181
 
 ## Setup
 
