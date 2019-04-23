@@ -31,6 +31,7 @@
   synchronize:
     src: "{{ default_docker_lib_path }}"
     dest: "{{ docker_data_path }}"
+    delete: yes
     recursive: yes
   delegate_to: "{{ inventory_hostname }}"
   when: links.stat.islnk is defined and links.stat.islnk == false
