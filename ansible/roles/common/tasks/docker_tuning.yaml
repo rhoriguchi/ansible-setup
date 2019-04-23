@@ -32,7 +32,7 @@
 - name: Create docker lib symbolic link dir
   file:
     path: "{{ docker_data_path }}"
-    state: director
+    state: directory
 
 - name: Synchronize docker lib dir to docker lib symbolic link dir
   synchronize:
