@@ -2,6 +2,7 @@
 - name: Get all running docker containers
   shell: docker ps --all --quiet
   register: containers
+  ignore_errors: yes
 
 - name: Stop all running docker containers
   shell: "docker stop {{ item }}"
