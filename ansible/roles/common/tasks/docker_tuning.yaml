@@ -17,15 +17,21 @@
     path: "{{ default_docker_lib_path }}"
     state: directory
 
-- name: Create docker lib symbolic link dir
-  file:
-    path: "{{ docker_data_path }}"
-    state: directory
-
 - name: Get stat of docker lib dir
   stat:
     path: "{{ default_docker_lib_path }}"
   register: links
+
+- name: Delete docker lib symbolic link dir
+  file:
+    path: "{{ docker_data_path }}"
+    state: absent
+  when: links.stat.islnk is defined and links.stat.islnk == false
+
+- name: Create docker lib symbolic link dir
+  file:
+    path: "{{ docker_data_path }}"
+    state: director
 
 - name: Synchronize docker lib dir to docker lib symbolic link dir
   synchronize:
