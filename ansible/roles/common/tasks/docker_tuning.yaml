@@ -1,5 +1,13 @@
 ---
-- name: Stop docker
+- name: Get all running docker containers
+  shell: docker ps --all --quiet
+  register: containers
+
+- name: Stop all running docker containers
+  shell: "docker stop {{ item }}"
+  with_items: "{{ containers.stdout_lines }}"
+
+- name: Stop docker service
   service:
     name: docker
     state: stopped
@@ -45,8 +53,12 @@
     state: link
     force: yes
 
-- name: Start docker
+- name: Start docker service
   service:
     name: docker
     state: restarted
     enabled: yes
+
+- name: Start all privious running docker containers
+  shell: "docker start {{ item }}"
+  with_items: "{{ containers.stdout_lines }}"
