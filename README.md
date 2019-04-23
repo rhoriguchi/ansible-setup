@@ -79,7 +79,7 @@ sudo blkid | grep -i "PARTUUID="
 git clone https://github.com/rhoriguchi/ansible_setup.git /tmp/ansible_setup
 
 docker-compose up --detach --build
-docker exec -it ansible_setup_ansible_1 bash
+docker exec -it ansible zsh
  
 ansible-playbook homeassistant_update.yaml --extra-vars target_host=TARGET_HOST
 ```

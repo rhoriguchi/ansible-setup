@@ -1,6 +1,5 @@
 ---
 - name: Update homeassistant files and install correct homeassistant version
-  # TODO just use all and then some will fail?
   hosts: "{{ target_host }}"
   become: yes
   become_user: ansible
