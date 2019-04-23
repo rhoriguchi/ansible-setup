@@ -1,9 +1,0 @@
----
-hostname: XXLPitu-Raspberry-Pi-JCRK
-
-main_drive_path: "{{ wd_red_path }}"
-main_drive_partuuid: "{{ wd_red_partuuid }}"
-
-duckdns_domain: xxlpitu-jcrk
-
-glances_mode: client

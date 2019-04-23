@@ -1,9 +1,0 @@
----
-hostname: XXLPitu-Odroid-Home
-
-main_drive_path: "{{ ssd_path }}"
-main_drive_partuuid: "{{ ssd_partuuid }}"
-
-duckdns_domain: xxlpitu-home
-
-glances_mode: server

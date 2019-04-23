@@ -6,7 +6,6 @@
   vars_files:
     - vars/default.yaml
     - vars/vault.yaml
-    - vars/xxlpitu-raspberry-pi-home.yaml
   roles:
     - common
     - log2ram
