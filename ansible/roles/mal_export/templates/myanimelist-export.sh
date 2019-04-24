@@ -1,3 +1,5 @@
+set -x
+
 echo Run myanimelist-export
 
 ./myanimelist-export
