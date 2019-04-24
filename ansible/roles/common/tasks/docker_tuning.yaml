@@ -1,27 +1,32 @@
 ---
+- name: Get stat of docker lib dir
+  stat:
+    path: "{{ default_docker_lib_path }}"
+  register: links
+
 - name: Get all running docker containers
   shell: docker ps --all --quiet
   register: containers
   ignore_errors: yes
+  when: links.stat.islnk is defined and links.stat.islnk == false
 
 - name: Stop all running docker containers
   shell: "docker stop {{ item }}"
   with_items: "{{ containers.stdout_lines }}"
+  when: links.stat.islnk is defined and links.stat.islnk == false
 
 - name: Stop docker service
   service:
     name: docker
     state: stopped
+  when: links.stat.islnk is defined and links.stat.islnk == false
 
 - name: Create docker lib dir
   file:
     path: "{{ default_docker_lib_path }}"
     state: directory
+  when: links.stat.islnk is defined and links.stat.islnk == false
 
-- name: Get stat of docker lib dir
-  stat:
-    path: "{{ default_docker_lib_path }}"
-  register: links
 
 - name: Delete docker lib symbolic link dir
   file:
@@ -33,6 +38,7 @@
   file:
     path: "{{ docker_data_path }}"
     state: directory
+  when: links.stat.islnk is defined and links.stat.islnk == false
 
 - name: Synchronize docker lib dir to docker lib symbolic link dir
   synchronize:
@@ -46,6 +52,7 @@
 - name: Get content of docker lib dir
   shell: "ls -1 {{ default_docker_lib_path }}"
   register: contents
+  when: links.stat.islnk is defined and links.stat.islnk == false
 
 - name: Delete content of docker lib dir
   file:
@@ -61,12 +68,14 @@
     state: link
     force: yes
 
-- name: Start docker service
+- name: Restart docker service
   service:
     name: docker
     state: restarted
     enabled: yes
+  when: links.stat.islnk is defined and links.stat.islnk == false
 
 - name: Start all privious running docker containers
   shell: "docker start {{ item }}"
   with_items: "{{ containers.stdout_lines }}"
+  when: links.stat.islnk is defined and links.stat.islnk == false
