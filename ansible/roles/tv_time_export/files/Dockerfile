@@ -13,3 +13,5 @@ COPY config.yaml /tv_time_export/src/config.yaml
 RUN crontab -l | { cat; echo "0    4       *       *       *       python /tv_time_export/src/tv_time_export.py"; } | crontab -
 VOLUME /tv_time_export/exports
 CMD ["/usr/sbin/crond", "-f"]
+
+# TODO use cron container

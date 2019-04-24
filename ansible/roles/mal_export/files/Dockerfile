@@ -52,3 +52,5 @@ RUN echo "0    4       *       *       *       /myanimelist-export.sh" >> /etc/c
 RUN mkdir /export
 VOLUME /export
 CMD ["cron", "-f"]
+
+# TODO use cron container
