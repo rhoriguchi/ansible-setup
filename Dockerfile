@@ -19,7 +19,12 @@ RUN echo "${ansible_vault_password}" > /password.txt \
     && ansible-vault decrypt --vault-id /password.txt /vault.yaml \
     && rm /password.txt
 
-FROM install_ansible AS base
+FROM install_ansible AS install_tools
+RUN apk add --no-cache \
+    nano \
+    zsh
+
+FROM install_tools
 LABEL maintainer="ryan.horiguchi@gmail.com"
 ARG target_address
 ENV TARGET_ADDRESS=${target_address}
@@ -29,8 +34,3 @@ RUN mkdir /etc/ansible \
 COPY --from=decrypt_ansible_vault /vault.yaml /ansible/vars/vault.yaml
 WORKDIR /ansible
 CMD tail -f /dev/null
-
-FROM base AS install_tools
-RUN apk add --no-cache \
-    nano \
-    zsh
