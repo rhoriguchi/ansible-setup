@@ -15,5 +15,5 @@
     - sickchill
     - tv_time_export
     - mal_export
-    # TODO somethings is wrong, does not work
+#    - homeassistant
     - homeassistant
