@@ -2,6 +2,7 @@
 - name: Build plex image
   docker_image:
     name: linuxserver/plex
+    force: yes
 
 - name: Create plex data dir
   file:

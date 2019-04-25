@@ -2,6 +2,7 @@
 - name: Build duckdns image
   docker_image:
     name: linuxserver/duckdns
+    force: yes
 
 - name: Delete duckdns container
   shell: docker rm --force duckdns

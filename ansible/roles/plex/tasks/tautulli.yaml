@@ -2,6 +2,7 @@
 - name: Build tautulli image
   docker_image:
     name: linuxserver/tautulli
+    force: yes
 
 - name: Create tautulli data dir
   file:

@@ -2,6 +2,7 @@
 - name: Build transmission image
   docker_image:
     name: linuxserver/transmission
+    force: yes
 
 - name: Create transmission data dir
   file:

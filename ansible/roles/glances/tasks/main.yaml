@@ -21,6 +21,7 @@
     buildargs:
       alpine_version: "{{ alpine_version }}"
       python_version: "{{ python_version }}"
+    force: yes
 
 # TODO commented
 

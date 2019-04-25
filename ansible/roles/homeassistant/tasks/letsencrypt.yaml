@@ -2,6 +2,7 @@
 - name: Build letsencrypt image
   docker_image:
     name: linuxserver/letsencrypt
+    force: yes
 
 - name: Create letsencrypt data dir
   file:

@@ -24,6 +24,7 @@
     buildargs:
       alpine_version: "{{ alpine_version }}"
       ubuntu_version: "{{ ubuntu_version }}"
+    force: yes
 
 - name: Create mal_export exports dir
   file:

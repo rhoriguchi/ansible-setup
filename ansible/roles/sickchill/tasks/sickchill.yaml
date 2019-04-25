@@ -2,6 +2,7 @@
 - name: Build sickchill image
   docker_image:
     name: linuxserver/sickchill
+    force: yes
 
 - name: Create sickchill data dir
   file:

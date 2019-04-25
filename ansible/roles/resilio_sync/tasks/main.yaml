@@ -2,6 +2,7 @@
 - name: Build resilio-sync image
   docker_image:
     name: linuxserver/resilio-sync
+    force: yes
 
 - name: Create resilio sync dir
   file:
