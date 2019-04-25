@@ -3,7 +3,8 @@
 default_user: xxlpitu
 default_user_home: "/home/{{ default_user }}"
 
-tmp_docker_dir: "/tmp/ansible_docker"
+tmp_docker_dir: "/tmp/ansible/docker"
+tmp_fetch_dir: "/tmp/ansible/fetch"
 
 timezone: Europe/Zurich
 

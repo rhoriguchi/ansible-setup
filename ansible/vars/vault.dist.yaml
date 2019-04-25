@@ -1,5 +1,3 @@
-# TOD add vault_ before every variable
-
 vault_default_user_password:
 vault_ansible_user_password:
 

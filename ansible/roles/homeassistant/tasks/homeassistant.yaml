@@ -9,8 +9,19 @@
     repo: https://github.com/rhoriguchi/homeassistant.git
     dest: "{{ homeassistant_tmp_repo_path }}"
 
+- name: Create fetch dir
+  file:
+    path: "{{ tmp_fetch_dir }}"
+    state: directory
+
+- name: Fetch config.yaml from remote host
+  fetch:
+    src: "{{ homeassistant_tmp_repo_path }}/config.yaml"
+    dest: "{{ tmp_fetch_dir }}/config.yaml"
+    flat: yes
+
 - include_vars:
-    file: "{{ homeassistant_tmp_repo_path }}/config.yaml"
+    file: "{{ tmp_fetch_dir }}/config.yaml"
     name: homeassistant
 
 - name: Use raspberrypi3 homeassistant image
@@ -23,7 +34,7 @@
     homeassistant_docker_image: "homeassistant/home-assistant"
   when: ansible_lsb.id != "Raspbian"
 
-- name: Build home-assistant image
+- name: "Build {{ homeassistant_docker_image }}:{{ homeassistant.version }} image"
   docker_image:
     name: "{{ homeassistant_docker_image }}:{{ homeassistant.version }}"
 
@@ -51,8 +62,19 @@
     dest: "{{ homeassistant_secrets_tmp_repo_path }}"
   no_log: true
 
+- name: Create fetch dir
+  file:
+    path: "{{ tmp_fetch_dir }}"
+    state: directory
+
+- name: Fetch secrets.yaml from remote host
+  fetch:
+    src: "{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml"
+    dest: "{{ tmp_fetch_dir }}/secrets.yaml"
+    flat: yes
+
 - include_vars:
-    file: "{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml"
+    file: "{{ tmp_fetch_dir }}/secrets.yaml"
 
 - name: Copy secrets.yaml to homeassistant config dir
   copy:
