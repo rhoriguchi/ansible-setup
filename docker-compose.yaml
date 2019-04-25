@@ -8,3 +8,5 @@ services:
       args:
         ansible_vault_password: "${ansible_vault_password}"
         target_address: "${target_address}"
+
+# TODO use different user for each container which have no sudo
