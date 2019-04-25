@@ -55,7 +55,7 @@ RUN sed -i '1s/^.*#//;s/\r$//' /myanimelist-export.sh \
 COPY myanimelist-export.yaml /root/.config/myanimelist-export.yaml
 RUN mkdir /export
 VOLUME /export
-CMD ["/myanimelist-export.sh"]
+CMD ["/bin/bash", "/myanimelist-export.sh"]
 
 FROM base AS cronjob
 RUN apt-get update \
