@@ -19,7 +19,7 @@
 
 - name: Build mal_export image
   docker_image:
-    name: "rhoriguchi/mal_export/{{ vault_mal_username | replace('@', '_at_') }}"
+    name: rhoriguchi/mal_export
     path: "{{ tmp_docker_dir }}"
     buildargs:
       alpine_version: "{{ alpine_version }}"
@@ -46,9 +46,9 @@
     --env TZ='{{ timezone }}'
     --mount src='{{ mal_export_path }}',target=/export,target=/mal_export.log,type=bind,type=bind
     --mount src='{{ mal_export_path }}/mal_export.log'
-    --name 'mal_export_{{ vault_mal_username | replace('@', '_at_') }}'
+    --name mal_export
     --restart unless-stopped
-    rhoriguchi/mal_export/{{ vault_mal_username | replace('@', '_at_') }}
+    rhoriguchi/mal_export
 
 - name: Delete docker files from remote host
   file:

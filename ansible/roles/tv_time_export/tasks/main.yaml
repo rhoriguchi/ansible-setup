@@ -13,7 +13,7 @@
 
 - name: Build tv_time_export image
   docker_image:
-    name: "rhoriguchi/tv_time_export/{{ vault_tv_time_username | replace('@', '_at_') }}"
+    name: rhoriguchi/tv_time_export
     path: "{{ tmp_docker_dir }}"
     buildargs:
       alpine_version: "{{ alpine_version }}"
@@ -50,9 +50,9 @@
     --env TZ='{{ timezone }}'
     --mount src='{{ tv_time_export_path }}t',target=/tv_time_export/exports,type=bind
     --mount src='{{ tv_time_export_data_path }}/tv_time_export.log',target=/tv_time_export/src/tv_time_export.log,type=bind
-    --name 'tv_time_export_{{ vault_tv_time_username | replace('@', '_at_') }}'
+    --name tv_time_export
     --restart unless-stopped
-    rhoriguchi/tv_time_export/{{ vault_tv_time_username | replace('@', '_at_') }}
+    rhoriguchi/tv_time_export
 
 - name: Delete docker files from remote host
   file:
