@@ -81,6 +81,7 @@
     src: "{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml"
     dest: "{{ dot_homeassistant_path }}"
     force: yes
+  delegate_to: "{{ inventory_hostname }}"
 
 - name: Delete homeassistant_secrets temp repo
   file:
