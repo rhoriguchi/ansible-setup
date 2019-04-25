@@ -31,7 +31,7 @@
 
 - name: Use default homeassistant image
   set_fact:
-    homeassistant_docker_image: "homeassistant/home-assistant"
+    homeassistant_docker_image: "homeassistant/{{ ansible_architecture }}-homeassistant"
   when: ansible_lsb.id != "Raspbian"
 
 - name: "Build {{ homeassistant_docker_image }}:{{ homeassistant.version }} image"
@@ -77,11 +77,7 @@
     file: "{{ tmp_fetch_dir }}/secrets.yaml"
 
 - name: Copy secrets.yaml to homeassistant config dir
-  copy:
-    src: "{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml"
-    dest: "{{ dot_homeassistant_path }}"
-    force: yes
-  delegate_to: "{{ inventory_hostname }}"
+  shell: "cp '{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml' 'dot_homeassistant_path'"
 
 - name: Delete homeassistant_secrets temp repo
   file:
