@@ -4,6 +4,7 @@
   become: yes
   become_user: root
   vars_files:
+    - vars/default.yaml
     - vars/vault.yaml
   roles:
     - init_system

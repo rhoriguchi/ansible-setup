@@ -1,4 +1,0 @@
----
-- name: Set correct timezone
-  timezone:
-    name: "{{ timezone }}"

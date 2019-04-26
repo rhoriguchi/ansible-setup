@@ -1,0 +1,12 @@
+---
+- name: "Set timezone {{ timezone }}"
+  timezone:
+    name: "{{ timezone }}"
+
+# TODO set default language en_US
+
+- name: Ensure that locale en_US.UTF-8 exists
+  locale_gen:
+    # TODO add to variable
+    name: en_US.UTF-8
+    state: present
