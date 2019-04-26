@@ -1,8 +1,4 @@
 ---
-- name: Hostname stdout
-  command: hostname
-  register: hostname
-
 - name: OS default user is pi
   set_fact:
     os_default_user: pi
