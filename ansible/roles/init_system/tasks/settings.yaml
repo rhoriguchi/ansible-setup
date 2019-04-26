@@ -1,12 +1,34 @@
 ---
-- name: "Set timezone {{ timezone }}"
+- name: "Set timezone as {{ timezone }}"
   timezone:
     name: "{{ timezone }}"
 
-# TODO set default language en_US
+- name: "Set LC_ALL as {{ language }}"
+  lineinfile:
+    path: /etc/environment
+    line: "LC_ALL={{ language }}"
 
-- name: Ensure that locale en_US.UTF-8 exists
-  locale_gen:
-    # TODO add to variable
-    name: en_US.UTF-8
-    state: present
+- name: "Set LANG as {{ language }}"
+  lineinfile:
+    path: /etc/environment
+    line: "LANG={{ language }}"
+
+- name: "Set LANGUAGE as {{ language }}"
+  lineinfile:
+    path: /etc/environment
+    line: "LANGUAGE={{ language }}"
+
+- name: Set DEBCONF_FRONTEND as noninteractive
+  lineinfile:
+    path: /etc/environment
+    line: DEBCONF_FRONTEND=noninteractive
+
+- name: Set DEBIAN_FRONTEND as noninteractive
+  lineinfile:
+    path: /etc/environment
+    line: DEBIAN_FRONTEND=noninteractive
+
+
+# TODO set this /etc/default/console-setup
+# https://superuser.com/questions/1332341/console-setup-causes-apt-get-update-to-hang/1332550#1332550
+# https://superuser.com/questions/1332341/console-setup-causes-apt-get-update-to-hang/1332550#1332550
