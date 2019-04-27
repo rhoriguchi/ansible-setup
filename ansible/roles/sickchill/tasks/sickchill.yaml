@@ -1,4 +1,6 @@
 ---
+# TODO add config file
+
 - name: Build sickchill image
   docker_image:
     name: linuxserver/sickchill
