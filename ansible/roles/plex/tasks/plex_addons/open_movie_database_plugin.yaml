@@ -4,7 +4,7 @@
     path: "{{ plex_plugins_path }}"
     state: directory
 
-- name: Delete OpenMovieDatabase.bundle dir in plex plugin dir if exist
+- name: Delete OpenMovieDatabase.bundle dir in plex plugin dir
   file:
     path: "{{ open_movie_database_plugin_path }}"
     state: absent

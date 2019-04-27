@@ -8,7 +8,7 @@
     install_recommends: no
     update_cache: yes
 
-- name: Delete dotfiles repo if exist
+- name: Delete dotfiles repo
   file:
     path: "{{ default_user_dotfiles_path }}"
     state: absent

@@ -4,7 +4,7 @@
     path: "{{ plex_plugins_path }}"
     state: directory
 
-- name: Delete Subliminal.bundle dir in plex plugin dir if exist
+- name: Delete Subliminal.bundle dir in plex plugin dir
   file:
     path: "{{ subliminal_plugin_path }}"
     state: absent

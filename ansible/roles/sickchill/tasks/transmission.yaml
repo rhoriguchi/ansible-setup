@@ -9,7 +9,7 @@
     path: "{{ transmission_data_path }}"
     state: directory
 
-- name: Create transmission config dir
+- name: Create transmission /config dir
   file:
     path: "{{ transmission_data_path }}/config"
     state: directory
@@ -19,12 +19,12 @@
     src: transmission/settings.json
     dest: "{{ transmission_data_path }}/config"
 
-- name: Create transmission watch dir
+- name: Create transmission /watch dir
   file:
     path: "{{ transmission_data_path }}/watch"
     state: directory
 
-- name: Create transmission downloads dir
+- name: Create transmission /downloads dir
   file:
     path: "{{ transmission_data_path }}/downloads"
     state: directory

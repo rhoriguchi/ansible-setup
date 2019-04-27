@@ -34,7 +34,7 @@
     path: "{{ tv_time_export_data_path }}"
     state: directory
 
-- name: Create tv_time_export log file
+- name: Create tv_time_export /tv_time_export.log file
   file:
     path: "{{ tv_time_export_data_path }}/tv_time_export.log"
     state: touch

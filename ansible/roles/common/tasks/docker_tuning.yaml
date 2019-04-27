@@ -27,7 +27,6 @@
     state: directory
   when: links.stat.islnk is defined and links.stat.islnk == false
 
-
 - name: Delete docker lib symbolic link dir
   file:
     path: "{{ docker_data_path }}"
