@@ -5,6 +5,7 @@
 - Glances - 61208
 - Home Assistant - 8123
 - Plex - 32400
+- Portainer - 9000
 - Resilio Sync - 8888
 - SSH - 22
 - Sickchill 8081

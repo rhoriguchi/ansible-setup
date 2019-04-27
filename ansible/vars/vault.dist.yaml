@@ -16,3 +16,5 @@ vault_docker_hub_password:
 vault_duckdns_token:
 
 vault_glances_password:
+
+vault_portainer_password: VKhql7Oe5#sGN30P

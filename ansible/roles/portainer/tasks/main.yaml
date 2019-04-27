@@ -1,0 +1,30 @@
+---
+- name: Build portainer image
+  docker_image:
+    name: portainer/portainer
+    force: yes
+
+- name: Create portainer data dir
+  file:
+    path: "{{ portainer_data_path }}"
+    state: directory
+
+- name: Create portainer /data dir
+  file:
+    path: "{{ portainer_data_path }}/data"
+    state: directory
+
+- name: Delete portainer container
+  shell: docker rm --force portainer
+  ignore_errors: yes
+
+- name: Create portainer container
+  shell: >-
+    docker run
+    --detach
+    --mount src='{{ portainer_data_path }}/data',target=/data,type=bind
+    --mount src=/var/run/docker.sock,target=/var/run/docker.sock,type=bind
+    --name portainer
+    --publish 9000:9000
+    --restart unless-stopped
+    portainer/portainer --admin-password={{ vault_portainer_password | password_hash('sha512') }}

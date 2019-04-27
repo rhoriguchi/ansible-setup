@@ -10,6 +10,7 @@
     - common
     - log2ram
     - duckdns
+    - portainer
     - glances
     - resilio_sync
     - plex
