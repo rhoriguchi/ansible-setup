@@ -10,9 +10,6 @@ vault_tv_time_password:
 vault_mal_username:
 vault_mal_password:
 
-vault_docker_hub_username:
-vault_docker_hub_password:
-
 vault_duckdns_token:
 
 vault_glances_password:
