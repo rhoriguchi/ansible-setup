@@ -26,7 +26,7 @@
 
 - name: Create tv_time_export exports dir
   file:
-    path: "{{ tv_time_export_path }}t"
+    path: "{{ tv_time_export_path }}"
     state: directory
 
 - name: Create tv_time_export data dir
@@ -40,7 +40,7 @@
     state: touch
 
 - name: Delete tv_time_export container
-  shell: "docker rm --force tv_time_export_{{ vault_tv_time_username | replace('@', '_at_') }}"
+  shell: "docker rm --force tv_time_export"
   ignore_errors: yes
 
 - name: Create tv_time_export container
@@ -48,7 +48,7 @@
     docker run
     --detach
     --env TZ='{{ timezone }}'
-    --mount src='{{ tv_time_export_path }}t',target=/tv_time_export/exports,type=bind
+    --mount src='{{ tv_time_export_path }}',target=/tv_time_export/exports,type=bind
     --mount src='{{ tv_time_export_data_path }}/tv_time_export.log',target=/tv_time_export/src/tv_time_export.log,type=bind
     --name tv_time_export
     --restart unless-stopped
