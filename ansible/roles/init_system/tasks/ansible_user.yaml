@@ -1,10 +1,10 @@
 ---
-- name: Add docker group
+- name: Add group docker
   group:
     name: docker
     state: present
 
-- name: Add ansible user
+- name: Add user ansible
   user:
     name: ansible
     password: "{{ vault_ansible_user_password | password_hash('sha512') }}"

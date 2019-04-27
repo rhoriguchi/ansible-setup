@@ -1,6 +1,7 @@
 ---
-- name: Updating package list
+- name: Update package list
   shell: apt-get update
+  warn: false
 
 # TODO fails on odroid because boot.ini update needs okay confirm and some keyboard selection prompt
 - name: Upgrade all packages to the latest version

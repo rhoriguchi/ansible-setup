@@ -3,27 +3,27 @@
   timezone:
     name: "{{ timezone }}"
 
-- name: "Set LC_ALL as {{ language }}"
+- name: "Set environment variable LC_ALL as {{ language }}"
   lineinfile:
     path: /etc/environment
     line: "LC_ALL={{ language }}"
 
-- name: "Set LANG as {{ language }}"
+- name: "Set environment variable LANG as {{ language }}"
   lineinfile:
     path: /etc/environment
     line: "LANG={{ language }}"
 
-- name: "Set LANGUAGE as {{ language }}"
+- name: "Set environment variable LANGUAGE as {{ language }}"
   lineinfile:
     path: /etc/environment
     line: "LANGUAGE={{ language }}"
 
-- name: Set DEBCONF_FRONTEND as noninteractive
+- name: Set environment variable DEBCONF_FRONTEND as noninteractive
   lineinfile:
     path: /etc/environment
     line: DEBCONF_FRONTEND=noninteractive
 
-- name: Set DEBIAN_FRONTEND as noninteractive
+- name: Set environment variable DEBIAN_FRONTEND as noninteractive
   lineinfile:
     path: /etc/environment
     line: DEBIAN_FRONTEND=noninteractive

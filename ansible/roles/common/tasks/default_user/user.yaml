@@ -1,5 +1,5 @@
 ---
-- name: Add docker group
+- name: Add group docker
   group:
     name: docker
     state: present
