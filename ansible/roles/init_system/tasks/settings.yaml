@@ -3,6 +3,11 @@
   timezone:
     name: "{{ timezone }}"
 
+- name: "Ensure {{ language }} exists"
+  locale_gen:
+    name: "{{ language }}"
+    state: present
+
 - name: "Set environment variable LC_ALL as {{ language }}"
   lineinfile:
     path: /etc/environment
