@@ -9,6 +9,6 @@
     name: "{{ default_user }}"
     password: "{{ vault_default_user_password | password_hash('sha512') }}"
     uid: 4242
-    shell: /usr/bin/zsh
+    shell: /bin/zsh
     groups: docker,sudo,users
     append: yes
