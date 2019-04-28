@@ -14,6 +14,12 @@
     path: "{{ portainer_data_path }}/data"
     state: directory
 
+# TODO use authentication
+#- name: Generate portainer admin password hash
+#  shell: "docker run --rm httpd:2.4-alpine htpasswd -nbB admin {{ vault_portainer_password }} | cut -d ':' -f 2"
+#  register: portainer_admin_password
+#  no_log: true
+
 - name: Delete portainer container
   shell: docker rm --force portainer
   ignore_errors: yes
@@ -27,4 +33,5 @@
     --name portainer
     --publish 9000:9000
     --restart unless-stopped
-    portainer/portainer --admin-password={{ vault_portainer_password | password_hash('sha512') }}
+    portainer/portainer  --no-auth
+# portainer/portainer --admin-password={{ portainer_admin_password.stdout_lines }}

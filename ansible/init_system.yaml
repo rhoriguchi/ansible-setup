@@ -8,3 +8,5 @@
     - vars/vault.yaml
   roles:
     - init_system
+
+# TODO decide to use single or double quotes
