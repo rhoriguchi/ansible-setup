@@ -4,6 +4,16 @@
     name: linuxserver/duckdns
     force: yes
 
+- name: Create duckdns data dir
+  file:
+    path: "{{ duckdns_data_path }}"
+    state: directory
+
+- name: Create duckdns /config dir
+  file:
+    path: "{{ duckdns_data_path }}/config"
+    state: directory
+
 - name: Delete duckdns container
   shell: docker rm --force duckdns
   ignore_errors: yes
@@ -12,9 +22,11 @@
   shell: >-
     docker run
     --detach
+    --env LOG_FILE=true
     --env SUBDOMAINS='{{ duckdns_domain }}'
     --env TOKEN='{{ vault_duckdns_token }}'
     --env TZ='{{ timezone }}'
+    --mount src='{{ duckdns_data_path }}/config',target=/config,type=bind
     --name duckdns
     --restart unless-stopped
     linuxserver/duckdns

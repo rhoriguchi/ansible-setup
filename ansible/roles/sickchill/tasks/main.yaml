@@ -1,5 +1,3 @@
 ---
 - include: transmission.yaml
 - include: sickchill.yaml
-
-# TODO use compose

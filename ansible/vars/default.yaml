@@ -14,6 +14,7 @@ resilio_sync_downloads_save_path: "{{ main_drive_path }}/syncDownloads"
 
 # data_path
 docker_data_path: "{{ main_drive_path }}/library/docker"
+duckdns_data_path: "{{ main_drive_path }}/library/duckdns"
 homeassistant_data_path: "{{ main_drive_path }}/library/homeassistant"
 letsencrypt_data_path: "{{ main_drive_path }}/library/letsencrypt"
 mal_export_data_path: "{{ main_drive_path }}/library/mal_exporter"
@@ -24,6 +25,11 @@ resilio_sync_data_path: "{{ main_drive_path }}/library/resilio-sync"
 tautulli_data_path: "{{ main_drive_path }}/library/tautulli"
 transmission_data_path: "{{ main_drive_path }}/library/transmission"
 tv_time_export_data_path: "{{ main_drive_path }}/library/tv_time_export"
+
+# UID
+ansible_id: 3131
+default_user_id: 4242
+duckdns_id: 3001
 
 # docker_version
 alpine_version: 3.9.3

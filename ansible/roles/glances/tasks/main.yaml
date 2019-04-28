@@ -1,7 +1,4 @@
 ---
-
-# TODO external drive not showing
-
 - name: Generate glances.conf with correct values
   template:
     src: glances.conf

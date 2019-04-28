@@ -1,14 +1,9 @@
 ---
-- name: Add group docker
-  group:
-    name: docker
-    state: present
-
 - name: "Add default user {{ default_user }}"
   user:
     name: "{{ default_user }}"
     password: "{{ vault_default_user_password | password_hash('sha512') }}"
-    uid: 4242
+    uid: "{{ default_user_id }}"
     shell: /bin/zsh
     groups: docker,sudo,users
     append: yes

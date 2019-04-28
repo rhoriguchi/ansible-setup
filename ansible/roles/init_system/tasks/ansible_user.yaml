@@ -8,7 +8,7 @@
   user:
     name: ansible
     password: "{{ vault_ansible_user_password | password_hash('sha512') }}"
-    uid: 3131
+    uid: "{{ ansible_id }}"
     shell: /bin/bash
     groups: docker,sudo,users
     append: yes
