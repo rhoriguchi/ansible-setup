@@ -24,6 +24,11 @@
     file: "{{ tmp_fetch_dir }}/config.yaml"
     name: homeassistant
 
+- name: Delete fetch dir
+  file:
+    path: "{{ tmp_fetch_dir }}"
+    state: absent
+
 - name: Use raspberrypi3 homeassistant image
   set_fact:
     homeassistant_docker_image: "homeassistant/raspberrypi3-homeassistant"
@@ -75,6 +80,11 @@
 
 - include_vars:
     file: "{{ tmp_fetch_dir }}/secrets.yaml"
+
+- name: Delete fetch dir
+  file:
+   path: "{{ tmp_fetch_dir }}"
+   state: absent
 
 - name: Copy secrets.yaml to homeassistant config dir
   shell: "cp '{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml' '{{ dot_homeassistant_path }}'"
