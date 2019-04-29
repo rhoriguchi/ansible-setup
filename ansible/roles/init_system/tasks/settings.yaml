@@ -3,10 +3,8 @@
   timezone:
     name: "{{ timezone }}"
 
-- name: "Ensure {{ language }} exists"
-  locale_gen:
-    name: "{{ language }}"
-    state: present
+- name: "locale-gen {{ language }}"
+  shell: "locale-gen {{ language }}"
 
 - name: "Set environment variable LC_ALL as {{ language }}"
   lineinfile:
