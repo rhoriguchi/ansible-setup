@@ -77,7 +77,7 @@
     file: "{{ tmp_fetch_dir }}/secrets.yaml"
 
 - name: Copy secrets.yaml to homeassistant config dir
-  shell: "cp '{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml' 'dot_homeassistant_path'"
+  shell: "cp '{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml' '{{ dot_homeassistant_path }}'"
 
 - name: Delete homeassistant_secrets temp repo
   file:
