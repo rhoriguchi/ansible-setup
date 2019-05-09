@@ -3,7 +3,7 @@
 default_user: xxlpitu
 default_user_home: "/home/{{ default_user }}"
 
-tmp_docker_dir: "/tmp/ansible/docker"
+target_tmp_docker_dir: "/tmp/ansible/docker"
 tmp_fetch_dir: "/tmp/ansible/fetch"
 
 timezone: Europe/Zurich
@@ -12,7 +12,7 @@ language: en_US.UTF-8
 resilio_sync_save_path: "{{ main_drive_path }}/sync"
 resilio_sync_downloads_save_path: "{{ main_drive_path }}/syncDownloads"
 
-# data_path
+# data paths
 docker_data_path: "{{ main_drive_path }}/library/docker"
 duckdns_data_path: "{{ main_drive_path }}/library/duckdns"
 homeassistant_data_path: "{{ main_drive_path }}/library/homeassistant"
@@ -31,7 +31,10 @@ ansible_id: 3131
 default_user_id: 4242
 duckdns_id: 3001
 
-# docker_version
+# docker-compose version
+docker_compose_version: 1.24.0
+
+# docker images version
 alpine_version: 3.9.3
 python_version: 3.7.3-alpine
 ubuntu_version: 19.04

@@ -16,13 +16,13 @@
 - name: Copy docker files to remote host
   copy:
     src: "{{ role_path }}/files/"
-    dest: "{{ tmp_docker_dir }}"
+    dest: "{{ target_tmp_docker_dir }}"
     force: yes
 
 - name: Build mal_export image
   docker_image:
     name: rhoriguchi/mal_export
-    path: "{{ tmp_docker_dir }}"
+    path: "{{ target_tmp_docker_dir }}"
     buildargs:
       alpine_version: "{{ alpine_version }}"
       ubuntu_version: "{{ ubuntu_version }}"
@@ -55,5 +55,5 @@
 
 - name: Delete docker files from remote host
   file:
-    path: "{{ tmp_docker_dir }}"
+    path: "{{ target_tmp_docker_dir }}"
     state: absent

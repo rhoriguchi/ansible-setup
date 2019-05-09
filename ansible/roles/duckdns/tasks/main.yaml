@@ -2,13 +2,13 @@
 - name: Copy docker files to remote host
   copy:
     src: "{{ role_path }}/files/"
-    dest: "{{ tmp_docker_dir }}"
+    dest: "{{ target_tmp_docker_dir }}"
     force: yes
 
 - name: Build duckdns image
   docker_image:
     name: rhoriguchi/duckdns
-    path: "{{ tmp_docker_dir }}"
+    path: "{{ target_tmp_docker_dir }}"
     buildargs:
       duckdns_domain: "{{ duckdns_domain }}"
       duckdns_token: "{{ vault_duckdns_token }}"
@@ -40,5 +40,5 @@
 
 - name: Delete docker files from remote host
   file:
-    path: "{{ tmp_docker_dir }}"
+    path: "{{ target_tmp_docker_dir }}"
     state: absent

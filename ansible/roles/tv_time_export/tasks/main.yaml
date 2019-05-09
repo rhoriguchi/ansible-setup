@@ -8,13 +8,13 @@
 - name: Copy docker files to remote host
   copy:
     src: "{{ role_path }}/files/"
-    dest: "{{ tmp_docker_dir }}"
+    dest: "{{ target_tmp_docker_dir }}"
     force: yes
 
 - name: Build tv_time_export image
   docker_image:
     name: rhoriguchi/tv_time_export
-    path: "{{ tmp_docker_dir }}"
+    path: "{{ target_tmp_docker_dir }}"
     buildargs:
       alpine_version: "{{ alpine_version }}"
       python_version: "{{ python_version }}"
@@ -56,5 +56,5 @@
 
 - name: Delete docker files from remote host
   file:
-    path: "{{ tmp_docker_dir }}"
+    path: "{{ target_tmp_docker_dir }}"
     state: absent
