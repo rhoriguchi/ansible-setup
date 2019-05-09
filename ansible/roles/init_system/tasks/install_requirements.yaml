@@ -1,9 +1,9 @@
 ---
-- name: Update package list
-  shell: apt-get update
-
 - name: Hold boot.ini upgrade
   shell: apt-mark hold bootini
+
+- name: Update package list
+  shell: apt-get update
 
 - name: Upgrade all packages to the latest version
   shell: apt-get upgrade --no-install-recommends --yes --assume-yes
@@ -11,11 +11,11 @@
 - name: Upgrade distribution to the latest version
   shell: apt-get dist-upgrade --no-install-recommends --yes --assume-yes
 
-- name: Unhold boot.ini upgrade
-  shell: apt-mark unhold bootini
-
 - name: Remove dependencies that are no longer required
   shell: apt-get autoremove --yes --assume-yes
+
+- name: Unhold boot.ini upgrade
+  shell: apt-mark unhold bootini
 
 - name: Reboot system
   shell: "sleep 5 && reboot"
