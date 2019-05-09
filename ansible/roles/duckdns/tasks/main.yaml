@@ -1,7 +1,18 @@
 ---
+- name: Copy docker files to remote host
+  copy:
+    src: "{{ role_path }}/files/"
+    dest: "{{ tmp_docker_dir }}"
+    force: yes
+
 - name: Build duckdns image
   docker_image:
-    name: linuxserver/duckdns
+    name: rhoriguchi/duckdns
+    path: "{{ tmp_docker_dir }}"
+    buildargs:
+      duckdns_domain: "{{ duckdns_domain }}"
+      duckdns_token: "{{ vault_duckdns_token }}"
+      alpine_version: "{{ alpine_version }}"
     force: yes
 
 - name: Create duckdns data dir
@@ -9,10 +20,10 @@
     path: "{{ duckdns_data_path }}"
     state: directory
 
-- name: Create duckdns /config dir
+- name: Create duckdns /duck.log file
   file:
-    path: "{{ duckdns_data_path }}/config"
-    state: directory
+    path: "{{ tv_time_export_data_path }}/duck.log"
+    state: touch
 
 - name: Delete duckdns container
   shell: docker rm --force duckdns
@@ -22,11 +33,12 @@
   shell: >-
     docker run
     --detach
-    --env LOG_FILE=true
-    --env SUBDOMAINS='{{ duckdns_domain }}'
-    --env TOKEN='{{ vault_duckdns_token }}'
-    --env TZ='{{ timezone }}'
-    --mount src='{{ duckdns_data_path }}/config',target=/config,type=bind
+    --mount src='{{ duckdns_data_path }}/duck.log',target=/duckdns/duck.log,type=bind
     --name duckdns
     --restart unless-stopped
-    linuxserver/duckdns
+    rhoriguchi/duckdns
+
+- name: Delete docker files from remote host
+  file:
+    path: "{{ tmp_docker_dir }}"
+    state: absent
