@@ -1,8 +1,8 @@
 ---
 - name: Generate glances.conf with correct values
   template:
-    src: glances.conf
-    dest: "{{ role_path }}/files"
+    src: glances.conf.jinja2
+    dest: "{{ role_path }}/files/glances.conf"
   delegate_to: localhost
 
 - name: Copy docker files to remote host

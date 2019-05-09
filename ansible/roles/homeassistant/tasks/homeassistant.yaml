@@ -96,8 +96,8 @@
 
 - name: Generate phue.conf with correct hue token in homeassistant config dir
   template:
-    src: homeassistant/phue.conf
-    dest: "{{ dot_homeassistant_path }}"
+    src: homeassistant/phue.conf.jinja2
+    dest: "{{ dot_homeassistant_path }}/phue.conf"
 
 - name: Delete home-assistant.log
   file:

@@ -1,7 +1,7 @@
 ---
 - name: Generate config.yaml with correct values
   template:
-    src: config.yaml
+    src: config.yaml.jinja2
     dest: "{{ role_path }}/files/config.yaml"
   delegate_to: localhost
 
