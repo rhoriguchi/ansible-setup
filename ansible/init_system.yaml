@@ -9,4 +9,5 @@
   roles:
     - init_system
 
+# TODO move target_host to .env and rename var
 # TODO decide to use single or double quotes
