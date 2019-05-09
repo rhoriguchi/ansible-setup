@@ -2,12 +2,17 @@
 - name: Update package list
   shell: apt-get update
 
-# TODO fails on odroid because boot.ini update needs okay confirm and some keyboard selection prompt
+- name: Hold boot.ini upgrade
+  shell: apt-mark hold bootini
+
 - name: Upgrade all packages to the latest version
   shell: apt-get upgrade --no-install-recommends --yes --assume-yes
 
 - name: Upgrade distribution to the latest version
   shell: apt-get dist-upgrade --no-install-recommends --yes --assume-yes
+
+- name: Unhold boot.ini upgrade
+  shell: apt-mark unhold bootini
 
 - name: Remove dependencies that are no longer required
   shell: apt-get autoremove --yes --assume-yes
