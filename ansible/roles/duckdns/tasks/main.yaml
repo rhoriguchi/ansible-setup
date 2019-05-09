@@ -22,7 +22,7 @@
 
 - name: Create duckdns /duck.log file
   file:
-    path: "{{ tv_time_export_data_path }}/duck.log"
+    path: "{{ duckdns_data_path }}/duck.log"
     state: touch
 
 - name: Delete duckdns container
