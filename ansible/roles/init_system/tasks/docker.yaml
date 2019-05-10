@@ -8,20 +8,12 @@
     url: "https://download.docker.com/linux/{{ ansible_lsb.id | lower }}/gpg"
     state: present
 
-- name: Hardware architecture is armhf
-  set_fact:
-    hardware_architecture: armhf
-  when: ansible_architecture == "armv7l"
+- name: Get hardware architecture
+  shell: dpkg --print-architecture
+  register: hardware_architecture
 
-- name: Hardware architecture is arm64
-  set_fact:
-    hardware_architecture: arm64
-  when: ansible_architecture == "aarch64"
-
-- name: "Hardware architecture is {{ ansible_architecture }}"
-  set_fact:
-    hardware_architecture: "{{ ansible_architecture }}"
-  when: hardware_architecture is undefined
+- set_fact:
+    hardware_architecture={{ hardware_architecture.stdout }}
 
 - name: Add apt repository for docker
   apt_repository:
