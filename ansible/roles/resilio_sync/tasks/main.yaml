@@ -1,7 +1,22 @@
 ---
-- name: Build resilio-sync image
+- name: Generate config.json with correct values
+  template:
+    src: config.json.jinja2
+    dest: "{{ role_path }}/files/config.json"
+  delegate_to: localhost
+
+- name: Copy docker files to remote host
+  copy:
+    src: "{{ role_path }}/files/"
+    dest: "{{ target_tmp_docker_dir }}"
+    force: yes
+
+- name: Build resilio sync image
   docker_image:
-    name: linuxserver/resilio-sync
+    name: rhoriguchi/resilio_sync
+    path: "{{ target_tmp_docker_dir }}"
+    buildargs:
+      ubuntu_version: "{{ ubuntu_version }}"
     force: yes
 
 - name: Create resilio sync dir
@@ -20,19 +35,18 @@
     state: directory
 
 - name: Delete resilio-sync container
-  shell: docker rm --force resilio-sync
+  shell: docker rm --force rhoriguchi/resilio_sync
   ignore_errors: yes
 
 - name: Create resilio-sync container
   shell: >-
     docker run
     --detach
-    --env TZ='{{ timezone }}'
     --mount src='{{ resilio_sync_data_path }}',target=/config,type=bind
     --mount src='{{ resilio_sync_downloads_save_path }}',target=/downloads,type=bind
     --mount src='{{ resilio_sync_save_path }}',target=/sync,type=bind
-    --name resilio-sync
+    --name resilio_sync
     --publish 5555:5555
     --publish 8888:8888
     --restart unless-stopped
-    linuxserver/resilio-sync
+   rhoriguchi/resilio_sync
