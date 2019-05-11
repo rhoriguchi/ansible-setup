@@ -14,4 +14,7 @@ vault_duckdns_token:
 
 vault_glances_password:
 
-vault_portainer_password: VKhql7Oe5#sGN30P
+vault_portainer_password:
+
+vault_resilio_sync_user:
+vault_resilio_sync_password:
