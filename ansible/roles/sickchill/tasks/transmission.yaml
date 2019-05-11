@@ -1,7 +1,7 @@
 ---
 - name: Build transmission image
   docker_image:
-    name: linuxserver/transmission
+    name: haugene/transmission-openvpn
     force: yes
 
 - name: Create transmission data dir
@@ -14,19 +14,9 @@
     path: "{{ transmission_data_path }}/config"
     state: directory
 
-- name: Copy settings.json to transmission config data dir
-  copy:
-    src: transmission/settings.json
-    dest: "{{ transmission_data_path }}/config"
-
-- name: Create transmission /watch dir
+- name: Create transmission /data dir
   file:
-    path: "{{ transmission_data_path }}/watch"
-    state: directory
-
-- name: Create transmission /downloads dir
-  file:
-    path: "{{ transmission_data_path }}/downloads"
+    path: "{{ transmission_data_path }}/data"
     state: directory
 
 - name: Delete transmission container
@@ -37,13 +27,14 @@
   shell: >-
     docker run
     --detach
-    --env TZ='{{ timezone }}'
+    --env OPENVPN_PASSWORD={{ vault_openvpn_password }}
+    --env OPENVPN_PROVIDER=NORDVPN
+    --env OPENVPN_USERNAME={{ vault_openvpn_username }}
+    --env TRANSMISSION_RATIO_LIMIT=0
+    --env TRANSMISSION_RATIO_LIMIT_ENABLED=true
     --mount src='{{ transmission_data_path }}/config',target=/config,type=bind
-    --mount src='{{ transmission_data_path }}/downloads',target=/downloads,type=bind
-    --mount src='{{ transmission_data_path }}/watch',target=/watch,type=bind
+    --mount src='{{ transmission_data_path }}/data',target=/data,type=bind
     --name transmission
-    --publish 51413:51413
-    --publish 51413:51413/udp
     --publish 9091:9091
     --restart unless-stopped
-    linuxserver/transmission
+    haugene/transmission-openvpn
