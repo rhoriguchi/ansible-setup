@@ -3,5 +3,5 @@
 - include: install_requirements.yaml
 - include: settings.yaml
 - include: ansible_user.yaml
-- include: docker.yaml
+- include: docker/main.yaml
 - include: delete_os_default_user.yaml

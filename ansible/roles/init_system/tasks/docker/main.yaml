@@ -1,0 +1,6 @@
+---
+- include: docker.yaml
+- include: docker_compose.yaml
+
+- name: Remove all unused ressources
+  shell: docker system prune --all --force
