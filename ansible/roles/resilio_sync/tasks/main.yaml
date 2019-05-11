@@ -49,4 +49,4 @@
     --publish 5555:5555
     --publish 8888:8888
     --restart unless-stopped
-   rhoriguchi/resilio_sync
+    rhoriguchi/resilio_sync
