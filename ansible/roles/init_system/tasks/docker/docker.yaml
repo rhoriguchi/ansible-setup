@@ -14,7 +14,7 @@
 
 - name: Set hardware architecture
   set_fact:
-    hardware_architecture: {{ hardware_architecture.stdout }}
+    hardware_architecture: "{{ hardware_architecture.stdout }}"
 
 - name: Add apt repository for docker
   apt_repository:
