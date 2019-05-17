@@ -1,0 +1,3 @@
+---
+# docker_compose
+target_tmp_docker_dir: "/tmp/ansible/docker"

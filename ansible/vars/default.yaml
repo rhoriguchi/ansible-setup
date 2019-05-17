@@ -3,9 +3,6 @@
 default_user: xxlpitu
 default_user_home: "/home/{{ default_user }}"
 
-target_tmp_docker_dir: "/tmp/ansible/docker"
-tmp_fetch_dir: "/tmp/ansible/fetch"
-
 timezone: Europe/Zurich
 language: en_US.UTF-8
 
@@ -13,10 +10,10 @@ resilio_sync_save_path: "{{ main_drive_path }}/sync"
 resilio_sync_downloads_save_path: "{{ main_drive_path }}/syncDownloads"
 
 # data paths
+docker_compose_data_path: "{{ main_drive_path }}/library/docker_compose"
 docker_data_path: "{{ main_drive_path }}/library/docker"
 duckdns_data_path: "{{ main_drive_path }}/library/duckdns"
 homeassistant_data_path: "{{ main_drive_path }}/library/homeassistant"
-letsencrypt_data_path: "{{ main_drive_path }}/library/letsencrypt"
 mal_export_data_path: "{{ main_drive_path }}/library/mal_exporter"
 plex_data_path: "{{ main_drive_path }}/library/plex"
 portainer_data_path: "{{ main_drive_path }}/library/portainer"
@@ -26,10 +23,19 @@ tautulli_data_path: "{{ main_drive_path }}/library/tautulli"
 transmission_data_path: "{{ main_drive_path }}/library/transmission"
 tv_time_export_data_path: "{{ main_drive_path }}/library/tv_time_export"
 
+# docker-compose path
+docker_compose_duckdns_path: "{{ docker_compose_data_path }}/duckdns"
+docker_compose_glances_path: "{{ docker_compose_data_path }}/glances"
+docker_compose_homeassistant_path: "{{ docker_compose_data_path }}/homeassistant"
+docker_compose_mal_export_path: "{{ docker_compose_data_path }}/mal_exporter"
+docker_compose_plex_path: "{{ docker_compose_data_path }}/plex"
+docker_compose_portainer_path: "{{ docker_compose_data_path }}/portainer"
+docker_compose_resilio_sync_path: "{{ docker_compose_data_path }}/resilio_sync"
+docker_compose_tv_time_export_path: "{{ docker_compose_data_path }}/tv_time_export"
+
 # UID
 ansible_id: 3131
 default_user_id: 4242
-duckdns_id: 3001
 
 # docker-compose version
 docker_compose_version: 1.24.0

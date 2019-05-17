@@ -1,26 +1,5 @@
 ---
-- name: Build tautulli image
-  docker_image:
-    name: linuxserver/tautulli
-    force: yes
-
 - name: Create tautulli data dir
   file:
     path: "{{ tautulli_data_path }}"
     state: directory
-
-- name: Delete tautulli container
-  shell: docker rm --force tautulli
-  ignore_errors: yes
-
-- name: Create tautulli container
-  shell: >-
-    docker run
-    --detach
-    --env TZ='{{ timezone }}'
-    --mount src='{{ plex_data_path }}/Logs',target=/logs,type=bind
-    --mount src='{{ tautulli_data_path }}',target=/config,type=bind
-    --name tautulli
-    --publish 8181:8181
-    --restart unless-stopped
-    linuxserver/tautulli

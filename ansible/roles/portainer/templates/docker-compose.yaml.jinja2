@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    restart: unless-stopped
+    command: "--admin-password={{ portainer_hashed_admin_password | replace("$", "$$") }} --host unix:///var/run/docker.sock"
+    ports:
+      - "9000:9000"
+    volumes:
+      - type: bind
+        source: "/var/run/docker.sock"
+        target: "/var/run/docker.sock"
+      - type: bind
+        source: "{{ portainer_data_path }}/data"
+        target: "/data"

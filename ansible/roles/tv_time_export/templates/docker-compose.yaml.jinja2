@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  tv_time_export:
+    container_name: tv_time_export
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - "alpine_version={{ alpine_version }}"
+        - "python_version={{ python_version }}"
+    restart: unless-stopped
+    environment:
+      - "TZ={{ timezone }}"
+    volumes:
+      - type: bind
+        source: "{{ tv_time_export_path }}"
+        target: "/tv_time_export/exports"
+      - type: bind
+        source: "{{ tv_time_export_data_path }}/tv_time_export.log"
+        target: "/tv_time_export/src/tv_time_export.log"

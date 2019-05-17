@@ -1,24 +1,4 @@
 ---
-- name: Generate config.json with correct values
-  template:
-    src: config.json.jinja2
-    dest: "{{ role_path }}/files/config.json"
-  delegate_to: localhost
-
-- name: Copy docker files to remote host
-  copy:
-    src: "{{ role_path }}/files/"
-    dest: "{{ target_tmp_docker_dir }}"
-    force: yes
-
-- name: Build resilio sync image
-  docker_image:
-    name: rhoriguchi/resilio_sync
-    path: "{{ target_tmp_docker_dir }}"
-    buildargs:
-      ubuntu_version: "{{ ubuntu_version }}"
-    force: yes
-
 - name: Create resilio sync dir
   file:
     path: "{{ resilio_sync_save_path }}"
@@ -34,19 +14,33 @@
     path: "{{ resilio_sync_data_path }}"
     state: directory
 
-- name: Delete resilio-sync container
-  shell: docker rm --force rhoriguchi/resilio_sync
-  ignore_errors: yes
+- name: Delete resilio sync docker-compose dir
+  file:
+    path: "{{ docker_compose_resilio_sync_path }}"
+    state: absent
 
-- name: Create resilio-sync container
-  shell: >-
-    docker run
-    --detach
-    --mount src='{{ resilio_sync_data_path }}',target=/config,type=bind
-    --mount src='{{ resilio_sync_downloads_save_path }}',target=/downloads,type=bind
-    --mount src='{{ resilio_sync_save_path }}',target=/sync,type=bind
-    --name resilio_sync
-    --publish 5555:5555
-    --publish 8888:8888
-    --restart unless-stopped
-    rhoriguchi/resilio_sync
+- name: Create resilio sync docker-compose dir
+  file:
+    path: "{{ docker_compose_resilio_sync_path }}"
+    state: directory
+
+- name: Copy Dockerfile to resilio sync docker-compose dir
+  copy:
+    src: "{{ role_path }}/files/Dockerfile"
+    dest: "{{ docker_compose_resilio_sync_path }}"
+    force: yes
+
+- name: Generate docker-compose.yaml with correct values
+  template:
+    src: docker-compose.yaml.jinja2
+    dest: "{{ docker_compose_resilio_sync_path }}/docker-compose.yaml"
+
+- name: Generate myanimelist-export.yaml with correct values
+  template:
+    src: config.json.jinja2
+    dest: "{{ docker_compose_resilio_sync_path }}/config.json"
+
+- name: Start docker-compose containers
+  shell: docker-compose up --build --detach --force-recreate
+  args:
+    chdir: "{{ docker_compose_resilio_sync_path }}"

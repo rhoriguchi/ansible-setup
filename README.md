@@ -3,7 +3,7 @@
 ## Default Ports
 
 - Glances - 61208
-- Home Assistant - 8123
+- Home Assistant - 443
 - Plex - 32400
 - Portainer - 9000
 - Resilio Sync - 8888
@@ -81,7 +81,7 @@ git clone https://github.com/rhoriguchi/ansible_setup.git /tmp/ansible_setup
 
 docker-compose up --detach --build
 docker exec -it ansible zsh
- 
+
 ansible-playbook homeassistant_update.yaml --extra-vars target_host=TARGET_HOST
 ```
 

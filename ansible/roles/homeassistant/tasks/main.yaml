@@ -1,3 +1,30 @@
 ---
-- include: letsencrypt.yaml
+# TODO use linuxserver/letsencrypt only to get certificate after that use nginx
+
 - include: homeassistant.yaml
+- include: letsencrypt.yaml
+
+- name: Delete homeassistant docker-compose dir
+  file:
+    path: "{{ docker_compose_homeassistant_path }}"
+    state: absent
+
+- name: Create homeassistant docker-compose dir
+  file:
+    path: "{{ docker_compose_homeassistant_path }}"
+    state: directory
+
+- name: Create homeassistant/letsencrypt docker-compose dir
+  file:
+    path: "{{ docker_compose_homeassistant_path }}/letsencrypt"
+    state: directory
+
+- name: Generate docker-compose.yaml with correct values
+  template:
+    src: docker-compose.yaml.jinja2
+    dest: "{{ docker_compose_homeassistant_path }}/docker-compose.yaml"
+
+- name: Start docker-compose containers
+  shell: docker-compose up --build --detach --force-recreate
+  args:
+    chdir: "{{ docker_compose_homeassistant_path }}"

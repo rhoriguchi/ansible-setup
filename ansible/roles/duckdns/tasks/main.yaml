@@ -1,20 +1,4 @@
 ---
-- name: Copy docker files to remote host
-  copy:
-    src: "{{ role_path }}/files/"
-    dest: "{{ target_tmp_docker_dir }}"
-    force: yes
-
-- name: Build duckdns image
-  docker_image:
-    name: rhoriguchi/duckdns
-    path: "{{ target_tmp_docker_dir }}"
-    buildargs:
-      duckdns_domain: "{{ duckdns_domain }}"
-      duckdns_token: "{{ vault_duckdns_token }}"
-      alpine_version: "{{ alpine_version }}"
-    force: yes
-
 - name: Create duckdns data dir
   file:
     path: "{{ duckdns_data_path }}"
@@ -25,20 +9,28 @@
     path: "{{ duckdns_data_path }}/duck.log"
     state: touch
 
-- name: Delete duckdns container
-  shell: docker rm --force duckdns
-  ignore_errors: yes
-
-- name: Create duckdns container
-  shell: >-
-    docker run
-    --detach
-    --mount src='{{ duckdns_data_path }}/duck.log',target=/duckdns/duck.log,type=bind
-    --name duckdns
-    --restart unless-stopped
-    rhoriguchi/duckdns
-
-- name: Delete docker files from remote host
+- name: Delete duckdns docker-compose dir
   file:
-    path: "{{ target_tmp_docker_dir }}"
+    path: "{{ docker_compose_duckdns_path }}"
     state: absent
+
+- name: Create duckdns docker-compose dir
+  file:
+    path: "{{ docker_compose_duckdns_path }}"
+    state: directory
+
+- name: Copy Dockerfile to duckdns docker-compose dir
+  copy:
+    src: "{{ role_path }}/files/Dockerfile"
+    dest: "{{ docker_compose_duckdns_path }}"
+    force: yes
+
+- name: Generate docker-compose.yaml with correct values
+  template:
+    src: docker-compose.yaml.jinja2
+    dest: "{{ docker_compose_duckdns_path }}/docker-compose.yaml"
+
+- name: Start docker-compose containers
+  shell: docker-compose up --build --detach --force-recreate
+  args:
+    chdir: "{{ docker_compose_duckdns_path }}"

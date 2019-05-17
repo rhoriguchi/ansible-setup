@@ -1,28 +1,15 @@
 ---
-- name: Build letsencrypt image
-  docker_image:
-    name: linuxserver/letsencrypt
-    force: yes
-
-- name: Create letsencrypt data dir
+- name: Create homeassistant letsencrypt dir
   file:
-    path: "{{ letsencrypt_data_path }}"
+    path: "{{ letsencrypt_homeassistant_path }}"
     state: directory
 
-- name: Delete letsencrypt container
-  shell: docker rm --force letsencrypt
-  ignore_errors: yes
+- name: Create homeassistant nginx dir
+  file:
+    path: "{{ nginx_homeassistant_path }}"
+    state: directory
 
-- name: Create letsencrypt container
-  shell: >-
-    docker run
-    --detach
-    --env DUCKDNSTOKEN='{{ vault_duckdns_token }}'
-    --env SUBDOMAINS=wildcard
-    --env TZ='{{ timezone }}'
-    --env URL={{ duckdns_domain }}.duckdns.org
-    --env VALIDATION=duckdns
-    --mount src='{{ letsencrypt_data_path }}',target=/config/etc/letsencrypt,type=bind
-    --name letsencrypt
-    --restart unless-stopped
-    linuxserver/letsencrypt
+- name: Generate nginx/app.conf with correct values
+  template:
+    src: letsencrypt/nginx/default.jinja2
+    dest: "{{ nginx_homeassistant_path }}/default"

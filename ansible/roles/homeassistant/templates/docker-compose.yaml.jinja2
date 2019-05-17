@@ -1,0 +1,44 @@
+version: "3.7"
+services:
+  letsencrypt:
+    container_name: letsencrypt
+    image: linuxserver/letsencrypt
+    restart: unless-stopped
+    networks:
+      - default
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - "COMPOSE_HTTP_TIMEOUT=300"
+      - "DHLEVEL=2048"
+      - "DUCKDNSTOKEN={{ vault_duckdns_token }}"
+      - "SUBDOMAINS=wildcard"
+      - "TZ={{ timezone }}"
+      - "URL={{ duckdns_domain }}.duckdns.org"
+      - "VALIDATION=duckdns"
+    volumes:
+      - type: bind
+        source: "{{ letsencrypt_homeassistant_path }}"
+        target: "/config/etc/letsencrypt"
+      - "{{ nginx_homeassistant_path }}:/config/nginx/site-confs/"
+  homeassistant:
+    container_name: homeassistant
+    image: {{ homeassistant_docker_image }}:{{ homeassistant.version }}
+    restart: unless-stopped
+    depends_on:
+      - letsencrypt
+    networks:
+      - default
+      - glances_default
+    expose:
+      - "8123"
+    volumes:
+      - type: bind
+        source: "{{ dot_homeassistant_path }}"
+        target: "/config"
+      - "/etc/localtime:/etc/localtime:ro"
+networks:
+  default:
+  glances_default:
+    external: true

@@ -39,10 +39,6 @@
     homeassistant_docker_image: "homeassistant/{{ ansible_architecture }}-homeassistant"
   when: ansible_lsb.id != "Raspbian"
 
-- name: "Build {{ homeassistant_docker_image }}:{{ homeassistant.version }} image"
-  docker_image:
-    name: "{{ homeassistant_docker_image }}:{{ homeassistant.version }}"
-
 - name: Create homeassistant data dir
   file:
     path: "{{ homeassistant_data_path }}"
@@ -99,23 +95,19 @@
     src: homeassistant/phue.conf.jinja2
     dest: "{{ dot_homeassistant_path }}/phue.conf"
 
+- name: Replace base_url in homeassistant configuration.yaml
+  replace:
+    path: "{{ dot_homeassistant_path }}/configuration.yaml"
+    regexp: "base_url:\\s.*$"
+    replace: "base_url: https://{{ url }}"
+
+- name: Replace http://localhost with http://glances in homeassistant sensor/glances_localhost.yaml
+  replace:
+    path: "{{ dot_homeassistant_path }}/sensor/glances_localhost.yaml"
+    regexp: "http:\\/\\/localhost"
+    replace: "http://glances"
+
 - name: Delete home-assistant.log
   file:
     path: "{{ dot_homeassistant_path }}/home-assistant.log"
     state: absent
-
-- name: Delete homeassistant container
-  shell: docker rm --force homeassistant
-  ignore_errors: yes
-
-- name: Create homeassistant container
-  shell: >-
-    docker run
-    --detach
-    --mount src='{{ dot_homeassistant_path }}',target=/config,type=bind
-    --mount src='{{ letsencrypt_data_path }}',target=/le-ssl,type=bind
-    --name homeassistant
-    --network host
-    --restart unless-stopped
-    --volume /etc/localtime:/etc/localtime:ro
-    {{ homeassistant_docker_image }}:{{ homeassistant.version }}

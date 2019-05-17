@@ -1,25 +1,4 @@
 ---
-- name: Generate glances.conf with correct values
-  template:
-    src: glances.conf.jinja2
-    dest: "{{ role_path }}/files/glances.conf"
-  delegate_to: localhost
-
-- name: Copy docker files to remote host
-  copy:
-    src: "{{ role_path }}/files/"
-    dest: "{{ target_tmp_docker_dir }}"
-    force: yes
-
-- name: Build glances image
-  docker_image:
-    name: rhoriguchi/glances
-    path: "{{ target_tmp_docker_dir }}"
-    buildargs:
-      alpine_version: "{{ alpine_version }}"
-      python_version: "{{ python_version }}"
-    force: yes
-
 # TODO commented
 
 # - name: Set glances server options
@@ -34,30 +13,37 @@
 #     glances_docker_container_name: glances-client
 #   when: glances_mode == "client"
 
+- name: Delete glances docker-compose dir
+  file:
+    path: "{{ docker_compose_glances_path }}"
+    state: absent
+
+- name: Create glances docker-compose dir
+  file:
+    path: "{{ docker_compose_glances_path }}"
+    state: directory
+
+- name: Copy Dockerfile to glances docker-compose dir
+  copy:
+    src: "{{ role_path }}/files/Dockerfile"
+    dest: "{{ docker_compose_glances_path }}"
+    force: yes
+
 - name: Set glances options
   set_fact:
     glances_options: "--webserver"
-    glances_docker_container_name: glances
 
-- name: Delete glances container
-  shell: "docker rm --force {{ glances_docker_container_name }}"
-  ignore_errors: yes
+- name: Generate docker-compose.yaml with correct values
+  template:
+    src: docker-compose.yaml.jinja2
+    dest: "{{ docker_compose_glances_path }}/docker-compose.yaml"
 
-- name: Create glances container
-  shell: >-
-    docker run
-    --detach
-    --env GLANCES_OPT='{{ glances_options }}'
-    --mount src=/var/run/docker.sock,target=/var/run/docker.sock,type=bind
-    --name '{{ glances_docker_container_name }}'
-    --network host
-    --pid host
-    --restart unless-stopped
-    --volume /etc/localtime:/etc/localtime:ro
-    -it
-    rhoriguchi/glances
+- name: Generate glances.conf with correct values
+  template:
+    src: glances.conf.jinja2
+    dest: "{{ docker_compose_glances_path }}/glances.conf"
 
-- name: Delete docker files from remote host
-  file:
-    path: "{{ target_tmp_docker_dir }}"
-    state: absent
+- name: Start docker-compose containers
+  shell: docker-compose up --build --detach --force-recreate
+  args:
+    chdir: "{{ docker_compose_glances_path }}"

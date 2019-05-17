@@ -9,7 +9,6 @@ FROM ubuntu:${ubuntu_version} AS install_haskell
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 	ca-certificates \
-	curl \
     g++ \
     gcc \
     git \
@@ -18,13 +17,14 @@ RUN apt-get update \
     libgmp-dev \
     make \
     netbase \
+    wget \
     xz-utils \
     zlib1g-dev \
 	&& apt-get clean \
  	&& rm -rf /var/lib/apt/lists/*
-ADD https://get.haskellstack.org haskell_install.sh
-RUN chmod +x haskell_install.sh \
-	&& ./haskell_install.sh \
+RUN wget -qO haskell_install.sh https://get.haskellstack.org \
+    && chmod +x haskell_install.sh \
+	&& sh haskell_install.sh \
 	&& rm -f haskell_install.sh
 
 FROM install_haskell AS build

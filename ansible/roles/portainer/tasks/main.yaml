@@ -1,9 +1,4 @@
 ---
-- name: Build portainer image
-  docker_image:
-    name: portainer/portainer
-    force: yes
-
 - name: Create portainer data dir
   file:
     path: "{{ portainer_data_path }}"
@@ -14,24 +9,31 @@
     path: "{{ portainer_data_path }}/data"
     state: directory
 
-# TODO use authentication
-#- name: Generate portainer admin password hash
-#  shell: "docker run --rm httpd:2.4-alpine htpasswd -nbB admin {{ vault_portainer_password }} | cut -d ':' -f 2"
-#  register: portainer_hashed_admin_password
-#  no_log: true
+- name: Generate portainer admin password hash
+  shell: "docker run --rm httpd:2.4-alpine htpasswd -nbB admin {{ vault_portainer_password }} | cut -d ':' -f 2"
+  register: portainer_hashed_admin_password
+  no_log: true
 
-- name: Delete portainer container
-  shell: docker rm --force portainer
-  ignore_errors: yes
+- name: Set admin password hash
+  set_fact:
+    portainer_hashed_admin_password: "{{ portainer_hashed_admin_password.stdout }}"
 
-- name: Create portainer container
-  shell: >-
-    docker run
-    --detach
-    --mount src='{{ portainer_data_path }}/data',target=/data,type=bind
-    --mount src=/var/run/docker.sock,target=/var/run/docker.sock,type=bind
-    --name portainer
-    --publish 9000:9000
-    --restart unless-stopped
-    portainer/portainer  --no-auth
-# portainer/portainer --admin-password={{ portainer_hashed_admin_password.stdout }}
+- name: Delete portainer docker-compose dir
+  file:
+    path: "{{ docker_compose_portainer_path }}"
+    state: absent
+
+- name: Create portainer docker-compose dir
+  file:
+    path: "{{ docker_compose_portainer_path }}"
+    state: directory
+
+- name: Generate docker-compose.yaml with correct values
+  template:
+    src: docker-compose.yaml.jinja2
+    dest: "{{ docker_compose_portainer_path }}/docker-compose.yaml"
+
+- name: Start docker-compose containers
+  shell: docker-compose up --build --detach --force-recreate
+  args:
+    chdir: "{{ docker_compose_portainer_path }}"

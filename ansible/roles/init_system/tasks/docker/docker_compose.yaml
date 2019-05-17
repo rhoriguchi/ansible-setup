@@ -52,3 +52,8 @@
 
 - name: Change permissions for docker-compose +x
   shell: sudo chmod +x /usr/local/bin/docker-compose
+
+- name: Create docker-compose data dir
+  file:
+    path: "{{ docker_compose_data_path }}"
+    state: directory

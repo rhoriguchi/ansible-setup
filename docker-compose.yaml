@@ -6,5 +6,5 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        ansible_vault_password: "${ansible_vault_password}"
-        target_address: "${target_address}"
+        - "ansible_vault_password=${ansible_vault_password}"
+        - "target_address=${target_address}"

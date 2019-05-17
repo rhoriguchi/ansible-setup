@@ -1,4 +1,23 @@
 ---
-- include: plex_addons/main.yaml
-- include: plex.yaml
+- include: plex/main.yaml
 - include: tautulli.yaml
+
+- name: Delete plex docker-compose dir
+  file:
+    path: "{{ docker_compose_plex_path }}"
+    state: absent
+
+- name: Create plex docker-compose dir
+  file:
+    path: "{{ docker_compose_plex_path }}"
+    state: directory
+
+- name: Generate docker-compose.yaml with correct values
+  template:
+    src: docker-compose.yaml.jinja2
+    dest: "{{ docker_compose_plex_path }}/docker-compose.yaml"
+
+- name: Start docker-compose containers
+  shell: docker-compose up --build --detach --force-recreate
+  args:
+    chdir: "{{ docker_compose_plex_path }}"

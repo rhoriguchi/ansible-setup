@@ -1,29 +1,4 @@
 ---
-- name: Generate config.yaml with correct values
-  template:
-    src: config.yaml.jinja2
-    dest: "{{ role_path }}/files/config.yaml"
-  delegate_to: localhost
-
-- name: Copy docker files to remote host
-  copy:
-    src: "{{ role_path }}/files/"
-    dest: "{{ target_tmp_docker_dir }}"
-    force: yes
-
-- name: Build tv_time_export image
-  docker_image:
-    name: rhoriguchi/tv_time_export
-    path: "{{ target_tmp_docker_dir }}"
-    buildargs:
-      alpine_version: "{{ alpine_version }}"
-      python_version: "{{ python_version }}"
-
-- name: Delete config.yaml
-  file:
-    path: config.yaml
-    state: absent
-
 - name: Create tv_time_export exports dir
   file:
     path: "{{ tv_time_export_path }}"
@@ -33,28 +8,39 @@
   file:
     path: "{{ tv_time_export_data_path }}"
     state: directory
-
+    
 - name: Create tv_time_export /tv_time_export.log file
   file:
     path: "{{ tv_time_export_data_path }}/tv_time_export.log"
     state: touch
 
-- name: Delete tv_time_export container
-  shell: "docker rm --force tv_time_export"
-  ignore_errors: yes
-
-- name: Create tv_time_export container
-  shell: >-
-    docker run
-    --detach
-    --env TZ='{{ timezone }}'
-    --mount src='{{ tv_time_export_path }}',target=/tv_time_export/exports,type=bind
-    --mount src='{{ tv_time_export_data_path }}/tv_time_export.log',target=/tv_time_export/src/tv_time_export.log,type=bind
-    --name tv_time_export
-    --restart unless-stopped
-    rhoriguchi/tv_time_export
-
-- name: Delete docker files from remote host
+- name: Delete tv_time_export docker-compose dir
   file:
-    path: "{{ target_tmp_docker_dir }}"
+    path: "{{ docker_compose_tv_time_export_path }}"
     state: absent
+
+- name: Create tv_time_export docker-compose dir
+  file:
+    path: "{{ docker_compose_tv_time_export_path }}"
+    state: directory
+
+- name: Copy Dockerfile to tv_time_export docker-compose dir
+  copy:
+    src: "{{ role_path }}/files/Dockerfile"
+    dest: "{{ docker_compose_tv_time_export_path }}"
+    force: yes
+
+- name: Generate docker-compose.yaml with correct values
+  template:
+    src: docker-compose.yaml.jinja2
+    dest: "{{ docker_compose_tv_time_export_path }}/docker-compose.yaml"
+
+- name: Generate myanimelist-export.yaml with correct values
+  template:
+    src: config.yaml.jinja2
+    dest: "{{ docker_compose_tv_time_export_path }}/config.yaml"
+
+- name: Start docker-compose containers
+  shell: docker-compose up --build --detach --force-recreate
+  args:
+    chdir: "{{ docker_compose_tv_time_export_path }}"

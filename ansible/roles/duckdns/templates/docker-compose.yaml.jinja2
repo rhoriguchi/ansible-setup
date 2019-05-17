@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  duckdns:
+    container_name: duckdns
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - "duckdns_domain={{ duckdns_domain }}"
+        - "duckdns_token={{ vault_duckdns_token }}"
+        - "alpine_version={{ alpine_version }}"
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: "{{ duckdns_data_path }}/duck.log"
+        target: "/duckdns/duck.log"

@@ -1,0 +1,41 @@
+version: "3.7"
+services:
+  plex:
+    container_name: plex
+    image: linuxserver/plex
+    restart: unless-stopped
+    ports:
+      - "32400:32400"
+      - "32400:32400/udp"
+      - "32469:32469"
+      - "32469:32469/udp"
+      - "5353:5353/udp"
+      - "1900:1900/udp"
+    environment:
+      - "HOSTNAME={{ hostname }}"
+      - "TZ={{ timezone }}"
+      - "VERSION=public"
+    volumes:
+      - type: bind
+        source: "{{ plex_data_path }}"
+        target: "/config/Library/Application Support/Plex Media Server"
+      - type: bind
+        source: "{{ resilio_sync_save_path }}"
+        target: "/data/sync"
+  tautulli:
+    container_name: tautulli
+    image: linuxserver/tautulli
+    restart: unless-stopped
+    depends_on:
+      - plex
+    ports:
+      - "8181:8181"
+    environment:
+      - "TZ={{ timezone }}"
+    volumes:
+      - type: bind
+        source: "{{ plex_data_path }}/Logs"
+        target: "/logs"
+      - type: bind
+        source: "{{ tautulli_data_path }}"
+        target: "/config"

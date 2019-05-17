@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  resilio_sync:
+    container_name: resilio_sync
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - "ubuntu_version={{ ubuntu_version }}"
+    restart: unless-stopped
+    ports:
+      - "5555:5555"
+      - "8888:8888"
+    volumes:
+      - type: bind
+        source: "{{ resilio_sync_data_path }}"
+        target: "/config"
+      - type: bind
+        source: "{{ resilio_sync_downloads_save_path }}"
+        target: "/downloads"
+      - type: bind
+        source: "{{ resilio_sync_save_path }}"
+        target: "/sync"

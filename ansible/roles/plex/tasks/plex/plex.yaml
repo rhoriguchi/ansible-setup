@@ -1,0 +1,5 @@
+---
+- name: Create plex data dir
+  file:
+    path: "{{ plex_data_path }}"
+    state: directory
