@@ -1,4 +1,9 @@
 ---
+- name: Set hostname till restart
+  become: yes
+  become_user: root
+  shell: "hostname {{ hostname }}"
+
 - name: Change hostname in /etc/hostname
   copy:
     content: "{{ hostname }}"
@@ -10,9 +15,3 @@
       127.0.0.1     localhost
       127.0.1.1     {{ hostname }}
     dest: /etc/hosts
-
-- name: Restart networking service
-  service:
-    name: networking
-    state: restarted
-  ignore_errors: yes
