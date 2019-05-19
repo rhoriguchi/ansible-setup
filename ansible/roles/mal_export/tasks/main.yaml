@@ -9,6 +9,11 @@
     path: "{{ mal_export_data_path }}"
     state: directory
 
+- name: Create mal_export /mal_export.log file
+  file:
+    path: "{{ mal_export_data_path }}/mal_export.log"
+    state: touch
+
 - name: Delete mal_export docker-compose dir
   file:
     path: "{{ docker_compose_mal_export_path }}"

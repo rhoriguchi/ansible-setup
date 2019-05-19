@@ -35,7 +35,8 @@ RUN apt-get update \
 RUN stack config set system-ghc --global true
 COPY --from=download /myanimelist-export /myanimelist-export
 RUN stack init /myanimelist-export
-RUN stack build /myanimelist-export
+RUN stack install unicode-transforms \
+    && stack build /myanimelist-export
 RUN stack install /myanimelist-export
 
 FROM ubuntu:${ubuntu_version} AS base
