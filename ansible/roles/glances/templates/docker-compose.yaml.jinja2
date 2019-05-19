@@ -17,7 +17,5 @@ services:
     environment:
       - "GLANCES_OPT={{ glances_options }}"
     volumes:
-      - type: bind
-        source: "/var/run/docker.sock"
-        target: "/var/run/docker.sock"
       - "/etc/localtime:/etc/localtime:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"

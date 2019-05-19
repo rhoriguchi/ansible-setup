@@ -65,4 +65,4 @@ RUN apt-get update \
  	&& rm -rf /var/lib/apt/lists/*
 RUN echo "0    4       *       *       *       /myanimelist-export.sh >> /mal_export.log 2>&1" >> /etc/cron.d/myanimelist-export \
 	&& crontab /etc/cron.d/myanimelist-export
-CMD ["cron", "-f"]
+CMD ["/usr/sbin/cron", "-f"]
