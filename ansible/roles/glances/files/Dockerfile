@@ -17,5 +17,5 @@ RUN apk add --no-cache --virtual .build_deps \
 COPY --from=download /glances /glances
 COPY glances.conf /glances/conf/glances.conf
 WORKDIR /glances
-EXPOSE 61208 61209
+EXPOSE 61208
 CMD python -m glances --config /glances/conf/glances.conf ${GLANCES_OPT}

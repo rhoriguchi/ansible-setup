@@ -1,18 +1,4 @@
 ---
-# TODO commented
-
-# - name: Set glances server options
-#   set_fact:
-#     glances_options: "--webserver --password --server"
-#     glances_docker_container_name: glances-server
-#   when: glances_mode == "server"
-#
-# - name: Set glances client options
-#   set_fact:
-#     glances_options: "--webserver --password --client xxlpitu-home.duckdns.org"
-#     glances_docker_container_name: glances-client
-#   when: glances_mode == "client"
-
 - name: Delete glances docker-compose dir
   file:
     path: "{{ docker_compose_glances_path }}"

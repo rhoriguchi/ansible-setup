@@ -17,19 +17,16 @@ all:
 
     XXLPitu-Odroid-Home:
       duckdns_domain: xxlpitu-home
-      glances_mode: server
       hostname: XXLPitu-Odroid-Home
       main_drive_partuuid: "{{ ssd_partuuid }}"
       main_drive_path: "{{ ssd_path }}"
     XXLPitu-Raspberry-Pi-Home:
       duckdns_domain: xxlpitu-home
-      glances_mode: server
       hostname: XXLPitu-Raspberry-Pi-Home
       main_drive_partuuid: "{{ ssd_partuuid }}"
       main_drive_path: "{{ ssd_path }}"
     XXLPitu-Raspberry-Pi-JCRK:
       duckdns_domain: xxlpitu-jcrk
-      glances_mode: client
       hostname: XXLPitu-Raspberry-Pi-JCRK
       main_drive_partuuid: "{{ wd_red_partuuid }}"
       main_drive_path: "{{ wd_red_path }}"
