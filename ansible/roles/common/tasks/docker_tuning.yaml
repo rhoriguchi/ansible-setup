@@ -5,13 +5,13 @@
   register: link
 
 - name: Get all running docker containers
-  shell: docker ps --all --quiet
+  command: docker ps --all --quiet
   register: containers
   ignore_errors: yes
   when: link.stat.islnk is defined and link.stat.islnk == false
 
 - name: Stop all running docker containers
-  shell: "docker stop {{ item }}"
+  command: "docker stop {{ item }}"
   with_items: "{{ containers.stdout_lines }}"
   when: link.stat.islnk is defined and link.stat.islnk == false
 
@@ -49,7 +49,7 @@
   when: link.stat.islnk is defined and link.stat.islnk == false
 
 - name: Get content of docker lib dir
-  shell: "ls -1 {{ default_docker_lib_path }}"
+  command: "ls -1 {{ default_docker_lib_path }}"
   register: contents
   when: link.stat.islnk is defined and link.stat.islnk == false
 
@@ -75,6 +75,6 @@
   when: link.stat.islnk is defined and link.stat.islnk == false
 
 - name: Start all privious running docker containers
-  shell: "docker start {{ item }}"
+  command: "docker start {{ item }}"
   with_items: "{{ containers.stdout_lines }}"
   when: link.stat.islnk is defined and link.stat.islnk == false

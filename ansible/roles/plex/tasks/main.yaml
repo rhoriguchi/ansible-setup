@@ -18,6 +18,6 @@
     dest: "{{ docker_compose_plex_path }}/docker-compose.yaml"
 
 - name: Start docker-compose containers
-  shell: docker-compose up --build --detach --force-recreate
+  command: docker-compose up --build --detach --force-recreate
   args:
     chdir: "{{ docker_compose_plex_path }}"

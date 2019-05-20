@@ -12,11 +12,11 @@
     state: directory
 
 - name: Delete sickchill container
-  shell: docker rm --force sickchill
+  command: docker rm --force sickchill
   ignore_errors: yes
 
 - name: Create sickchill container
-  shell: >-
+  command: >-
     docker run
     --detach
     --env TZ='{{ timezone }}'

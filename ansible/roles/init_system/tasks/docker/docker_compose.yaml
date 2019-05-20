@@ -1,59 +1,25 @@
+---
+- name: Install apt libffi-dev libssl-dev python3 python3-dev python3-pip
+  apt:
+    name:
+      - libffi-dev
+      - libssl-dev
+      - python3
+      - python3-dev
+      - python3-pip
+    state: latest
+    install_recommends: no
+    update_cache: yes
 
-- name: Download docker-compose
-  shell: "sudo curl -L 'https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-$(uname -s)-$(uname -m)' -o /usr/local/bin/docker-compose"
-  when: ansible_architecture != "armv7l" or ansible_architecture != "aarch64"
+- name: Update pip3
+  pip:
+    name: pip
+    executable: pip3
+    state: latest
 
-- name: Delete docker files from remote host
-  file:
-    path: "{{ target_tmp_docker_dir }}"
-    state: absent
-
-- name: Download docker-compose-aarch64-builder
-  git:
-    repo: https://github.com/rhoriguchi/docker-compose-aarch64.git
-    dest: "{{ target_tmp_docker_dir }}"
-  when: ansible_architecture == "armv7l" or ansible_architecture == "aarch64"
-
-- name: Comment line in docker-compose-aarch64-builder Dockerfile
-  lineinfile:
-    path: "{{ target_tmp_docker_dir }}/Dockerfile"
-    regexp: '^COPY ./vendor/qemu-bin /usr/bin/'
-    line: "# COPY ./vendor/qemu-bin /usr/bin/"
-  when: ansible_architecture == "armv7l" or ansible_architecture == "aarch64"
-
-- name: Comment line in docker-compose-aarch64-builder Dockerfile
-  lineinfile:
-    path: "{{ target_tmp_docker_dir }}/Dockerfile"
-    regexp: '^RUN \[ "cross-build-start" \]'
-    line: '# RUN [ "cross-build-start" ]'
-  when: ansible_architecture == "armv7l" or ansible_architecture == "aarch64"
-
-- name: Build docker-compose-aarch64-builder image
-  docker_image:
-    name: docker-compose-aarch64-builder
-    path: "{{ target_tmp_docker_dir }}"
-    force: yes
-  when: ansible_architecture == "armv7l" or ansible_architecture == "aarch64"
-
-# TODO use version from config
-
-- name: Create docker-compose-aarch64-builder container
-  shell: >-
-    docker run
-    --mount src='/usr/local/bin/docker-compose',target=//dist,type=bind
-    --rm
-    docker-compose-aarch64-builder
-  when: ansible_architecture == "armv7l" or ansible_architecture == "aarch64"
-
-- name: Delete docker files from remote host
-  file:
-    path: "{{ target_tmp_docker_dir }}"
-    state: absent
+- name: Pip install docker-compose
+  pip:
+    name: docker-compose
 
 - name: Change permissions for docker-compose +x
   shell: sudo chmod +x /usr/local/bin/docker-compose
-
-- name: Create docker-compose data dir
-  file:
-    path: "{{ docker_compose_data_path }}"
-    state: directory

@@ -41,6 +41,6 @@
     dest: "{{ docker_compose_resilio_sync_path }}/config.json"
 
 - name: Start docker-compose containers
-  shell: docker-compose up --build --detach --force-recreate
+  command: docker-compose up --build --detach --force-recreate
   args:
     chdir: "{{ docker_compose_resilio_sync_path }}"

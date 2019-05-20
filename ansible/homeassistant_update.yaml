@@ -8,6 +8,3 @@
     - vars/vault.yaml
   roles:
     - homeassistant
-  tasks:
-    - name: Remove all unused ressources
-      shell: docker system prune --all --force --volumes

@@ -1,8 +1,6 @@
 ---
 - name: Set hostname till restart
-  become: yes
-  become_user: root
-  shell: "hostname {{ hostname }}"
+  command: "hostname {{ hostname }}"
 
 - name: Change hostname in /etc/hostname
   copy:

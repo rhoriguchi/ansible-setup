@@ -1,6 +1,4 @@
 ---
-# TODO use linuxserver/letsencrypt only to get certificate after that use nginx
-
 - include: homeassistant.yaml
 - include: letsencrypt.yaml
 
@@ -25,6 +23,6 @@
     dest: "{{ docker_compose_homeassistant_path }}/docker-compose.yaml"
 
 - name: Start docker-compose containers
-  shell: docker-compose up --build --detach --force-recreate
+  command: docker-compose up --build --detach --force-recreate
   args:
     chdir: "{{ docker_compose_homeassistant_path }}"

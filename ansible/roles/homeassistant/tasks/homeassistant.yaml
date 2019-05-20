@@ -82,8 +82,9 @@
    path: "{{ tmp_fetch_dir }}"
    state: absent
 
+# TODO use copy module
 - name: Copy secrets.yaml to homeassistant config dir
-  shell: "cp '{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml' '{{ dot_homeassistant_path }}'"
+  command: "cp '{{ homeassistant_secrets_tmp_repo_path }}/secrets.yaml' '{{ dot_homeassistant_path }}'"
 
 - name: Delete homeassistant_secrets temp repo
   file:

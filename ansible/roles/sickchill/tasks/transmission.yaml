@@ -20,11 +20,11 @@
     state: directory
 
 - name: Delete transmission container
-  shell: docker rm --force transmission
+  command: docker rm --force transmission
   ignore_errors: yes
 
 - name: Create transmission container
-  shell: >-
+  command: >-
     docker run
     --detach
     --env OPENVPN_PASSWORD={{ vault_openvpn_password }}

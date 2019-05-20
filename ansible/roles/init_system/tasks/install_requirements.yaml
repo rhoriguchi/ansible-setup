@@ -2,27 +2,30 @@
 # TODO detect if bootini is present and only hold if it is
 
 - name: Hold boot.ini upgrade
-  shell: apt-mark hold bootini
+  command: apt-mark hold bootini
   ignore_errors: yes
 
 - name: Update package list
-  shell: apt-get update
+  apt:
+    update_cache: yes
 
 - name: Upgrade all packages to the latest version
-  shell: apt-get upgrade --no-install-recommends --yes --assume-yes
+  command: apt-get upgrade --no-install-recommends --yes --assume-yes
+  args:
+    warn: false
 
 - name: Upgrade distribution to the latest version
-  shell: apt-get dist-upgrade --no-install-recommends --yes --assume-yes
+  command: apt-get dist-upgrade --no-install-recommends --yes --assume-yes
 
 - name: Remove dependencies that are no longer required
-  shell: apt-get autoremove --yes --assume-yes
+  command: apt-get autoremove --yes --assume-yes
 
 - name: Unhold boot.ini upgrade
-  shell: apt-mark unhold bootini
+  command: apt-mark unhold bootini
   ignore_errors: yes
 
 - name: Reboot system
-  shell: "sleep 5 && reboot"
+  command: sleep 5 && reboot
   async: 1
   poll: 0
 
