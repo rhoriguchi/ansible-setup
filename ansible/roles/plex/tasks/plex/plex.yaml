@@ -3,3 +3,8 @@
   file:
     path: "{{ plex_data_path }}"
     state: directory
+
+- name: Create plex /Logs dir
+  file:
+    path: "{{ plex_data_path }}/Logs"
+    state: directory
