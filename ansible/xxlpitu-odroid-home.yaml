@@ -7,13 +7,13 @@
     - vars/default.yaml
     - vars/vault.yaml
   roles:
-    - common
-    - log2ram
-    - duckdns
-    - portainer
-    - glances
-    - resilio_sync
-    - sickchill
-    - tv_time_export
-    - homeassistant
+#    - common
+#    - log2ram
+#    - duckdns
+#    - portainer
+#    - glances
+#    - resilio_sync
+#    - sickchill
+#    - tv_time_export
+#    - homeassistant
     - mal_export
