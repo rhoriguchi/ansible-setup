@@ -1,6 +1,9 @@
 ---
+# TODO detect if bootini is present and only hold if it is
+
 - name: Hold boot.ini upgrade
   shell: apt-mark hold bootini
+  ignore_errors: yes
 
 - name: Update package list
   shell: apt-get update
@@ -16,6 +19,7 @@
 
 - name: Unhold boot.ini upgrade
   shell: apt-mark unhold bootini
+  ignore_errors: yes
 
 - name: Reboot system
   shell: "sleep 5 && reboot"
