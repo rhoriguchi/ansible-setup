@@ -29,7 +29,7 @@
     src: glances.conf.jinja2
     dest: "{{ docker_compose_glances_path }}/glances.conf"
 
-- name: Start docker-compose containers
+- name: docker-compose up
   command: docker-compose up --build --detach --force-recreate
   args:
     chdir: "{{ docker_compose_glances_path }}"

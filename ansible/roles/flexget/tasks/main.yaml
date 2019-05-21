@@ -28,7 +28,7 @@
     src: docker-compose.yaml.jinja2
     dest: "{{ docker_compose_flexget_path }}/docker-compose.yaml"
 
-- name: Start docker-compose containers
+- name: docker-compose up
   command: docker-compose up --build --detach --force-recreate
   args:
     chdir: "{{ docker_compose_flexget_path }}"
