@@ -20,7 +20,8 @@
     warn: false
 
 - name: Remove dependencies that are no longer required
-  command: apt-get autoremove --yes --assume-yes
+  apt:
+    autoremove: yes
 
 - name: Unhold boot.ini upgrade
   command: apt-mark unhold bootini
