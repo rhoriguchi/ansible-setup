@@ -1,0 +1,34 @@
+---
+- include: transmission.yaml
+- include: flexget.yaml
+
+- name: Delete flexget docker-compose dir
+  file:
+    path: "{{ docker_compose_flexget_path }}"
+    state: absent
+
+- name: Create flexget docker-compose dir
+  file:
+    path: "{{ docker_compose_flexget_path }}"
+    state: directory
+
+- name: Create flexget /flexget docker-compose dir
+  file:
+    path: "{{ docker_compose_flexget_path }}/flexget"
+    state: directory
+
+- name: Copy Dockerfile to /flexget docker-compose dir
+  copy:
+    src: "{{ role_path }}/files/flexget/Dockerfile"
+    dest: "{{ docker_compose_flexget_path }}/flexget"
+    force: yes
+
+- name: Generate docker-compose.yaml with correct values
+  template:
+    src: docker-compose.yaml.jinja2
+    dest: "{{ docker_compose_flexget_path }}/docker-compose.yaml"
+
+- name: Start docker-compose containers
+  command: docker-compose up --build --detach --force-recreate
+  args:
+    chdir: "{{ docker_compose_flexget_path }}"

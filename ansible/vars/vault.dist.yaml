@@ -12,9 +12,9 @@ vault_mal_password:
 
 vault_duckdns_token:
 
-vault_glances_password:
-
 vault_portainer_password:
+
+vault_flexget_password:
 
 vault_resilio_sync_user:
 vault_resilio_sync_password:

@@ -1,0 +1,25 @@
+---
+- name: Create transmission data dir
+  file:
+    path: "{{ transmission_data_path }}"
+    state: directory
+
+- name: Create transmission /config dir
+  file:
+    path: "{{ transmission_data_path }}/config"
+    state: directory
+
+- name: Copy settings.json to transmission config data dir
+  copy:
+    src: transmission/settings.json
+    dest: "{{ transmission_data_path }}/config"
+
+- name: Create transmission /watch dir
+  file:
+    path: "{{ transmission_data_path }}/watch"
+    state: directory
+
+- name: Create transmission /downloads dir
+  file:
+    path: "{{ transmission_data_path }}/downloads"
+    state: directory

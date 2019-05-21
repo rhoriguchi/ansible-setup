@@ -12,7 +12,14 @@ RUN apk add --no-cache --virtual .build_deps \
 	gcc \
 	musl-dev \
 	linux-headers \
-	&& pip install bottle docker hddtemp psutil requests setuptools wifi \
+	&& pip install \
+    bottle \
+    docker \
+    hddtemp \
+    psutil \
+    requests \
+    setuptools \
+    wifi \
 	&& apk del .build_deps
 COPY --from=download /glances /glances
 COPY glances.conf /glances/conf/glances.conf

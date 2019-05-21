@@ -5,11 +5,12 @@
 - Glances - 61208
 - Home Assistant - 443
 - Plex - 32400
+- Plexget - 5050
 - Portainer - 9000
 - Resilio Sync - 8888
 - SSH - 22
 - Sickchill 8081
-- Tautulli - 8181
+- Transmission - 9091
 
 ## Setup
 

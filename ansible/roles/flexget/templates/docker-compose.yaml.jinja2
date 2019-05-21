@@ -1,0 +1,39 @@
+version: "3.7"
+services:
+  transmission:
+    container_name: transmission
+    image: linuxserver/transmission
+    restart: unless-stopped
+    ports:
+      - "9091:9091"
+    environment:
+      - "TZ={{ timezone }}"
+    volumes:
+      - type: bind
+        source: "{{ transmission_data_path }}/config"
+        target: "/config"
+      - type: bind
+        source: "{{ transmission_data_path }}/watch"
+        target: "/watch"
+      - "transmission_downloads:/downloads"
+  flexget:
+    container_name: flexget
+    build:
+      context: flexget
+      dockerfile: Dockerfile
+      args:
+        - "python_version={{ python_version }}"
+    restart: unless-stopped
+    depends_on:
+      - transmission
+    ports:
+      - "5050:5050"
+    environment:
+      - "TZ={{ timezone }}"
+    volumes:
+      - type: bind
+        source: "{{ flexget_data_path }}/config"
+        target: "/root/.flexget"
+      - "transmission_downloads:/downloads"
+volumes:
+  transmission_downloads:
