@@ -22,4 +22,4 @@
     name: "docker-compose=={{ docker_compose_version }}"
 
 - name: Change permissions for docker-compose +x
-  shell: sudo chmod +x /usr/local/bin/docker-compose
+  shell: chmod +x /usr/local/bin/docker-compose
