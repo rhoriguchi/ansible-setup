@@ -1,0 +1,28 @@
+// Settings for unattended upgrades
+
+// List of packages to update automatically
+Unattended-Upgrade::Origins-Pattern {
+{% if system.updates.auto_update|default(false) %}
+    "o=*";
+{% else %}
+    "origin=Debian,codename=${distro_codename},label=Debian-Security";
+{% endif %}
+};
+
+// List of packages to not update
+Unattended-Upgrade::Package-Blacklist {};
+
+// Do automatic removal of new unused dependencies after the upgrade
+Unattended-Upgrade::Remove-Unused-Dependencies "{% if system.updates.auto_clean|default(false) %}true{% else %}false{% endif %} }}";
+
+// Automatically reboot *WITHOUT CONFIRMATION*
+Unattended-Upgrade::Automatic-Reboot "{% if system.updates.auto_reboot|default(false) %}true{% else %}false{% endif %} }}";
+
+// Automatically reboot even if there are users currently logged in.
+Unattended-Upgrade::Automatic-Reboot-WithUsers "{% if system.updates.auto_reboot|default(false) %}true{% else %}false{% endif %} }}";
+
+// If automatic reboot is enabled and needed, reboot at the specific time instead of immediately
+Unattended-Upgrade::Automatic-Reboot-Time "{{ system.updates.reboot_time|default("2:00") }}";
+
+// Use apt bandwidth limit feature (KB/s)
+Acquire::http::Dl-Limit "{{ system.updates.update_speed|default(0) }}";

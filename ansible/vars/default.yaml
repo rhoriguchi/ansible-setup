@@ -1,6 +1,12 @@
 ---
 system:
   shutdown_timeout: 10
+  updates:
+    auto_update: true
+    auto_clean: true
+    auto_reboot: true
+    reboot_time: '3:00'
+    update_speed: 0
 
 # default
 default_user: xxlpitu
