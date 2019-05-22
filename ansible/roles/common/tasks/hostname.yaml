@@ -1,11 +1,7 @@
 ---
-- name: Set hostname till restart
-  command: "hostname {{ hostname }}"
-
-- name: Change hostname in /etc/hostname
-  copy:
-    content: "{{ hostname }}"
-    dest: /etc/hostname
+- name: Set hostname
+  hostname:
+    name: "{{ hostname }}"
 
 - name: Change hostname in /etc/hosts
   copy:
