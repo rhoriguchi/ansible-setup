@@ -31,5 +31,14 @@
     path: /etc/environment
     line: DEBIAN_FRONTEND=noninteractive
 
+- name: Setup shutdown time
+  lineinfile:
+    dest: "/etc/systemd/system.conf"
+    regexp: "^DefaultTimeoutStopSec="
+    line: "DefaultTimeoutStopSec={{ system.shutdown_timeout }}"
+    state: present
+  notify:
+    - Reload systemd
+
 # TODO set this /etc/default/console-setup
 # https://superuser.com/questions/1332341/console-setup-causes-apt-get-update-to-hang/1332550#1332550
