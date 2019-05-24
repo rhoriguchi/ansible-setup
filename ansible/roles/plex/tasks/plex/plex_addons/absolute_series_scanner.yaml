@@ -1,24 +1,26 @@
 ---
 - name: Delete Absolute-Series-Scanner temp dir
   file:
-    path: "{{ absolute_series_scanner_tmp_path }}"
+    path: "{{ plex.tmp_absolute_series_scanner_path }}"
     state: absent
 
 - name: Clone Absolute-Series-Scanner to temp dir
   git:
     repo: https://github.com/ZeroQI/Absolute-Series-Scanner.git
-    dest: "{{ absolute_series_scanner_tmp_path }}"
+    dest: "{{ plex.tmp_absolute_series_scanner_path }}"
 
 - name: Create plex /Scanners dir
   file:
-    path: "{{ plex_data_path }}/Scanners"
+    path: "{{ data_path.library.plex.main }}/Scanners"
     state: directory
 
 - name: Create plex /Scanners/Series dir
   file:
-    path: "{{ plex_data_path }}/Scanners/Series"
+    path: "{{ data_path.library.plex.main }}/Scanners/Series"
     state: directory
 
-# TODO use copy module
 - name: Copy "Absolute Series Scanner.py" to plex Scanners/Series path
-  command: "cp '{{ absolute_series_scanner_tmp_path }}/Scanners/Series/Absolute Series Scanner.py' '{{ plex_data_path }}/Scanners/Series'"
+  synchronize:
+    src: "{{ plex.tmp_absolute_series_scanner_path }}/Scanners/Series/Absolute Series Scanner.py"
+    dest: "{{ data_path.library.plex.main }}/Scanners/Series/Absolute Series Scanner.py"
+  delegate_to: "{{ inventory_hostname }}"

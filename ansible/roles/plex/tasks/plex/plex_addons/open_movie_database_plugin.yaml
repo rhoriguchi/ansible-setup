@@ -1,15 +1,15 @@
 ---
 - name: Create plex plug-ins dir
   file:
-    path: "{{ plex_plugins_path }}"
+    path: "drive.main.path }}/library/plex/Plug-ins"
     state: directory
 
 - name: Delete OpenMovieDatabase.bundle dir in plex plugin dir
   file:
-    path: "{{ open_movie_database_plugin_path }}"
+    path: "data_path.library.plex.plugin.sub.open_movie_database"
     state: absent
 
 - name: Clone OpenMovieDatabase.bundle to plex plugin dir
   git:
     repo: https://github.com/piplongrun/OpenMovieDatabase.bundle.git
-    dest: "{{ open_movie_database_plugin_path }}"
+    dest: "data_path.library.plex.plugin.sub.open_movie_database"

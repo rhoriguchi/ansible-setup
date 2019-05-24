@@ -1,32 +1,31 @@
 ---
 all:
   vars:
-    ansible_become_pass: "{{ vault_ansible_user_password }}"
+    ansible_become_pass: "{{ vault.user.ansible.password }}"
     ansible_host: "{{ lookup('env','TARGET_ADDRESS') }}"
     ansible_port: 22
     ansible_python_interpreter: /usr/bin/python3
-    ansible_ssh_pass: "{{ vault_ansible_user_password }}"
+    ansible_ssh_pass: "{{ vault.user.ansible.password }}"
     ansible_user: ansible
   hosts:
     raspberry:
-      ansible_user: pi
       ansible_ssh_pass: raspberry
+      ansible_user: pi
     odroid:
-      ansible_user: root
       ansible_ssh_pass: odroid
+      ansible_user: root
+
+    # TODO use arrays
 
     XXLPitu-Odroid-Home:
       duckdns_domain: xxlpitu-home
-      hostname: XXLPitu-Odroid-Home
-      main_drive_partuuid: "{{ ssd_partuuid }}"
-      main_drive_path: "{{ ssd_path }}"
+      system_hostname: XXLPitu-Odroid-Home
+      drive_main_partuuid: "{{ drive.ssd.partuuid }}"
     XXLPitu-Raspberry-Pi-Home:
       duckdns_domain: xxlpitu-home
-      hostname: XXLPitu-Raspberry-Pi-Home
-      main_drive_partuuid: "{{ ssd_partuuid }}"
-      main_drive_path: "{{ ssd_path }}"
+      system_hostname: XXLPitu-Raspberry-Pi-Home
+      drive_main_partuuid: "{{ drive.ssd.partuuid }}"
     XXLPitu-Raspberry-Pi-JCRK:
       duckdns_domain: xxlpitu-jcrk
-      hostname: XXLPitu-Raspberry-Pi-JCRK
-      main_drive_partuuid: "{{ wd_red_partuuid }}"
-      main_drive_path: "{{ wd_red_path }}"
+      system_hostname: XXLPitu-Raspberry-Pi-JCRK
+      drive_main_partuuid: "{{ drive.wd_red.partuuid }}"

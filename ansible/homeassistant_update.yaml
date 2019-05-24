@@ -4,7 +4,7 @@
   become: yes
   become_user: ansible
   vars_files:
-    - vars/default.yaml
+    - vars/config.yaml
     - vars/vault.yaml
   roles:
     - homeassistant

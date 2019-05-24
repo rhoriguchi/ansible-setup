@@ -6,18 +6,22 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - "ubuntu_version={{ ubuntu_version }}"
+        - "ubuntu_version={{ docker.image_version.ubuntu }}"
     restart: unless-stopped
     ports:
       - "5555:5555"
       - "8888:8888"
+    environments:
+      - "TZ={{ system.timezone }}"
     volumes:
       - type: bind
-        source: "{{ resilio_sync_data_path }}"
+        source: "{{ data_path.library.resilio_sync }}/config"
         target: "/config"
       - type: bind
-        source: "{{ resilio_sync_downloads_save_path }}"
+        source: "{{ resilio_sync.download_path }}"
         target: "/downloads"
       - type: bind
-        source: "{{ resilio_sync_save_path }}"
+        source: "{{ resilio_sync.sync_path.main }}"
         target: "/sync"
+      - "{{ data_path.library.resilio_sync }}/config.json:/config.json"
+      - "/etc/localtime:/etc/localtime:ro"

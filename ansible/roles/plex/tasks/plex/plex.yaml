@@ -1,10 +1,10 @@
 ---
 - name: Create plex data dir
   file:
-    path: "{{ plex_data_path }}"
+    path: "{{ data_path.library.plex.main }}"
     state: directory
 
 - name: Create plex /Logs dir
   file:
-    path: "{{ plex_data_path }}/Logs"
+    path: "{{ data_path.library.plex.main }}/Logs"
     state: directory

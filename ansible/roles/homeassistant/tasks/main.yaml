@@ -1,28 +1,40 @@
 ---
-- include: homeassistant.yaml
 - include: letsencrypt.yaml
+- include: homeassistant/main.yaml
 
 - name: Delete homeassistant docker-compose dir
   file:
-    path: "{{ docker_compose_homeassistant_path }}"
+    path: "{{ data_path.library.docker_compose.homeassistant }}"
     state: absent
 
 - name: Create homeassistant docker-compose dir
   file:
-    path: "{{ docker_compose_homeassistant_path }}"
+    path: "{{ data_path.library.docker_compose.homeassistant }}"
     state: directory
 
-- name: Create homeassistant/letsencrypt docker-compose dir
+- name: Create homeassistant /homeassistant docker-compose dir
   file:
-    path: "{{ docker_compose_homeassistant_path }}/letsencrypt"
+    path: "{{ data_path.library.docker_compose.homeassistant }}/homeassistant"
     state: directory
+
+- name: Copy wait-for-postgres.sh to /homeassistant docker-compose dir
+  copy:
+    src: "{{ role_path }}/files/homeassistant/homeassistant/wait-for-postgres.sh"
+    dest: "{{ data_path.library.docker_compose.homeassistant }}/homeassistant"
+    force: yes
+
+- name: Copy Dockerfile to /homeassistant docker-compose dir
+  copy:
+    src: "{{ role_path }}/files/homeassistant/homeassistant/Dockerfile"
+    dest: "{{ data_path.library.docker_compose.homeassistant }}/homeassistant"
+    force: yes
 
 - name: Generate docker-compose.yaml with correct values
   template:
     src: docker-compose.yaml.jinja2
-    dest: "{{ docker_compose_homeassistant_path }}/docker-compose.yaml"
+    dest: "{{ data_path.library.docker_compose.homeassistant }}/docker-compose.yaml"
 
 - name: docker-compose up
-  command: docker-compose up --build --detach --force-recreate
+  command: docker-compose up --build --detach --force-recreate --remove-orphans
   args:
-    chdir: "{{ docker_compose_homeassistant_path }}"
+    chdir: "{{ data_path.library.docker_compose.homeassistant }}"

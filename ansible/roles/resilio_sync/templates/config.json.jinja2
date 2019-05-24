@@ -39,8 +39,8 @@
     "listen" : "0.0.0.0:8888" // remove field to disable WebUI
 
 /* preset credentials. Use password or password_hash */
-  ,"login" : "{{ vault_resilio_sync_user }}"
-  ,"password" : "{{ vault_resilio_sync_password }}"
+  ,"login" : "{{ vault.resilio_sync.username }}"
+  ,"password" : "{{ vault.resilio_sync.password }}"
 //  ,"password_hash" : "some_hash" // password hash in crypt(3) format
   ,"allow_empty_password" : false // Defaults to true
 /* ssl configuration */

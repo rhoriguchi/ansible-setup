@@ -58,7 +58,7 @@ ansible-playbook xxlpitu-odroid-home.yaml
 ### Encrypt vault
 
 ```bash
-ansible-vault encrypt vault.dist.yaml
+ansible-vault encrypt vars/vault.yaml
 ```
 
 ### Show all ansible variables

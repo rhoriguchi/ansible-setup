@@ -1,18 +1,28 @@
 ---
+- name: Create glances data dir
+  file:
+    path: "{{ data_path.library.glances }}"
+    state: directory
+
+- name: Generate glances glances.conf with correct values
+  template:
+    src: glances.conf.jinja2
+    dest: "{{ data_path.library.glances }}/glances.conf"
+
 - name: Delete glances docker-compose dir
   file:
-    path: "{{ docker_compose_glances_path }}"
+    path: "{{ data_path.library.docker_compose.glances }}"
     state: absent
 
 - name: Create glances docker-compose dir
   file:
-    path: "{{ docker_compose_glances_path }}"
+    path: "{{ data_path.library.docker_compose.glances }}"
     state: directory
 
 - name: Copy Dockerfile to glances docker-compose dir
   copy:
     src: "{{ role_path }}/files/Dockerfile"
-    dest: "{{ docker_compose_glances_path }}"
+    dest: "{{ data_path.library.docker_compose.glances }}"
     force: yes
 
 - name: Set glances options
@@ -22,14 +32,9 @@
 - name: Generate docker-compose.yaml with correct values
   template:
     src: docker-compose.yaml.jinja2
-    dest: "{{ docker_compose_glances_path }}/docker-compose.yaml"
-
-- name: Generate glances.conf with correct values
-  template:
-    src: glances.conf.jinja2
-    dest: "{{ docker_compose_glances_path }}/glances.conf"
+    dest: "{{ data_path.library.docker_compose.glances }}/docker-compose.yaml"
 
 - name: docker-compose up
-  command: docker-compose up --build --detach --force-recreate
+  command: docker-compose up --build --detach --force-recreate --remove-orphans
   args:
-    chdir: "{{ docker_compose_glances_path }}"
+    chdir: "{{ data_path.library.docker_compose.glances }}"

@@ -6,15 +6,17 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - "alpine_version={{ alpine_version }}"
-        - "python_version={{ python_version }}"
+        - "alpine_version={{ docker.image_version.alpine }}"
+        - "python_version={{ docker.image_version.python }}"
     restart: unless-stopped
     environment:
-      - "TZ={{ timezone }}"
+      - "TZ={{ system.timezone }}"
     volumes:
       - type: bind
-        source: "{{ tv_time_export_path }}"
+        source: "{{ resilio_sync.sync_path.sub.tv_time_export_path }}"
         target: "/tv_time_export/exports"
       - type: bind
-        source: "{{ tv_time_export_data_path }}/tv_time_export.log"
+        source: "{{ data_path.library.tv_time_export }}/tv_time_export.log"
         target: "/tv_time_export/src/tv_time_export.log"
+      - "{{ data_path.library.tv_time_export }}/config.yaml:/tv_time_export/src/config.yaml"
+      - "/etc/localtime:/etc/localtime:ro"

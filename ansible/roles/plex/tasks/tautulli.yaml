@@ -1,5 +1,5 @@
 ---
 - name: Create tautulli data dir
   file:
-    path: "{{ tautulli_data_path }}"
+    path: "{{ data_path.library.tautulli }}"
     state: directory

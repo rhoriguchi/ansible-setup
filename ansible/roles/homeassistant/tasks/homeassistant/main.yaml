@@ -1,0 +1,3 @@
+---
+- include: homeassistant.yaml
+- include: postgres.yaml

@@ -4,7 +4,7 @@
   become: yes
   become_user: root
   vars_files:
-    - vars/default.yaml
+    - vars/config.yaml
     - vars/vault.yaml
   roles:
     - common

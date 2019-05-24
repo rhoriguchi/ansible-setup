@@ -1,36 +1,36 @@
 ---
 - name: Create duckdns data dir
   file:
-    path: "{{ duckdns_data_path }}"
+    path: "{{ data_path.library.duckdns }}"
     state: directory
 
 - name: Create duckdns /duck.log file
   file:
-    path: "{{ duckdns_data_path }}/duck.log"
+    path: "{{ data_path.library.duckdns }}/duck.log"
     state: touch
 
 - name: Delete duckdns docker-compose dir
   file:
-    path: "{{ docker_compose_duckdns_path }}"
+    path: "{{ data_path.library.docker_compose.duckdns }}"
     state: absent
 
 - name: Create duckdns docker-compose dir
   file:
-    path: "{{ docker_compose_duckdns_path }}"
+    path: "{{ data_path.library.docker_compose.duckdns }}"
     state: directory
 
 - name: Copy Dockerfile to duckdns docker-compose dir
   copy:
     src: "{{ role_path }}/files/Dockerfile"
-    dest: "{{ docker_compose_duckdns_path }}"
+    dest: "{{ data_path.library.docker_compose.duckdns }}"
     force: yes
 
 - name: Generate docker-compose.yaml with correct values
   template:
     src: docker-compose.yaml.jinja2
-    dest: "{{ docker_compose_duckdns_path }}/docker-compose.yaml"
+    dest: "{{ data_path.library.docker_compose.duckdns }}/docker-compose.yaml"
 
 - name: docker-compose up
-  command: docker-compose up --build --detach --force-recreate
+  command: docker-compose up --build --detach --force-recreate --remove-orphans
   args:
-    chdir: "{{ docker_compose_duckdns_path }}"
+    chdir: "{{ data_path.library.docker_compose.duckdns }}"

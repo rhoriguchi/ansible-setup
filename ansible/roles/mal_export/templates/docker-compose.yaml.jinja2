@@ -6,15 +6,20 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - "alpine_version={{ alpine_version }}"
-        - "ubuntu_version={{ ubuntu_version }}"
+        - "alpine_version={{ docker.image_version.alpine }}"
+        - "ubuntu_version={{ docker.image_version.ubuntu }}"
     restart: unless-stopped
     environment:
-      - "TZ={{ timezone }}"
+      - "TZ={{ system.timezone }}"
+      - "MAL_USERNAME={{ vault.mal.username }}"
     volumes:
       - type: bind
-        source: "{{ mal_export_path }}"
+        source: "{{ resilio_sync.sync_path.sub.mal_export_path }}"
         target: "/export"
       - type: bind
-        source: "{{ mal_export_data_path }}/mal_export.log"
+        source: "{{ data_path.library.mal_export }}/mal_export.log"
         target: "/mal_export.log"
+      - type: bind
+        source: "{{ data_path.library.mal_export }}/myanimelist-export.yaml"
+        target: "/root/.config/myanimelist-export.yaml"
+      - "/etc/localtime:/etc/localtime:ro"

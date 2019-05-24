@@ -1,25 +1,25 @@
 ---
-- name: "Set timezone as {{ timezone }}"
+- name: "Set timezone as {{ system.timezone }}"
   timezone:
-    name: "{{ timezone }}"
+    name: "{{ system.timezone }}"
 
-- name: "locale-gen {{ language }}"
-  command: "locale-gen {{ language }}"
+- name: "locale-gen {{ system.language }}"
+  command: "locale-gen {{ system.language }}"
 
-- name: "Set environment variable LC_ALL as {{ language }}"
+- name: "Set environment variable LC_ALL as {{ system.language }}"
   lineinfile:
     path: /etc/environment
-    line: "LC_ALL={{ language }}"
+    line: "LC_ALL={{ system.language }}"
 
-- name: "Set environment variable LANG as {{ language }}"
+- name: "Set environment variable LANG as {{ system.language }}"
   lineinfile:
     path: /etc/environment
-    line: "LANG={{ language }}"
+    line: "LANG={{ system.language }}"
 
-- name: "Set environment variable LANGUAGE as {{ language }}"
+- name: "Set environment variable LANGUAGE as {{ system.language }}"
   lineinfile:
     path: /etc/environment
-    line: "LANGUAGE={{ language }}"
+    line: "LANGUAGE={{ system.language }}"
 
 - name: Set environment variable DEBCONF_FRONTEND as noninteractive
   lineinfile:
@@ -37,8 +37,6 @@
     regexp: "^DefaultTimeoutStopSec="
     line: "DefaultTimeoutStopSec={{ system.shutdown_timeout }}"
     state: present
-  notify:
-    - Reload systemd
 
 # TODO set this /etc/default/console-setup
 # https://superuser.com/questions/1332341/console-setup-causes-apt-get-update-to-hang/1332550#1332550

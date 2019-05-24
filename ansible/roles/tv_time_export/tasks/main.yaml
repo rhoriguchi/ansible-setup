@@ -1,46 +1,46 @@
 ---
 - name: Create tv_time_export exports dir
   file:
-    path: "{{ tv_time_export_path }}"
+    path: "{{ resilio_sync.sync_path.sub.tv_time_export_path }}"
     state: directory
 
 - name: Create tv_time_export data dir
   file:
-    path: "{{ tv_time_export_data_path }}"
+    path: "{{ data_path.library.tv_time_export }}"
     state: directory
-    
-- name: Create tv_time_export /tv_time_export.log file
+
+- name: Generate tv_time_export config.yaml with correct values
+  template:
+    src: config.yaml.jinja2
+    dest: "{{ data_path.library.tv_time_export }}/config.yaml"
+
+- name: Create tv_time_export tv_time_export.log file
   file:
-    path: "{{ tv_time_export_data_path }}/tv_time_export.log"
+    path: "{{ data_path.library.tv_time_export }}/tv_time_export.log"
     state: touch
 
 - name: Delete tv_time_export docker-compose dir
   file:
-    path: "{{ docker_compose_tv_time_export_path }}"
+    path: "{{ data_path.library.docker_compose.tv_time_export }}"
     state: absent
 
 - name: Create tv_time_export docker-compose dir
   file:
-    path: "{{ docker_compose_tv_time_export_path }}"
+    path: "{{ data_path.library.docker_compose.tv_time_export }}"
     state: directory
 
 - name: Copy Dockerfile to tv_time_export docker-compose dir
   copy:
     src: "{{ role_path }}/files/Dockerfile"
-    dest: "{{ docker_compose_tv_time_export_path }}"
+    dest: "{{ data_path.library.docker_compose.tv_time_export }}"
     force: yes
 
 - name: Generate docker-compose.yaml with correct values
   template:
     src: docker-compose.yaml.jinja2
-    dest: "{{ docker_compose_tv_time_export_path }}/docker-compose.yaml"
-
-- name: Generate myanimelist-export.yaml with correct values
-  template:
-    src: config.yaml.jinja2
-    dest: "{{ docker_compose_tv_time_export_path }}/config.yaml"
+    dest: "{{ data_path.library.docker_compose.tv_time_export }}/docker-compose.yaml"
 
 - name: docker-compose up
-  command: docker-compose up --build --detach --force-recreate
+  command: docker-compose up --build --detach --force-recreate --remove-orphans
   args:
-    chdir: "{{ docker_compose_tv_time_export_path }}"
+    chdir: "{{ data_path.library.docker_compose.tv_time_export }}"

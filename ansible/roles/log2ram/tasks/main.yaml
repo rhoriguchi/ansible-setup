@@ -1,22 +1,22 @@
 ---
 - name: Delete log2ram temp dir
   file:
-    path: "{{ log2ram_tmp_path }}"
+    path: "{{ log2ram.tmp_path }}"
     state: absent
 
 - name: Create log2ram temp dir
   file:
-    path: "{{ log2ram_tmp_path }}"
+    path: "{{ log2ram.tmp_path }}"
     state: directory
 
 - name: Download and unarchive master.tar.gz to log2ram temp dir
   unarchive:
     src: https://github.com/azlux/log2ram/archive/master.tar.gz
-    dest: "{{ log2ram_tmp_path }}"
+    dest: "{{ log2ram.tmp_path }}"
     remote_src: yes
 
 - name: Execute install.sh
-  command: "sh {{ log2ram_tmp_path }}/log2ram-master/install.sh"
+  command: "sh {{ log2ram.tmp_path }}/log2ram-master/install.sh"
 
 - name: Copy log2ram.conf to /etc
   copy:
@@ -25,5 +25,5 @@
 
 - name: Delete log2ram temp dir
   file:
-    path: "{{ log2ram_tmp_path }}"
+    path: "{{ log2ram.tmp_path }}"
     state: absent

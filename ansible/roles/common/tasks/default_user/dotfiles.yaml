@@ -1,41 +1,40 @@
 ---
-- name: Install apt stow zsh
+- name: Install apt stow
   apt:
     name:
       - stow
-      - zsh
     state: latest
     install_recommends: no
     update_cache: yes
 
 - name: Delete dotfiles repo
   file:
-    path: "{{ default_user_dotfiles_path }}"
+    path: "{{ user.default.dotfiles_path }}"
     state: absent
 
 - name: Clone dotfiles repo to default user
   become: yes
-  become_user: "{{ default_user }}"
+  become_user: "{{ user.default.name }}"
   git:
     repo: https://github.com/rhoriguchi/dotfiles.git
-    dest: "{{ default_user_dotfiles_path }}"
+    dest: "{{ user.default.dotfiles_path }}"
 
 - name: Change permissions for init.sh for dotfiles
   file:
-    path: "{{ default_user_dotfiles_path }}/init.sh"
+    path: "{{ user.default.dotfiles_path }}/init.sh"
     mode: +x
-    owner: "{{ default_user }}"
+    owner: "{{ user.default.name }}"
 
 - name: Execute init.sh for dotfiles
   become: yes
-  become_user: "{{ default_user }}"
-  command: "sh {{ default_user_dotfiles_path }}/init.sh"
+  become_user: "{{ user.default.name }}"
+  command: "sh {{ user.default.dotfiles_path }}/init.sh"
 
 - name: Create .git-credentials file
   become: yes
-  become_user: "{{ default_user }}"
+  become_user: "{{ user.default.name }}"
   lineinfile:
     create: yes
-    path: "{{ default_user_home }}/.git-credentials"
-    line: "https://{{ vault_git_user }}:{{ vault_git_password }}@github.com"
+    path: "{{ user.default.home }}/.git-credentials"
+    line: "https://{{ vault.github.username }}:{{ vault.github.password }}@github.com"
   no_log: true

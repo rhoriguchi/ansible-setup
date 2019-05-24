@@ -1,15 +1,15 @@
 ---
 - name: Create homeassistant letsencrypt dir
   file:
-    path: "{{ letsencrypt_homeassistant_path }}"
+    path: "{{ data_path.library.letsencrypt }}"
     state: directory
 
 - name: Create homeassistant nginx dir
   file:
-    path: "{{ nginx_homeassistant_path }}"
+    path: "{{ data_path.library.nginx }}"
     state: directory
 
 - name: Generate nginx/app.conf with correct values
   template:
     src: letsencrypt/nginx/default.jinja2
-    dest: "{{ nginx_homeassistant_path }}/default"
+    dest: "{{ data_path.library.nginx }}/default"

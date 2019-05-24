@@ -10,8 +10,8 @@ LABEL maintainer="ryan.horiguchi@gmail.com"
 COPY --from=download /tv_time_export/requirements.txt /tv_time_export/requirements.txt
 RUN pip install --no-cache-dir -r /tv_time_export/requirements.txt
 COPY --from=download /tv_time_export /tv_time_export
-COPY config.yaml /tv_time_export/src/config.yaml
 VOLUME /tv_time_export/exports
+# TODO user user /bin/
 CMD ["python", "/tv_time_export/src/tv_time_export.py"]
 
 FROM base AS cronjob

@@ -1,23 +1,27 @@
-vault_default_user_password:
-vault_ansible_user_password:
-
-vault_git_user:
-vault_git_password:
-
-vault_tv_time_username:
-vault_tv_time_password:
-
-vault_mal_username:
-vault_mal_password:
-
-vault_duckdns_token:
-
-vault_portainer_password:
-
-vault_flexget_password:
-
-vault_resilio_sync_user:
-vault_resilio_sync_password:
-
-vault_openvpn_username:
-vault_openvpn_password:
+vault:
+  user:
+    default:
+      password:
+    ansible:
+      password:
+  github:
+    username:
+    password:
+  tv_time:
+    username:
+    password:
+  mal:
+    username:
+    password:
+  duckdns:
+    token:
+  portainer:
+    password:
+  flexget:
+    password:
+  resilio_sync:
+    username:
+    password:
+  opvenvpn:
+    username:
+    password:

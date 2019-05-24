@@ -7,8 +7,11 @@ services:
     command: "--admin-password={{ portainer_hashed_admin_password | replace("$", "$$") }} --host unix:///var/run/docker.sock"
     ports:
       - "9000:9000"
+    environments:
+      - "TZ={{ system.timezone }}"
     volumes:
       - type: bind
-        source: "{{ portainer_data_path }}/data"
+        source: "{{ data_path.library.portainer }}/data"
         target: "/data"
       - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/etc/localtime:/etc/localtime:ro"

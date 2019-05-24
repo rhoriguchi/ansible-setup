@@ -1,46 +1,51 @@
 ---
 - name: Create resilio sync dir
   file:
-    path: "{{ resilio_sync_save_path }}"
+    path: "{{ resilio_sync.sync_path.main }}"
     state: directory
 
 - name: Create resilio sync Downloads dir
   file:
-    path: "{{ resilio_sync_downloads_save_path }}"
+    path: "{{ resilio_sync.download_path }}"
     state: directory
 
 - name: Create resilio sync data dir
   file:
-    path: "{{ resilio_sync_data_path }}"
+    path: "{{ data_path.library.resilio_sync }}"
     state: directory
+
+- name: Create resilio sync /config dir
+  file:
+    path: "{{ data_path.library.resilio_sync }}/config"
+    state: directory
+
+- name: Generate config.json with correct values
+  template:
+    src: config.json.jinja2
+    dest: "{{data_path.library.resilio_sync }}/config.json"
 
 - name: Delete resilio sync docker-compose dir
   file:
-    path: "{{ docker_compose_resilio_sync_path }}"
+    path: "{{ data_path.library.docker_compose.resilio_sync }}"
     state: absent
 
 - name: Create resilio sync docker-compose dir
   file:
-    path: "{{ docker_compose_resilio_sync_path }}"
+    path: "{{ data_path.library.docker_compose.resilio_sync }}"
     state: directory
 
 - name: Copy Dockerfile to resilio sync docker-compose dir
   copy:
     src: "{{ role_path }}/files/Dockerfile"
-    dest: "{{ docker_compose_resilio_sync_path }}"
+    dest: "{{ data_path.library.docker_compose.resilio_sync }}"
     force: yes
 
 - name: Generate docker-compose.yaml with correct values
   template:
     src: docker-compose.yaml.jinja2
-    dest: "{{ docker_compose_resilio_sync_path }}/docker-compose.yaml"
-
-- name: Generate myanimelist-export.yaml with correct values
-  template:
-    src: config.json.jinja2
-    dest: "{{ docker_compose_resilio_sync_path }}/config.json"
+    dest: "{{ data_path.library.docker_compose.resilio_sync }}/docker-compose.yaml"
 
 - name: docker-compose up
-  command: docker-compose up --build --detach --force-recreate
+  command: docker-compose up --build --detach --force-recreate --remove-orphans
   args:
-    chdir: "{{ docker_compose_resilio_sync_path }}"
+    chdir: "{{ data_path.library.docker_compose.resilio_sync }}"

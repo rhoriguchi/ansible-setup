@@ -1,7 +1,7 @@
 ---
 - name: Get stat of docker lib dir
   stat:
-    path: "{{ default_docker_lib_path }}"
+    path: "{{ docker.default_lib_path }}"
   register: link
 
 - name: Get all running docker containers
@@ -23,47 +23,47 @@
 
 - name: Create docker lib dir
   file:
-    path: "{{ default_docker_lib_path }}"
+    path: "{{ docker.default_lib_path }}"
     state: directory
   when: link.stat.islnk is defined and link.stat.islnk == false
 
 - name: Delete docker lib symbolic link dir
   file:
-    path: "{{ docker_data_path }}"
+    path: "{{ data_path.library.docker }}"
     state: absent
   when: link.stat.islnk is defined and link.stat.islnk == false
 
 - name: Create docker lib symbolic link dir
   file:
-    path: "{{ docker_data_path }}"
+    path: "{{ data_path.library.docker }}"
     state: directory
   when: link.stat.islnk is defined and link.stat.islnk == false
 
 - name: Synchronize docker lib dir to docker lib symbolic link dir
   synchronize:
-    src: "{{ default_docker_lib_path }}"
-    dest: "{{ docker_data_path }}/.."
+    src: "{{ docker.default_lib_path }}"
+    dest: "{{ data_path.library.docker }}/.."
     delete: yes
     recursive: yes
   delegate_to: "{{ inventory_hostname }}"
   when: link.stat.islnk is defined and link.stat.islnk == false
 
 - name: Get content of docker lib dir
-  command: "ls -1 {{ default_docker_lib_path }}"
+  command: "ls -1 {{ docker.default_lib_path }}"
   register: contents
   when: link.stat.islnk is defined and link.stat.islnk == false
 
 - name: Delete content of docker lib dir
   file:
-    path: "{{ default_docker_lib_path }}/{{ item }}"
+    path: "{{ docker.default_lib_path }}/{{ item }}"
     state: absent
   with_items: "{{ contents.stdout_lines }}"
   when: link.stat.islnk is defined and link.stat.islnk == false
 
 - name: Create symbolic link from docker lib dir to external drive
   file:
-    src: "{{ docker_data_path }}"
-    dest: "{{ default_docker_lib_path }}"
+    src: "{{ data_path.library.docker }}"
+    dest: "{{ docker.default_lib_path }}"
     state: link
     force: yes
 

@@ -1,0 +1,99 @@
+---
+system:
+  shutdown_timeout: 10
+  language: en_US.UTF-8
+  timezone: Europe/Zurich
+  updates:
+    auto_update: true
+    auto_clean: true
+    auto_reboot: true
+    reboot_time: '3:00'
+    update_speed: 0
+
+drive:
+  main:
+    path: /media/BLACKHOLE
+  ssd:
+    partuuid: 0e01cf89-f498-4b5c-8df5-f6da03846b3f
+  wd_red:
+    partuuid: 04c68371-6883-415e-972a-f4997f4d115a
+
+user:
+  default:
+    name: xxlpitu
+    home: /home/xxlpitu
+    dotfiles_path: /home/xxlpitu/.dotfiles
+    id: 4242
+    shell: zsh
+  ansible:
+    id: 3131
+    shell: zsh
+
+docker:
+  default_lib_path: /var/lib/docker
+  image_version:
+    alpine: 3.9.3
+    postgres: 11.3-alpine
+    python: 3.7.3-alpine
+    ubuntu: 19.04
+
+data_path:
+  library:
+    docker: "{{ drive.main.path }}/library/docker"
+    docker_compose:
+      duckdns: "{{ drive.main.path }}/library/docker_compose/duckdns"
+      flexget: "{{ drive.main.path }}/library/docker_compose/flexget"
+      glances: "{{ drive.main.path }}/library/docker_compose/glances"
+      homeassistant: "{{ drive.main.path }}/library/docker_compose/homeassistant"
+      mal_export: "{{ drive.main.path }}/library/docker_compose/mal_export"
+      plex: "{{ drive.main.path }}/library/docker_compose/plex"
+      portainer: "{{ drive.main.path }}/library/docker_compose/portainer"
+      resilio_sync: "{{ drive.main.path }}/library/docker_compose/resilio_sync"
+      tv_time_export: "{{ drive.main.path }}/library/docker_compose/tv_time_export"
+    duckdns: "{{ drive.main.path }}/library/duckdns"
+    flexget: "{{ drive.main.path }}/library/flexget"
+    glances: "{{ drive.main.path }}/library/glances"
+    homeassistant:
+      dot: "{{ drive.main.path }}/library/homeassistant/.homeassistant"
+      main: "{{ drive.main.path }}/library/homeassistant"
+      sub:
+        postgres: "{{ drive.main.path }}/library/homeassistant/postgres"
+    letsencrypt: "{{ drive.main.path }}/library/letsencrypt"
+    mal_export: "{{ drive.main.path }}/library/mal_export"
+    nginx: "{{ drive.main.path }}/library/nginx"
+    plex:
+      main: "{{ drive.main.path }}/library/plex"
+      plugin:
+        main: "{{ drive.main.path }}/library/plex/Plug-ins"
+        sub:
+          open_movie_database: "{{ drive.main.path }}/library/plex/Plug-ins/OpenMovieDatabase.bundle"
+          subliminal: "{{ drive.main.path }}/library/plex/Plug-ins/Subliminal.bundle"
+    portainer: "{{ drive.main.path }}/library/portainer"
+    resilio_sync: "{{ drive.main.path }}/library/resilio_sync"
+    tautulli: "{{ drive.main.path }}/library/tautulli"
+    transmission: "{{ drive.main.path }}/library/transmission"
+    tv_time_export: "{{ drive.main.path }}/library/tv_time_export"
+
+resilio_sync:
+  sync_path: 
+    main: "{{ drive.main.path }}/sync"
+    sub:
+      tv_time_export_path: "{{ drive.main.path }}/sync/tv_time_export"
+      mal_export_path: "{{ drive.main.path }}/sync/mal_export"
+  download_path: "{{ drive.main.path }}/syncDownloads"
+
+plex:
+  tmp_absolute_series_scanner_path: /tmp/Absolute-Series-Scanner
+
+homeassistant:
+  tmp_path: /tmp/homeassistant
+  tmp_secrets_path: /tmp/homeassistant_secrets
+
+duckdns:
+  url: "{{ duckdns_domain }}.duckdns.org"
+
+log2ram:
+  tmp_path: /tmp/log2ram
+
+local:
+  tmp_ansible_fetch_path: /tmp/ansible/fetch

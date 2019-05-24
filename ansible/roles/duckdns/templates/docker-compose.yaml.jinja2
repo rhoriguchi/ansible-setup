@@ -7,10 +7,13 @@ services:
       dockerfile: Dockerfile
       args:
         - "duckdns_domain={{ duckdns_domain }}"
-        - "duckdns_token={{ vault_duckdns_token }}"
-        - "alpine_version={{ alpine_version }}"
+        - "duckdns_token={{ vault.duckdns.token }}"
+        - "alpine_version={{ docker.image_version.alpine }}"
+    environments:
+      - "TZ={{ system.timezone }}"
     restart: unless-stopped
     volumes:
       - type: bind
-        source: "{{ duckdns_data_path }}/duck.log"
+        source: "{{ data_path.library.duckdns }}/duck.log"
         target: "/duckdns/duck.log"
+      - "/etc/localtime:/etc/localtime:ro"

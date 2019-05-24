@@ -1,16 +1,16 @@
 ---
 - name: Create portainer data dir
   file:
-    path: "{{ portainer_data_path }}"
+    path: "{{ data_path.library.portainer }}"
     state: directory
 
 - name: Create portainer /data dir
   file:
-    path: "{{ portainer_data_path }}/data"
+    path: "{{ data_path.library.portainer }}/data"
     state: directory
 
 - name: Generate portainer admin password hash
-  shell: "docker run --rm httpd:2.4-alpine htpasswd -nbB admin {{ vault_portainer_password }} | cut -d ':' -f 2"
+  shell: "docker run --rm httpd:2.4-alpine htpasswd -nbB admin {{ vault.portainer.password }} | cut -d ':' -f 2"
   register: portainer_hashed_admin_password
   no_log: true
 
@@ -20,20 +20,20 @@
 
 - name: Delete portainer docker-compose dir
   file:
-    path: "{{ docker_compose_portainer_path }}"
+    path: "{{ data_path.library.docker_compose.portainer }}"
     state: absent
 
 - name: Create portainer docker-compose dir
   file:
-    path: "{{ docker_compose_portainer_path }}"
+    path: "{{ data_path.library.docker_compose.portainer }}"
     state: directory
 
 - name: Generate docker-compose.yaml with correct values
   template:
     src: docker-compose.yaml.jinja2
-    dest: "{{ docker_compose_portainer_path }}/docker-compose.yaml"
+    dest: "{{ data_path.library.docker_compose.portainer }}/docker-compose.yaml"
 
 - name: docker-compose up
-  command: docker-compose up --build --detach --force-recreate
+  command: docker-compose up --build --detach --force-recreate --remove-orphans
   args:
-    chdir: "{{ docker_compose_portainer_path }}"
+    chdir: "{{ data_path.library.docker_compose.portainer }}"

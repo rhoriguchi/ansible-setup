@@ -1,11 +1,11 @@
 ---
 - name: Set hostname
   hostname:
-    name: "{{ hostname }}"
+    name: "{{ system_hostname }}"
 
 - name: Change hostname in /etc/hosts
   copy:
     content: |
       127.0.0.1     localhost
-      127.0.1.1     {{ hostname }}
+      127.0.1.1     {{ system_hostname }}
     dest: /etc/hosts

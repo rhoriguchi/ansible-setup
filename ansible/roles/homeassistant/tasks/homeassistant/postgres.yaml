@@ -1,0 +1,17 @@
+---
+- name: Create homeassistant postgress data dir
+  file:
+    path: "{{ data_path.library.homeassistant.sub.postgres }}"
+    state: directory
+
+- name: Include recorder in .homeassistant/configuration.yaml
+  lineinfile:
+    path: "{{ data_path.library.homeassistant.dot }}/configuration.yaml"
+    insertafter: EOF
+    line: "recorder: !include recorder.yaml"
+
+- name: Copy configuration.yaml to .homeassistant dir
+  copy:
+    src: "{{ role_path }}/files/homeassistant/postgres/recorder.yaml"
+    dest: "{{ data_path.library.homeassistant.dot }}"
+    force: yes

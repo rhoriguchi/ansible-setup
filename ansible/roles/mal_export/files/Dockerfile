@@ -53,7 +53,6 @@ COPY myanimelist-export.sh /myanimelist-export.sh
 RUN sed -i '1s/^.*#//;s/\r$//' /myanimelist-export.sh \
     && chmod +x /myanimelist-export.sh \
     && chmod +x /myanimelist-export
-COPY myanimelist-export.yaml /root/.config/myanimelist-export.yaml
 RUN mkdir /export
 VOLUME /export
 CMD ["/bin/bash", "/myanimelist-export.sh"]

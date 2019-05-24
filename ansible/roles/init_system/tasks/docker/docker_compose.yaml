@@ -17,9 +17,11 @@
     executable: pip3
     state: latest
 
-- name: "Pip install docker-compose {{ docker_compose_version }}"
+- name: Pip install docker-compose
   pip:
-    name: "docker-compose=={{ docker_compose_version }}"
+    name: docker-compose
 
 - name: Change permissions for docker-compose +x
-  shell: chmod +x /usr/local/bin/docker-compose
+  file:
+    path: /usr/local/bin/docker-compose
+    mode: +x

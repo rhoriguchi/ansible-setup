@@ -22,7 +22,7 @@ RUN apk add --no-cache --virtual .build_deps \
     wifi \
 	&& apk del .build_deps
 COPY --from=download /glances /glances
-COPY glances.conf /glances/conf/glances.conf
+RUN touch /glances/conf/glances.conf
 WORKDIR /glances
 EXPOSE 61208
 CMD python -m glances --config /glances/conf/glances.conf ${GLANCES_OPT}

@@ -1,0 +1,118 @@
+---
+- name: Delete homeassistant tmp repo
+  file:
+    path: "{{ homeassistant.tmp_path }}"
+    state: absent
+
+- name: Clone homeassistant to tmp
+  git:
+    repo: https://github.com/rhoriguchi/homeassistant.git
+    dest: "{{ homeassistant.tmp_path }}"
+
+- name: Create fetch dir
+  file:
+    path: "{{ local.tmp_ansible_fetch_path }}"
+    state: directory
+
+- name: Fetch config.yaml from remote host
+  fetch:
+    src: "{{ homeassistant.tmp_path }}/config.yaml"
+    dest: "{{ local.tmp_ansible_fetch_path }}/config.yaml"
+    flat: yes
+
+# TODO https://docs.ansible.com/ansible/latest/modules/include_vars_module.html
+# To assign included variables to a different host than inventory_hostname, use delegate_to and set delegate_facts=yes.
+- include_vars:
+    file: "{{ local.tmp_ansible_fetch_path }}/config.yaml"
+    name: homeassistant_config
+
+- name: Delete fetch dir
+  file:
+    path: "{{ local.tmp_ansible_fetch_path }}"
+    state: absent
+
+- name: Use homeassistant/raspberrypi3-homeassistant image
+  set_fact:
+    homeassistant_docker_image: "homeassistant/raspberrypi3-homeassistant"
+  when: ansible_lsb.id == "Raspbian"
+
+- name: "Use homeassistant/{{ ansible_architecture }}-homeassistant image"
+  set_fact:
+    homeassistant_docker_image: "homeassistant/{{ ansible_architecture }}-homeassistant"
+  when: ansible_lsb.id != "Raspbian"
+
+- name: Create homeassistant data dir
+  file:
+    path: "{{ data_path.library.homeassistant.main }}"
+    state: directory
+
+- name: Synchronize .homeassistant to homeassistant config dir
+  synchronize:
+    src: "{{ homeassistant.tmp_path }}/.homeassistant"
+    dest: "{{ data_path.library.homeassistant.main }}"
+    delete: no
+    recursive: yes
+  delegate_to: "{{ inventory_hostname }}"
+
+- name: Delete homeassistant_secrets tmp repo
+  file:
+    path: "{{ homeassistant.tmp_secrets_path }}"
+    state: absent
+
+- name: Clone homeassistant_secrets to tmp
+  git:
+    repo: "https://{{ vault.github.username }}:{{ vault.github.password }}@github.com/rhoriguchi/homeassistant_secrets.git"
+    dest: "{{ homeassistant.tmp_secrets_path }}"
+  no_log: true
+
+- name: Create fetch dir
+  file:
+    path: "{{ local.tmp_ansible_fetch_path }}"
+    state: directory
+
+- name: Fetch secrets.yaml from remote host
+  fetch:
+    src: "{{ homeassistant.tmp_secrets_path }}/secrets.yaml"
+    dest: "{{ local.tmp_ansible_fetch_path }}/secrets.yaml"
+    flat: yes
+
+- include_vars:
+    file: "{{ local.tmp_ansible_fetch_path }}/secrets.yaml"
+
+- name: Delete fetch dir
+  file:
+   path: "{{ local.tmp_ansible_fetch_path }}"
+   state: absent
+
+- name: Copy secrets.yaml to homeassistant config dir
+  synchronize:
+    src: "{{ homeassistant.tmp_secrets_path }}/secrets.yaml"
+    dest: "{{ data_path.library.homeassistant.dot }}/secrets.yaml"
+  delegate_to: "{{ inventory_hostname }}"
+
+- name: Delete homeassistant_secrets temp repo
+  file:
+    path: "{{ homeassistant.tmp_secrets_path }}"
+    state: absent
+
+- name: Generate phue.conf with correct hue token in homeassistant config dir
+  template:
+    src: homeassistant/homeassistant/phue.conf.jinja2
+    dest: "{{ data_path.library.homeassistant.dot }}/phue.conf"
+
+- name: Replace base_url in homeassistant configuration.yaml
+  replace:
+    path: "{{ data_path.library.homeassistant.dot }}/configuration.yaml"
+    regexp: "base_url:\\s.*$"
+    replace: "base_url: https://{{ duckdns.url }}"
+
+- name: Replace http://localhost with http://glances in homeassistant sensor/glances_localhost.yaml
+  replace:
+    path: "{{ data_path.library.homeassistant.dot }}/sensor/glances_localhost.yaml"
+    regexp: "http:\\/\\/localhost"
+    replace: "http://glances"
+
+- name: Delete home-assistant.log
+  file:
+    path: "{{ data_path.library.homeassistant.dot }}/home-assistant.log"
+    state: absent

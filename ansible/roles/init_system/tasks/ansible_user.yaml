@@ -1,4 +1,12 @@
 ---
+- name: "Install apt {{ user.default.shell }}"
+  apt:
+    name:
+      - "{{ user.default.shell }}"
+    state: latest
+    install_recommends: no
+    update_cache: yes
+
 - name: Add group docker
   group:
     name: docker
@@ -7,8 +15,8 @@
 - name: Add user ansible
   user:
     name: ansible
-    password: "{{ vault_ansible_user_password | password_hash('sha512') }}"
-    uid: "{{ ansible_id }}"
-    shell: /bin/bash
+    password: "{{ vault.user.ansible.password | password_hash('sha512') }}"
+    uid: "{{ user.ansible.id }}"
+    shell: "/bin/{{ user.ansible.shell }}"
     groups: docker,sudo,users
     append: yes

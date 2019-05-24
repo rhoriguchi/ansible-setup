@@ -1,18 +1,18 @@
 ---
 - name: Create flexget data dir
   file:
-    path: "{{ flexget_data_path }}"
+    path: "{{ data_path.library.flexget }}"
     state: directory
 
 - name: Create flexget config dir
   file:
-    path: "{{ flexget_data_path }}/config"
+    path: "{{ data_path.library.flexget }}/config"
     state: directory
 
 - name: Copy config.yml to flexget config dir
   copy:
     src: "{{ role_path }}/files/flexget/config.yml"
-    dest: "{{ flexget_data_path }}/config"
+    dest: "{{ data_path.library.flexget }}/config"
     force: yes
 
-# TODO figure out how to set gui password {{ vault_flexget_password }}
+# TODO figure out how to set gui password {{ vault.flexget.password }}

@@ -18,7 +18,7 @@ RUN echo "deb http://linux-packages.resilio.com/resilio-sync/deb resilio-sync no
 RUN mkdir /sync \
 	&& mkdir /downloads \
 	&& mkdir /config
-COPY config.json /etc/resilio-sync/config.json
 VOLUME /sync /downloads /config
+RUN touch /config.json
 EXPOSE 55555 8888
-CMD ["/usr/bin/rslsync", "--config", "/etc/resilio-sync/config.json", "--nodaemon"]
+CMD ["/usr/bin/rslsync", "--config", "/config.json", "--nodaemon"]

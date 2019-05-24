@@ -6,18 +6,19 @@ services:
     restart: unless-stopped
     network_mode: host
     environment:
-      - "HOSTNAME={{ hostname }}"
-      - "TZ={{ timezone }}"
+      - "HOSTNAME={{ system_hostname }}"
+      - "TZ={{ system.timezone }}"
       - "VERSION=public"
     volumes:
       - type: bind
-        source: "{{ plex_data_path }}"
+        source: "{{ data_path.library.plex.main }}"
         target: "/config/Library/Application Support/Plex Media Server"
       - type: bind
-        source: "{{ resilio_sync_save_path }}"
+        source: "{{ resilio_sync.sync_path.main }}"
         target: "/data/sync"
+      - "/etc/localtime:/etc/localtime:ro"
   tautulli:
-    container_name: tautulli
+    container_name: plex_tautulli
     image: linuxserver/tautulli
     restart: unless-stopped
     depends_on:
@@ -25,11 +26,12 @@ services:
     ports:
       - "8181:8181"
     environment:
-      - "TZ={{ timezone }}"
+      - "TZ={{ system.timezone }}"
     volumes:
       - type: bind
-        source: "{{ plex_data_path }}/Logs"
+        source: "{{ data_path.library.plex.main }}/Logs"
         target: "/logs"
       - type: bind
-        source: "{{ tautulli_data_path }}"
+        source: "{{ data_path.library.tautulli }}"
         target: "/config"
+      - "/etc/localtime:/etc/localtime:ro"

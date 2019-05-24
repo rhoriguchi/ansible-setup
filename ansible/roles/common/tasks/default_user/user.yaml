@@ -1,9 +1,22 @@
 ---
-- name: "Add default user {{ default_user }}"
+- name: "Install apt {{ user.default.shell }}"
+  apt:
+    name:
+      - "{{ user.default.shell }}"
+    state: latest
+    install_recommends: no
+    update_cache: yes
+
+- name: Add group docker
+  group:
+    name: docker
+    state: present
+
+- name: "Add default user {{ user.default.name }}"
   user:
-    name: "{{ default_user }}"
-    password: "{{ vault_default_user_password | password_hash('sha512') }}"
-    uid: "{{ default_user_id }}"
-    shell: /bin/zsh
+    name: "{{ user.default.name }}"
+    password: "{{ vault.user.default.password | password_hash('sha512') }}"
+    uid: "{{ user.default.id }}"
+    shell: "/bin/{{ user.default.shell }}"
     groups: docker,sudo,users
     append: yes

@@ -1,15 +1,15 @@
 ---
 - name: Create plex plug-ins dir
   file:
-    path: "{{ plex_plugins_path }}"
+    path: "drive.main.path }}/library/plex/Plug-ins"
     state: directory
 
 - name: Delete Subliminal.bundle dir in plex plugin dir
   file:
-    path: "{{ subliminal_plugin_path }}"
+    path: "{{{ data_path.library.plex.plugin.sub.subliminal }}"
     state: absent
 
 - name: Clone Subliminal.bundle to plex plugin dir
   git:
     repo: https://github.com/bramwalet/Subliminal.bundle.git
-    dest: "{{ subliminal_plugin_path }}"
+    dest: "{{{ data_path.library.plex.plugin.sub.subliminal }}"

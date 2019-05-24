@@ -1,9 +1,12 @@
 ---
-# TODO detect if bootini is present and only hold if it is
+- name: Check if bootini is installed
+  shell: dpkg-query -W bootini
+  ignore_errors: true
+  register: bootini_installed
 
-- name: Hold boot.ini upgrade
+- name: Hold bootini upgrade
   command: apt-mark hold bootini
-  ignore_errors: yes
+  when: bootini_installed.stdout != ""
 
 - name: Update package list
   apt:
@@ -23,9 +26,9 @@
   apt:
     autoremove: yes
 
-- name: Unhold boot.ini upgrade
+- name: Unhold bootini upgrade
   command: apt-mark unhold bootini
-  ignore_errors: yes
+  when: bootini_installed.stdout != ""
 
 - name: Install apt git python3 python3-pip python3-setuptools rsync
   apt:

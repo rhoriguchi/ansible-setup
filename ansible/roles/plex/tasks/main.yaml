@@ -4,20 +4,20 @@
 
 - name: Delete plex docker-compose dir
   file:
-    path: "{{ docker_compose_plex_path }}"
+    path: "{{ data_path.library.docker_compose.plex }}"
     state: absent
 
 - name: Create plex docker-compose dir
   file:
-    path: "{{ docker_compose_plex_path }}"
+    path: "{{ data_path.library.docker_compose.plex }}"
     state: directory
 
 - name: Generate docker-compose.yaml with correct values
   template:
     src: docker-compose.yaml.jinja2
-    dest: "{{ docker_compose_plex_path }}/docker-compose.yaml"
+    dest: "{{ data_path.library.docker_compose.plex }}/docker-compose.yaml"
 
 - name: docker-compose up
-  command: docker-compose up --build --detach --force-recreate
+  command: docker-compose up --build --detach --force-recreate --remove-orphans
   args:
-    chdir: "{{ docker_compose_plex_path }}"
+    chdir: "{{ data_path.library.docker_compose.plex }}"

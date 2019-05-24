@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   letsencrypt:
-    container_name: letsencrypt
+    container_name: homeassistant_letsencrypt
     image: linuxserver/letsencrypt
     restart: unless-stopped
     networks:
@@ -12,30 +12,60 @@ services:
     environment:
       - "COMPOSE_HTTP_TIMEOUT=300"
       - "DHLEVEL=2048"
-      - "DUCKDNSTOKEN={{ vault_duckdns_token }}"
+      - "DUCKDNSTOKEN={{ vault.duckdns.token }}"
       - "SUBDOMAINS=wildcard"
-      - "TZ={{ timezone }}"
+      - "TZ={{ system.timezone }}"
       - "URL={{ duckdns_domain }}.duckdns.org"
       - "VALIDATION=duckdns"
     volumes:
       - type: bind
-        source: "{{ letsencrypt_homeassistant_path }}"
+        source: "{{ data_path.library.letsencrypt }}"
         target: "/config/etc/letsencrypt"
-      - "{{ nginx_homeassistant_path }}:/config/nginx/site-confs/"
+      - "{{ data_path.library.nginx }}:/config/nginx/site-confs/"
+      - "/etc/localtime:/etc/localtime:ro"
+  db:
+    container_name: homeassistant_db
+    image: postgres:{{ docker.image_version.postgres }}
+    restart: unless-stopped
+    networks:
+      - default
+    expose:
+      - "5432"
+    environment:
+      - "POSTGRES_DB=homeassistant"
+      - "POSTGRES_PASSWORD=password"
+      - "POSTGRES_USER=homeassistant"
+    volumes:
+      - type: bind
+        source: "{{ data_path.library.homeassistant.sub.postgres }}"
+        target: "/var/lib/postgresql/data"
   homeassistant:
     container_name: homeassistant
-    image: {{ homeassistant_docker_image }}:{{ homeassistant.version }}
+    build:
+      context: homeassistant
+      dockerfile: Dockerfile
+      args:
+        - "image={{ homeassistant_docker_image }}"
+        - "version={{ homeassistant_config.version }}"
     restart: unless-stopped
+    command: ["/wait-for-postgres.sh", "db", "python3", "-m", "homeassistant", "--config", "/config"]
     depends_on:
       - letsencrypt
+      - db
     networks:
       - default
       - glances_default
     expose:
       - "8123"
+{# TODO figoure out what is exactly needed for sonos discovery with soco library #}
+{#    ports: #}
+{#      - "1400:1400" #}
+    environment:
+      - "POSTGRES_PASSWORD=password"
+      - "POSTGRES_USER=homeassistant"
     volumes:
       - type: bind
-        source: "{{ dot_homeassistant_path }}"
+        source: "{{ data_path.library.homeassistant.dot }}"
         target: "/config"
       - "/etc/localtime:/etc/localtime:ro"
 networks:

@@ -7,33 +7,35 @@ services:
     ports:
       - "9091:9091"
     environment:
-      - "TZ={{ timezone }}"
+      - "TZ={{ system.timezone }}"
     volumes:
       - type: bind
-        source: "{{ transmission_data_path }}/config"
+        source: "{{ data_path.library.transmission }}/config"
         target: "/config"
       - type: bind
-        source: "{{ transmission_data_path }}/watch"
+        source: "{{ data_path.library.transmission }}/watch"
         target: "/watch"
       - "transmission_downloads:/downloads"
+      - "/etc/localtime:/etc/localtime:ro"
   flexget:
     container_name: flexget
     build:
       context: flexget
       dockerfile: Dockerfile
       args:
-        - "python_version={{ python_version }}"
+        - "python_version={{ docker.image_version.python }}"
     restart: unless-stopped
     depends_on:
       - transmission
     ports:
       - "5050:5050"
     environment:
-      - "TZ={{ timezone }}"
+      - "TZ={{ system.timezone }}"
     volumes:
       - type: bind
-        source: "{{ flexget_data_path }}/config"
+        source: "{{ data_path.library.flexget }}/config"
         target: "/root/.flexget"
       - "transmission_downloads:/downloads"
+      - "/etc/localtime:/etc/localtime:ro"
 volumes:
   transmission_downloads:

@@ -1,51 +1,52 @@
 ---
 - name: Create mal_export exports dir
   file:
-    path: "{{ mal_export_path }}"
+    path: "{{ resilio_sync.sync_path.sub.mal_export_path }}"
     state: directory
 
 - name: Create mal_export data dir
   file:
-    path: "{{ mal_export_data_path }}"
+    path: "{{ data_path.library.mal_export }}"
     state: directory
 
-- name: Create mal_export /mal_export.log file
+- name: Create mal_export mal_export.log file
   file:
-    path: "{{ mal_export_data_path }}/mal_export.log"
+    path: "{{ data_path.library.mal_export }}/mal_export.log"
     state: touch
+
+- name: Generate mal_export myanimelist-export.yaml with correct values
+  template:
+    src: myanimelist-export.yaml.jinja2
+    dest: "{{ data_path.library.mal_export }}/myanimelist-export.yaml"
 
 - name: Delete mal_export docker-compose dir
   file:
-    path: "{{ docker_compose_mal_export_path }}"
+    path: "{{ data_path.library.docker_compose.mal_export }}"
     state: absent
 
 - name: Create mal_export docker-compose dir
   file:
-    path: "{{ docker_compose_mal_export_path }}"
+    path: "{{ data_path.library.docker_compose.mal_export }}"
     state: directory
 
 - name: Copy Dockerfile to mal_export docker-compose dir
   copy:
     src: "{{ role_path }}/files/Dockerfile"
-    dest: "{{ docker_compose_mal_export_path }}"
+    dest: "{{ data_path.library.docker_compose.mal_export }}"
+    force: yes
+
+- name: Copy myanimelist-export.sh to mal_export docker-compose dir
+  copy:
+    src: "{{ role_path }}/files/myanimelist-export.sh"
+    dest: "{{ data_path.library.docker_compose.mal_export }}"
     force: yes
 
 - name: Generate docker-compose.yaml with correct values
   template:
     src: docker-compose.yaml.jinja2
-    dest: "{{ docker_compose_mal_export_path }}/docker-compose.yaml"
-
-- name: Generate myanimelist-export.yaml with correct values
-  template:
-    src: myanimelist-export.yaml.jinja2
-    dest: "{{ docker_compose_mal_export_path }}/myanimelist-export.yaml"
-
-- name: Generate myanimelist-export.sh with correct values
-  template:
-    src: myanimelist-export.sh.jinja2
-    dest: "{{ docker_compose_mal_export_path }}/myanimelist-export.sh"
+    dest: "{{ data_path.library.docker_compose.mal_export }}/docker-compose.yaml"
 
 - name: docker-compose up
-  command: docker-compose up --build --detach --force-recreate
+  command: docker-compose up --build --detach --force-recreate --remove-orphans
   args:
-    chdir: "{{ docker_compose_mal_export_path }}"
+    chdir: "{{ data_path.library.docker_compose.mal_export }}"
