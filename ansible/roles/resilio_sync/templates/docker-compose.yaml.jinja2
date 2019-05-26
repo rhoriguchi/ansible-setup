@@ -11,7 +11,7 @@ services:
     ports:
       - "5555:5555"
       - "8888:8888"
-    environments:
+    environment:
       - "TZ={{ system.timezone }}"
     volumes:
       - type: bind

@@ -9,7 +9,7 @@ services:
         - "duckdns_domain={{ duckdns_domain }}"
         - "duckdns_token={{ vault.duckdns.token }}"
         - "alpine_version={{ docker.image_version.alpine }}"
-    environments:
+    environment:
       - "TZ={{ system.timezone }}"
     restart: unless-stopped
     volumes:
