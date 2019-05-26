@@ -10,7 +10,9 @@ Unattended-Upgrade::Origins-Pattern {
 };
 
 // List of packages to not update
-Unattended-Upgrade::Package-Blacklist {};
+Unattended-Upgrade::Package-Blacklist {
+    bootini;
+};
 
 // Do automatic removal of new unused dependencies after the upgrade
 Unattended-Upgrade::Remove-Unused-Dependencies "{% if system.updates.auto_clean|default(false) %}true{% else %}false{% endif %} }}";
