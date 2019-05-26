@@ -10,8 +10,6 @@
   when: ansible_lsb.id == "Ubuntu"
 
 - name: Delete OS default user
-  become: yes
-  become_user: ansible
   user:
     name: "{{ os_default_user }}"
     state: absent
