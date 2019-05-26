@@ -28,6 +28,10 @@ FROM install_tools
 LABEL maintainer="ryan.horiguchi@gmail.com"
 ARG target_address
 ENV TARGET_ADDRESS=${target_address}
+ARG target_host_ansible_name
+ENV TARGET_HOST_ANSIBLE_NAME=${target_host_ansible_name}
+ARG target_host_os_model
+ENV TARGET_HOST_OS_MODEL=${target_host_os_model}
 COPY ansible /ansible/
 RUN mkdir /etc/ansible \
     && mv /ansible/hosts.yaml /etc/ansible/hosts

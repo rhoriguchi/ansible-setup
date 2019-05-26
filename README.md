@@ -20,37 +20,41 @@ Clone repo
 git clone https://github.com/rhoriguchi/ansible_setup.git /tmp/ansible_setup
 ```
 
-Edit .env and enter ansible vault password and set the IP address of the host to configure.
+Edit .env and all missing variables.
 
 ```bash
 docker-compose up --detach --build
 docker exec -it ansible zsh
 ```
 
-### Run in container for all
-
-Choose value for target_host variable `raspberry` or `odroid`.
+### Init system
 
 ```bash
-ansible-playbook init_system.yaml --extra-vars target_host=
+ansible-playbook init_system.yaml
 ```
 
-### Run in container for XXLPitu-Raspberry-Pi-Home
+### Setup for XXLPitu-Raspberry-Pi-Home
 
 ```bash
 ansible-playbook xxlpitu-raspberry-pi-home.yaml
 ```
 
-### Run in container for XXLPitu-Raspberry-Pi-JCRK
+### Setup for XXLPitu-Raspberry-Pi-JCRK
 
 ```bash
 ansible-playbook xxlpitu-raspberry-pi-jcrk.yaml
 ```
 
-### Run in container for XXLPitu-Odroid-Home
+### Setup for XXLPitu-Odroid-Home
 
 ```bash
 ansible-playbook xxlpitu-odroid-home.yaml
+```
+
+### Update Home Assistant version and files
+
+```bash
+ansible-playbook homeassistant_update.yaml
 ```
 
 ## Ansible
@@ -71,19 +75,6 @@ ansible -m setup HOST
 
 ```bash
 sudo blkid | grep -i "PARTUUID="
-```
-
-## Home Assistant
-
-### Update Home Assistant version and files
-
-```bash
-git clone https://github.com/rhoriguchi/ansible_setup.git /tmp/ansible_setup
-
-docker-compose up --detach --build
-docker exec -it ansible zsh
-
-ansible-playbook homeassistant_update.yaml --extra-vars target_host=TARGET_HOST
 ```
 
 ## Encrypt password

@@ -1,6 +1,6 @@
 ---
 - name: Init system
-  hosts: "{{ target_host }}"
+  hosts: "{{ lookup('env','TARGET_HOST_OS_MODEL') }}"
   become: yes
   become_user: root
   vars_files:

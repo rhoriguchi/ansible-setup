@@ -8,10 +8,10 @@ all:
     ansible_ssh_pass: "{{ vault.user.ansible.password }}"
     ansible_user: ansible
   hosts:
-    raspberry:
+    raspbian_raspberry_pi:
       ansible_ssh_pass: raspberry
       ansible_user: pi
-    odroid:
+    ubuntu_odroid:
       ansible_ssh_pass: odroid
       ansible_user: root
 
