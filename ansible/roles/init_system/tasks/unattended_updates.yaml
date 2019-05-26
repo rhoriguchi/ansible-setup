@@ -4,14 +4,4 @@
     src: unattended_updates.jinja2
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
 
-- name: Reboot system
-  command: sleep 5 && reboot
-  async: 1
-  poll: 0
-
-- name: Wait for the reboot to complete
-  wait_for_connection:
-    connect_timeout: 20
-    sleep: 5
-    delay: 5
-    timeout: 300
+- include: helper/reboot.yaml
