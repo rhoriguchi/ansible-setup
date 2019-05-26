@@ -10,3 +10,10 @@ services:
         - "target_address=${target_address}"
         - "target_host_ansible_name=${target_host_ansible_name}"
         - "target_host_os_model=${target_host_os_model}"
+    volumes:
+      - type: bind
+        source: "./ansible/helper"
+        target: "/helper"
+      - type: bind
+        source: "./ansible/roles"
+        target: "/roles"
