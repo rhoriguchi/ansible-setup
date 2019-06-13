@@ -2,7 +2,7 @@
 - name: Update homeassistant files and install correct homeassistant version
   hosts: "{{ lookup('env','TARGET_HOST_ANSIBLE_NAME') }}"
   become: yes
-  become_user: ansible
+  become_user: root
   vars_files:
     - vars/config.yaml
     - vars/vault.yaml
