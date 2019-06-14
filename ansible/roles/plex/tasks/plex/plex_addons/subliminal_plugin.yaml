@@ -6,10 +6,10 @@
 
 - name: Delete Subliminal.bundle dir in plex plugin dir
   file:
-    path: "{{{ data_path.library.plex.plugin.sub.subliminal }}"
+    path: "{{ data_path.library.plex.plugin.sub.subliminal }}"
     state: absent
 
 - name: Clone Subliminal.bundle to plex plugin dir
   git:
     repo: https://github.com/bramwalet/Subliminal.bundle.git
-    dest: "{{{ data_path.library.plex.plugin.sub.subliminal }}"
+    dest: "{{ data_path.library.plex.plugin.sub.subliminal }}"
