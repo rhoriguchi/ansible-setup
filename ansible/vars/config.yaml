@@ -42,7 +42,6 @@ data_path:
     docker: "{{ drive.main.path }}/library/docker"
     docker_compose:
       duckdns: "{{ drive.main.path }}/library/docker_compose/duckdns"
-      flexget: "{{ drive.main.path }}/library/docker_compose/flexget"
       glances: "{{ drive.main.path }}/library/docker_compose/glances"
       homeassistant: "{{ drive.main.path }}/library/docker_compose/homeassistant"
       mal_export: "{{ drive.main.path }}/library/docker_compose/mal_export"
@@ -51,7 +50,6 @@ data_path:
       resilio_sync: "{{ drive.main.path }}/library/docker_compose/resilio_sync"
       tv_time_export: "{{ drive.main.path }}/library/docker_compose/tv_time_export"
     duckdns: "{{ drive.main.path }}/library/duckdns"
-    flexget: "{{ drive.main.path }}/library/flexget"
     glances: "{{ drive.main.path }}/library/glances"
     homeassistant:
       dot: "{{ drive.main.path }}/library/homeassistant/.homeassistant"

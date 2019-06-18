@@ -17,8 +17,6 @@ vault:
     token:
   portainer:
     password:
-  flexget:
-    password:
   resilio_sync:
     username:
     password:

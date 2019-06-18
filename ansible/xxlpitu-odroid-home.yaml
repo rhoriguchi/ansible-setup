@@ -13,7 +13,6 @@
     - portainer
     - glances
     - resilio_sync
-#    - flexget
     - tv_time_export
     - homeassistant
     - mal_export
