@@ -1,0 +1,12 @@
+set -x
+
+/myanimelist-export
+
+cd /export
+
+echo Renaming exported anime.xml and manga.xml
+
+date_time="$(date +%d.%m.%Y)_$(date +%H.%M.%S)"
+
+mv anime.xml "{{ vault.mal.username }}_anime_${date_time}.xml"
+mv manga.xml "{{ vault.mal.username }}_manga_${date_time}.xml"

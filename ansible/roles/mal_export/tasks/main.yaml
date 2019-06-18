@@ -35,11 +35,10 @@
     dest: "{{ data_path.library.docker_compose.mal_export }}"
     force: yes
 
-- name: Copy myanimelist-export.sh to mal_export docker-compose dir
-  copy:
-    src: "{{ role_path }}/files/myanimelist-export.sh"
-    dest: "{{ data_path.library.docker_compose.mal_export }}"
-    force: yes
+- name: Generate myanimelist-export.sh with correct values
+  template:
+    src: myanimelist-export.sh.jinja2
+    dest: "{{ data_path.library.docker_compose.mal_export }}/myanimelist-export.sh"
 
 - name: Generate docker-compose.yaml with correct values
   template:

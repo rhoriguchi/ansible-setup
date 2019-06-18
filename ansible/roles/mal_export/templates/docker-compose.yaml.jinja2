@@ -11,7 +11,6 @@ services:
     restart: unless-stopped
     environment:
       - "TZ={{ system.timezone }}"
-      - "MAL_USERNAME={{ vault.mal.username }}"
     volumes:
       - type: bind
         source: "{{ resilio_sync.sync_path.sub.mal_export_path }}"
