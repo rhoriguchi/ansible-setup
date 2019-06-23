@@ -45,6 +45,8 @@
     install_recommends: no
     update_cache: yes
 
+- include: helper/reboot.yaml
+
 - name: Install apt containerd.io docker-ce docker-ce-cli
   apt:
     name:
