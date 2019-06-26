@@ -50,9 +50,7 @@ RUN apt-get update \
  	&& rm -rf /var/lib/apt/lists/*
 COPY --from=build /root/.local/bin/myanimelist-export /myanimelist-export
 COPY myanimelist-export.sh /myanimelist-export.sh
-# TODO remove, just save file with correct line ending
-RUN sed -i '1s/^.*#//;s/\r$//' /myanimelist-export.sh \
-    && chmod +x /myanimelist-export.sh \
+RUN chmod +x /myanimelist-export.sh \
     && chmod +x /myanimelist-export
 RUN mkdir /export
 VOLUME /export
