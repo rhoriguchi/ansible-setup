@@ -69,7 +69,6 @@ data_path:
     portainer: "{{ drive.main.path }}/library/portainer"
     resilio_sync: "{{ drive.main.path }}/library/resilio_sync"
     tautulli: "{{ drive.main.path }}/library/tautulli"
-    transmission: "{{ drive.main.path }}/library/transmission"
     tv_time_export: "{{ drive.main.path }}/library/tv_time_export"
 
 resilio_sync:
