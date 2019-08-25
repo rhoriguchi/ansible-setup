@@ -8,6 +8,7 @@
 - Portainer - 9000
 - Resilio Sync - 8888
 - SSH - 22
+- Tautulli - 8181
 
 ## Setup
 
