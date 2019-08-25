@@ -1,16 +1,14 @@
 ARG docker_python_version=alpine
 
 FROM python:${docker_python_version} AS install_ansible
-ARG ansible_verion=2.7.10
 RUN apk add --no-cache \
     gcc \
     libffi-dev \
     make \
     musl-dev \
-    openssl-dev
-RUN pip install ansible==${ansible_verion}
-# workaround for paramiko warning
-RUN sed -i "/__metaclass__ = type/a import warnings\nwarnings.filterwarnings(action='ignore',module='.*paramiko.*')" /usr/local/bin/ansible-playbook
+    openssl-dev \
+    sshpass
+RUN pip install ansible==2.8.4
 
 FROM install_ansible AS decrypt_ansible_vault
 ARG ansible_vault_password
