@@ -29,6 +29,16 @@
     path: "{{ data_path.library.docker_compose.tv_time_export }}"
     state: directory
 
+- name: Delete tv_time_export dir in tv_time_export docker-compose dir
+  file:
+    path: "{{ data_path.library.docker_compose.tv_time_export }}/tv_time_export"
+    state: absent
+
+- name: Clone tv_time_export to tv_time_export docker-compose dir
+  git:
+    repo: https://github.com/rhoriguchi/tv_time_export.git
+    dest: "{{ data_path.library.docker_compose.tv_time_export }}/tv_time_export"
+
 - name: Copy Dockerfile to tv_time_export docker-compose dir
   copy:
     src: "{{ role_path }}/files/Dockerfile"

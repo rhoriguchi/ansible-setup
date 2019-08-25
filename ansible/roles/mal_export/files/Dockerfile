@@ -1,9 +1,4 @@
-ARG alpine_version=latest
 ARG ubuntu_version=latest
-
-FROM alpine:${alpine_version} AS download
-RUN apk add --no-cache git
-RUN git clone --single-branch --branch master https://github.com/rhoriguchi/myanimelist-export.git /myanimelist-export
 
 FROM ubuntu:${ubuntu_version} AS install_haskell
 RUN apt-get update \
@@ -33,7 +28,7 @@ RUN apt-get update \
 	&& apt-get clean \
  	&& rm -rf /var/lib/apt/lists/*
 RUN stack config set system-ghc --global true
-COPY --from=download /myanimelist-export /myanimelist-export
+COPY ./myanimelist-export /myanimelist-export
 RUN stack init /myanimelist-export
 RUN stack install unicode-transforms \
     && stack build /myanimelist-export

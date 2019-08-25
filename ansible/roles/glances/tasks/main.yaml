@@ -19,6 +19,16 @@
     path: "{{ data_path.library.docker_compose.glances }}"
     state: directory
 
+- name: Delete glances dir in glances docker-compose dir
+  file:
+    path: "{{ data_path.library.docker_compose.glances }}/glances"
+    state: absent
+
+- name: Clone glances to glances docker-compose dir
+  git:
+    repo: https://github.com/nicolargo/glances.git
+    dest: "{{ data_path.library.docker_compose.glances }}/glances"
+
 - name: Copy Dockerfile to glances docker-compose dir
   copy:
     src: "{{ role_path }}/files/Dockerfile"
