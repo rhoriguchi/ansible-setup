@@ -1,7 +1,7 @@
 ---
 - name: Create plex plug-ins dir
   file:
-    path: "drive.main.path }}/library/plex/Plug-ins"
+    path: "{{ drive.main.path }}/library/plex/Plug-ins"
     state: directory
 
 - name: Delete Subliminal.bundle dir in plex plugin dir
