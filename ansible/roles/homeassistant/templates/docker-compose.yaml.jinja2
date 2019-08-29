@@ -45,7 +45,6 @@ services:
       context: homeassistant
       dockerfile: Dockerfile
       args:
-        - "image={{ homeassistant_docker_image }}"
         - "version={{ homeassistant_config.version }}"
     restart: unless-stopped
     command: ["/wait-for-postgres.sh", "db", "python3", "-m", "homeassistant", "--config", "/config"]
