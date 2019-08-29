@@ -1,0 +1,49 @@
+---
+- name: Install apt wireless-tools wpasupplicant
+  apt:
+    name:
+      - wireless-tools
+      - wpasupplicant
+    state: latest
+    install_recommends: no
+    update_cache: yes
+
+- name: Turn on wifi interface
+  become: yes
+  become_user: root
+  shell: "ifconfig {{ wifi.interface }} up"
+
+- name: Generate wifi passphrase
+  shell: "wpa_passphrase '{{ vault.wifi.ssid }}' '{{ vault.wifi.password }}' | sudo tee /etc/wpa_supplicant.conf"
+
+- name: Start wpa_supplicant
+  become: yes
+  become_user: root
+  shell: "wpa_supplicant -B -c /etc/wpa_supplicant.conf -i {{ wifi.interface }}"
+
+- name: Optain an ip address
+  become: yes
+  become_user: root
+  shell: "dhclient {{ wifi.interface }}"
+
+- name: Generate wpa_supplicant.service with correct values and save at /etc/systemd/system/wpa_supplicant.service
+  template:
+    src: wpa_supplicant.service.jinja2
+    dest: /etc/systemd/system/wpa_supplicant.service
+
+- name: Start wpa_supplicant service
+  service:
+    name: wpa_supplicant
+    state: started
+    enabled: yes
+
+- name: Generate wpa_supplicant.service with correct values and save at /etc/systemd/system/wpa_supplicant.service
+  template:
+    src: dhclient.service.jinja2
+    dest: /etc/systemd/system/dhclient.service
+
+- name: Start dhclient service
+  service:
+    name: dhclient
+    state: started
+    enabled: yes

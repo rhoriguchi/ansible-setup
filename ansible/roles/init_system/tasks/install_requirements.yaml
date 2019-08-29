@@ -38,8 +38,9 @@
       - python3-pip
       - python3-setuptools
       - rsync
+      - sshpass
     state: latest
     install_recommends: no
     update_cache: yes
 
-- include: helper/reboot.yaml
+- include: /helper/reboot.yaml

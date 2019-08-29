@@ -4,4 +4,4 @@
     src: unattended_updates.jinja2
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
 
-- include: helper/reboot.yaml
+- include: /helper/reboot.yaml

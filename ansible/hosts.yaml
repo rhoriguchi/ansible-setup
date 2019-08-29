@@ -5,15 +5,21 @@ all:
     ansible_host: "{{ lookup('env','TARGET_ADDRESS') }}"
     ansible_port: 22
     ansible_python_interpreter: /usr/bin/python3
-    ansible_ssh_pass: "{{ vault.user.ansible.password }}"
+    ansible_password: "{{ vault.user.ansible.password }}"
     ansible_user: ansible
   hosts:
     raspbian_raspberry_pi:
-      ansible_ssh_pass: raspberry
+      ansible_become_pass: raspberry
+      ansible_password: raspberry
       ansible_user: pi
     ubuntu_odroid:
-      ansible_ssh_pass: odroid
+      ansible_become_pass: odroid
+      ansible_password: odroid
       ansible_user: root
+    ubuntu_server:
+      ansible_become_pass: asdf1234
+      ansible_password: asdf1234
+      ansible_user: ubuntu
 
     # TODO use arrays
 
@@ -29,3 +35,7 @@ all:
       duckdns_domain: xxlpitu-jcrk
       system_hostname: XXLPitu-Raspberry-Pi-JCRK
       drive_main_partuuid: "{{ drive.wd_red.partuuid }}"
+    XXLPitu-Server-Home:
+      duckdns_domain: xxlpitu-home
+      system_hostname: XXLPitu-Server
+      drive_main_partuuid: "{{ drive.ssd.partuuid }}"

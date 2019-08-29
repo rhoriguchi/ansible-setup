@@ -25,6 +25,12 @@ docker-compose up --detach --build
 docker exec -it ansible zsh
 ```
 
+### Init wifi
+
+```bash
+ansible-playbook init_wifi.yaml
+```
+
 ### Init system
 
 ```bash
@@ -47,6 +53,12 @@ ansible-playbook xxlpitu-raspberry-pi-jcrk.yaml
 
 ```bash
 ansible-playbook xxlpitu-odroid-home.yaml
+```
+
+### Setup for XXLPitu-Server-Home
+
+```bash
+ansible-playbook xxlpitu-server-home.yaml
 ```
 
 ### Update Home Assistant version and files

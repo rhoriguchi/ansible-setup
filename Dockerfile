@@ -6,6 +6,7 @@ RUN apk add --no-cache \
     libffi-dev \
     make \
     musl-dev \
+    openssh \
     openssl-dev \
     sshpass
 RUN pip install ansible==2.8.4

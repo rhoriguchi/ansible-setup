@@ -37,7 +37,7 @@
 - name: Clone myanimelist-export to mal_export docker-compose dir
   git:
     repo: https://github.com/rhoriguchi/myanimelist-export.git
-    path: "{{ data_path.library.docker_compose.mal_export }}/myanimelist-export"
+    dest: "{{ data_path.library.docker_compose.mal_export }}/myanimelist-export"
 
 - name: Copy Dockerfile to mal_export docker-compose dir
   copy:

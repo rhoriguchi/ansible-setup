@@ -1,5 +1,5 @@
 ---
-- name: Setup xxlpitu-odroid-home
+- name: Setup XXLPitu-Odroid-Home
   hosts: XXLPitu-Odroid-Home
   become: yes
   become_user: root

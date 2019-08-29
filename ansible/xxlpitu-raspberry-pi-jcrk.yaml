@@ -1,5 +1,5 @@
 ---
-- name: Setup xxlpitu-raspberry-pi-jcrk
+- name: Setup XXLPitu-Raspberry-Pi-JCRK
   hosts: XXLPitu-Raspberry-Pi-JCRK
   become: yes
   become_user: root

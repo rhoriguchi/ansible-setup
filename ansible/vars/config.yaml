@@ -10,6 +10,9 @@ system:
     reboot_time: '3:00'
     update_speed: 0
 
+wifi:
+  interface: wlp4s0
+
 drive:
   main:
     path: /media/BLACKHOLE

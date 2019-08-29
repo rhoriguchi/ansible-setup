@@ -6,7 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - "alpine_version={{ docker.image_version.alpine }}"
         - "python_version={{ docker.image_version.python }}"
     restart: unless-stopped
     environment:

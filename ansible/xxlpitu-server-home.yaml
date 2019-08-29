@@ -1,6 +1,6 @@
 ---
-- name: Setup XXLPitu-Raspberry-Pi-Home
-  hosts: XXLPitu-Raspberry-Pi-Home
+- name: Setup xxlpitu-server-home
+  hosts: XXLPitu-Server-Home
   become: yes
   become_user: root
   vars_files:
@@ -14,5 +14,5 @@
     - glances
     - resilio_sync
     - tv_time_export
-    - mal_export
     - homeassistant
+    - mal_export
