@@ -1,6 +1,6 @@
 ---
-- name: Setup XXLPitu-Raspberry-Pi-JCRK
-  hosts: XXLPitu-Raspberry-Pi-JCRK
+- name: Setup XXLPitu JCRK
+  hosts: XXLPitu-Odroid-JCRK
   become: yes
   become_user: root
   vars_files:

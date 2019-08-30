@@ -37,28 +37,16 @@ ansible-playbook init_wifi.yaml
 ansible-playbook init_system.yaml
 ```
 
-### Setup for XXLPitu-Raspberry-Pi-Home
+### Setup for XXLPitu JCRK
 
 ```bash
-ansible-playbook xxlpitu-raspberry-pi-home.yaml
+ansible-playbook xxlpitu-jcrk.yaml
 ```
 
-### Setup for XXLPitu-Raspberry-Pi-JCRK
+### Setup for XXLPitu Home
 
 ```bash
-ansible-playbook xxlpitu-raspberry-pi-jcrk.yaml
-```
-
-### Setup for XXLPitu-Odroid-Home
-
-```bash
-ansible-playbook xxlpitu-odroid-home.yaml
-```
-
-### Setup for XXLPitu-Server-Home
-
-```bash
-ansible-playbook xxlpitu-server-home.yaml
+ansible-playbook xxlpitu-home.yaml
 ```
 
 ### Update Home Assistant version and files

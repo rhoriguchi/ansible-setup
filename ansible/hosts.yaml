@@ -23,17 +23,9 @@ all:
 
     # TODO use arrays
 
-    XXLPitu-Odroid-Home:
-      duckdns_domain: xxlpitu-home
-      system_hostname: XXLPitu-Odroid-Home
-      drive_main_partuuid: "{{ drive.ssd.partuuid }}"
-    XXLPitu-Raspberry-Pi-Home:
-      duckdns_domain: xxlpitu-home
-      system_hostname: XXLPitu-Raspberry-Pi-Home
-      drive_main_partuuid: "{{ drive.ssd.partuuid }}"
-    XXLPitu-Raspberry-Pi-JCRK:
+    XXLPitu-Odroid-JCRK:
       duckdns_domain: xxlpitu-jcrk
-      system_hostname: XXLPitu-Raspberry-Pi-JCRK
+      system_hostname: XXLPitu-Odroid
       drive_main_partuuid: "{{ drive.wd_red.partuuid }}"
     XXLPitu-Server-Home:
       duckdns_domain: xxlpitu-home
