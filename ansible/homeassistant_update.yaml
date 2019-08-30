@@ -1,5 +1,6 @@
 ---
 - name: Update homeassistant files and install correct homeassistant version
+  # TODO rename this var
   hosts: "{{ lookup('env','TARGET_HOST_ANSIBLE_NAME') }}"
   become: yes
   become_user: root
