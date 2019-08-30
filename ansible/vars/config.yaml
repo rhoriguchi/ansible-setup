@@ -35,10 +35,10 @@ user:
 docker:
   default_lib_path: /var/lib/docker
   image_version:
-    alpine: 3.9.3
-    postgres: 11.3-alpine
-    python: 3.7.3-alpine
-    ubuntu: 19.04
+    alpine: 3.10.2
+    postgres: 11.5-alpine
+    python: 3.7.4-alpine
+    ubuntu: "19.10"
 
 data_path:
   library:
@@ -75,7 +75,7 @@ data_path:
     tv_time_export: "{{ drive.main.path }}/library/tv_time_export"
 
 resilio_sync:
-  sync_path: 
+  sync_path:
     main: "{{ drive.main.path }}/sync"
     sub:
       tv_time_export_path: "{{ drive.main.path }}/sync/tv_time_export"
