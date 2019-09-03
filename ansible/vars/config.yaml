@@ -11,7 +11,7 @@ system:
     update_speed: 0
 
 wifi:
-  interface: wlp4s0
+  interface: wlp3s0
 
 drive:
   main:

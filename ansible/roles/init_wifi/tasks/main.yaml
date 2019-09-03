@@ -1,12 +1,33 @@
 ---
+- name: Install wifi card drivers bcmwl-kernel-source
+  apt:
+    name:
+      - bcmwl-kernel-source
+    state: latest
+    install_recommends: no
+    update_cache: yes
+
+- name: Stop and disable NetworkManager service
+  service:
+    name: NetworkManager
+    state: stopped
+    enabled: no
+  ignore_errors: true
+
 - name: Install apt wireless-tools wpasupplicant
   apt:
     name:
+      - rfkill
       - wireless-tools
       - wpasupplicant
     state: latest
     install_recommends: no
     update_cache: yes
+
+- name: Unblock wifi software if blocked
+  become: yes
+  become_user: root
+  shell: rfkill unblock wifi
 
 - name: Turn on wifi interface
   become: yes
@@ -20,11 +41,6 @@
   become: yes
   become_user: root
   shell: "wpa_supplicant -B -c /etc/wpa_supplicant.conf -i {{ wifi.interface }}"
-
-- name: Optain an ip address
-  become: yes
-  become_user: root
-  shell: "dhclient {{ wifi.interface }}"
 
 - name: Generate wpa_supplicant.service with correct values and save at /etc/systemd/system/wpa_supplicant.service
   template:
@@ -47,3 +63,5 @@
     name: dhclient
     state: started
     enabled: yes
+
+- include: /helper/reboot.yaml
