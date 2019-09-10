@@ -60,6 +60,7 @@ services:
 {#    ports: #}
 {#      - "1400:1400" #}
     environment:
+      - "DB_URL=postgresql://homeassistant:password@db/homeassistant"
       - "POSTGRES_PASSWORD=password"
       - "POSTGRES_USER=homeassistant"
     volumes:

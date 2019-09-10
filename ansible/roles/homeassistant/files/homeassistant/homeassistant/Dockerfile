@@ -1,4 +1,3 @@
-ARG image
 ARG version
 
 FROM homeassistant/home-assistant:${version}
