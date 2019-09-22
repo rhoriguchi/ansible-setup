@@ -10,7 +10,7 @@
     state: directory
 
 - name: Generate portainer admin password hash
-  shell: "docker run --rm httpd:2.4-alpine htpasswd -nbB admin {{ vault.portainer.password }} | cut -d ':' -f 2"
+  shell: "docker run --rm httpd:alpine htpasswd -nbB admin {{ vault.portainer.password }} | cut -d ':' -f 2"
   register: portainer_hashed_admin_password
   no_log: true
 
