@@ -26,8 +26,8 @@ all:
     XXLPitu-Odroid-JCRK:
       duckdns_domain: xxlpitu-jcrk
       system_hostname: XXLPitu-Odroid
-      drive_main_partuuid: "{{ drive.wd_red.partuuid }}"
+      drive_main_partuuid: "{{ drive.partuuid.jcrk }}"
     XXLPitu-Server-Home:
       duckdns_domain: xxlpitu-home
       system_hostname: XXLPitu-Server
-      drive_main_partuuid: "{{ drive.ssd.partuuid }}"
+      drive_main_partuuid: "{{ drive.partuuid.home }}"
