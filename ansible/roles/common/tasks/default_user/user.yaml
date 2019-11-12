@@ -1,5 +1,5 @@
 ---
-- name: "Install apt {{ user.default.shell }}"
+- name: "Install {{ user.default.shell }}"
   apt:
     name:
       - "{{ user.default.shell }}"

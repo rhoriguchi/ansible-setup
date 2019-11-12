@@ -1,5 +1,5 @@
 ---
-- name: Install apt libffi-dev libssl-dev python3-dev
+- name: Install libffi-dev libssl-dev python3-dev
   apt:
     name:
       - libffi-dev

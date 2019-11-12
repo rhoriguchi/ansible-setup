@@ -1,5 +1,5 @@
 ---
-- name: Install apt stow
+- name: Install stow
   apt:
     name:
       - stow

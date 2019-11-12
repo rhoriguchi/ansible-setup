@@ -14,7 +14,7 @@
     enabled: no
   ignore_errors: true
 
-- name: Install apt wireless-tools wpasupplicant
+- name: Install wireless-tools wpasupplicant
   apt:
     name:
       - rfkill

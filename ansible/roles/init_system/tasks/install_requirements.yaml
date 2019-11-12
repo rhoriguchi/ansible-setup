@@ -30,7 +30,7 @@
   command: apt-mark unhold bootini
   when: bootini_installed.stdout != ""
 
-- name: Install apt git python3 python3-pip python3-setuptools rsync
+- name: Install git python3 python3-pip python3-setuptools rsync
   apt:
     name:
       - git

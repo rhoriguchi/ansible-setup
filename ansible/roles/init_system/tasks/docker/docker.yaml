@@ -23,7 +23,7 @@
     state: present
     update_cache: yes
 
-- name: Purge apt docker docker-engine docker.io lxc-docker
+- name: Purge docker docker-engine docker.io lxc-docker
   apt:
     name:
       - docker
@@ -34,7 +34,7 @@
     purge: yes
     update_cache: yes
 
-- name: Install apt apt-transport-https ca-certificates curl software-properties-common
+- name: Install apt-transport-https ca-certificates curl software-properties-common
   apt:
     name:
       - apt-transport-https
@@ -47,7 +47,7 @@
 
 - include: /helper/reboot.yaml
 
-- name: Install apt containerd.io docker-ce docker-ce-cli
+- name: Install containerd.io docker-ce docker-ce-cli
   apt:
     name:
       - containerd.io
