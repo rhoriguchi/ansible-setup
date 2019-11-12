@@ -20,3 +20,9 @@
     shell: "/bin/{{ user.ansible.shell }}"
     groups: docker,sudo,users
     append: yes
+
+- name: Create empty .zshrc file
+  copy:
+    content: ""
+    dest: /home/ansible/.zshrc
+    force: no
