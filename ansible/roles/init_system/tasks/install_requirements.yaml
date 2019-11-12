@@ -43,4 +43,10 @@
     install_recommends: no
     update_cache: yes
 
+- name: Update pip3
+  pip:
+    name: pip
+    executable: pip3
+    state: latest
+
 - include: /helper/reboot.yaml

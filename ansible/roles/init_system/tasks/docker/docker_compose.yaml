@@ -9,12 +9,6 @@
     install_recommends: no
     update_cache: yes
 
-- name: Update pip3
-  pip:
-    name: pip
-    executable: pip3
-    state: latest
-
 - name: Pip install docker-compose
   pip:
     name: docker-compose
