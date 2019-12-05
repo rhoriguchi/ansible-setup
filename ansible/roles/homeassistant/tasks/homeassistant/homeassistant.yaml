@@ -71,8 +71,8 @@
 
 - name: Delete fetch dir
   file:
-   path: "{{ local.tmp_ansible_fetch_path }}"
-   state: absent
+    path: "{{ local.tmp_ansible_fetch_path }}"
+    state: absent
 
 - name: Copy secrets.yaml to homeassistant config dir
   synchronize:
