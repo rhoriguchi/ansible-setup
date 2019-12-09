@@ -8,6 +8,8 @@ services:
       args:
         - "python_version={{ docker.image_version.python }}"
     restart: unless-stopped
+    security_opt:
+       - apparmor:unconfined
     pid: host
     stdin_open: true
     tty: true
