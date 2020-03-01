@@ -14,10 +14,6 @@
   register: portainer_hashed_admin_password
   no_log: true
 
-- name: Set admin password hash
-  set_fact:
-    portainer_hashed_admin_password: "{{ portainer_hashed_admin_password.stdout }}"
-
 - name: Delete docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.portainer }}"
