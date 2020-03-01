@@ -85,11 +85,6 @@
     path: "{{ homeassistant.tmp_secrets_path }}"
     state: absent
 
-- name: Generate phue.conf with correct hue token in config dir
-  template:
-    src: homeassistant/homeassistant/phue.conf.jinja2
-    dest: "{{ data_path.library.homeassistant.dot }}/phue.conf"
-
 - name: Replace base_url in configuration.yaml
   replace:
     path: "{{ data_path.library.homeassistant.dot }}/configuration.yaml"
