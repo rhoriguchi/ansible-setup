@@ -1,50 +1,48 @@
 ---
-- name: Create glances data dir
+- name: Create data dir
   file:
     path: "{{ data_path.library.glances }}"
     state: directory
 
-- name: Generate glances glances.conf with correct values
-  template:
-    src: glances.conf.jinja2
+- name: Copy glances.conf to data dir
+  copy:
+    src: glances.conf
     dest: "{{ data_path.library.glances }}/glances.conf"
+    force: yes
 
-- name: Delete glances docker-compose dir
+- name: Delete docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.glances }}"
     state: absent
 
-- name: Create glances docker-compose dir
+- name: Create docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.glances }}"
     state: directory
 
-- name: Delete glances dir in glances docker-compose dir
-  file:
-    path: "{{ data_path.library.docker_compose.glances }}/glances"
-    state: absent
-
-- name: Clone glances to glances docker-compose dir
+- name: "Clone https://github.com/nicolargo/glances.git {{ glances.version }} to docker-compose dir"
   git:
     repo: https://github.com/nicolargo/glances.git
     dest: "{{ data_path.library.docker_compose.glances }}/glances"
+    version: "{{ glances.version }}"
 
-- name: Copy Dockerfile to glances docker-compose dir
+- name: Copy Dockerfile to docker-compose dir
   copy:
-    src: "{{ role_path }}/files/Dockerfile"
+    src: Dockerfile
     dest: "{{ data_path.library.docker_compose.glances }}"
     force: yes
-
-- name: Set glances options
-  set_fact:
-    glances_options: "--webserver"
 
 - name: Generate docker-compose.yaml with correct values
   template:
     src: docker-compose.yaml.jinja2
     dest: "{{ data_path.library.docker_compose.glances }}/docker-compose.yaml"
 
-- name: docker-compose up
+- name: Run docker-compose pull
+  command: docker-compose pull
+  args:
+    chdir: "{{ data_path.library.docker_compose.glances }}"
+
+- name: Run docker-compose up
   command: docker-compose up --build --detach --remove-orphans
   args:
     chdir: "{{ data_path.library.docker_compose.glances }}"

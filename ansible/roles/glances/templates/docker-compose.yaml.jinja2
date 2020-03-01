@@ -5,9 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - "python_version={{ docker.image_version.python }}"
     restart: unless-stopped
+{# TODO figur out which exec options are needed#}
     security_opt:
        - apparmor:unconfined
     pid: host
@@ -16,9 +15,9 @@ services:
     ports:
       - "61208:61208"
     environment:
-      - "GLANCES_OPT={{ glances_options }}"
-      - "TZ={{ system.timezone }}"
+      GLANCES_OPT: {{ glances.options }}
+      TZ: {{ system.timezone }}
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock"
       - "{{ data_path.library.glances }}/glances.conf:/glances/conf/glances.conf"
+      - "/var/run/docker.sock:/var/run/docker.sock"

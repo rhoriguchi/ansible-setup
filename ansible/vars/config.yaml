@@ -81,6 +81,10 @@ resilio_sync:
       mal_export_path: "{{ drive.main.path }}/sync/mal_export"
   download_path: "{{ drive.main.path }}/syncDownloads"
 
+glances:
+  options: --webserver --time 1 --byte
+  version: v3.1.0
+
 plex:
   tmp_absolute_series_scanner_path: /tmp/Absolute-Series-Scanner
 
