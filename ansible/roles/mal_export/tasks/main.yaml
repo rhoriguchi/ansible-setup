@@ -55,7 +55,12 @@
     src: docker-compose.yaml.jinja2
     dest: "{{ data_path.library.docker_compose.mal_export }}/docker-compose.yaml"
 
-- name: docker-compose up
+- name: Run docker-compose pull
+  command: docker-compose pull
+  args:
+    chdir: "{{ data_path.docker_compose.mal_export }}"
+
+- name: Run docker-compose up
   command: docker-compose up --build --detach --remove-orphans
   args:
     chdir: "{{ data_path.library.docker_compose.mal_export }}"
