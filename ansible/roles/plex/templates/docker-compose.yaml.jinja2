@@ -6,9 +6,9 @@ services:
     restart: unless-stopped
     network_mode: host
     environment:
-      - "HOSTNAME={{ system_hostname }}"
-      - "TZ={{ system.timezone }}"
-      - "VERSION=public"
+      HOSTNAME: {{ system_hostname }}
+      TZ: {{ system.timezone }}
+      VERSION: public
     volumes:
       - type: bind
         source: "{{ data_path.library.plex.main }}"
@@ -26,7 +26,7 @@ services:
     ports:
       - "8181:8181"
     environment:
-      - "TZ={{ system.timezone }}"
+      TZ: {{ system.timezone }}
     volumes:
       - type: bind
         source: "{{ data_path.library.plex.main }}/Logs"

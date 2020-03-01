@@ -10,13 +10,13 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      - "COMPOSE_HTTP_TIMEOUT=300"
-      - "DHLEVEL=2048"
-      - "DUCKDNSTOKEN={{ vault.duckdns.token }}"
-      - "SUBDOMAINS=wildcard"
-      - "TZ={{ system.timezone }}"
-      - "URL={{ duckdns_domain }}.duckdns.org"
-      - "VALIDATION=duckdns"
+      COMPOSE_HTTP_TIMEOUT: 300
+      DHLEVEL: 2048
+      DUCKDNSTOKEN: {{ vault.duckdns.token }}
+      SUBDOMAINS: wildcard
+      TZ: {{ system.timezone }}
+      URL: {{ duckdns_domain }}.duckdns.org
+      VALIDATION: duckdns
     volumes:
       - type: bind
         source: "{{ data_path.library.letsencrypt }}"
@@ -32,9 +32,10 @@ services:
     expose:
       - "5432"
     environment:
-      - "POSTGRES_DB=homeassistant"
-      - "POSTGRES_PASSWORD=password"
-      - "POSTGRES_USER=homeassistant"
+      {#TODO why hardcoded and no var?#}
+      POSTGRES_DB: homeassistant
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: homeassistant
     volumes:
       - type: bind
         source: "{{ data_path.library.homeassistant.sub.postgres }}"
@@ -45,7 +46,7 @@ services:
       context: homeassistant
       dockerfile: Dockerfile
       args:
-        - "version={{ homeassistant_config.version }}"
+        version: {{ homeassistant_config.version }}
     restart: unless-stopped
     command: ["/wait-for-postgres.sh", "db", "python3", "-m", "homeassistant", "--config", "/config"]
     depends_on:
@@ -60,9 +61,9 @@ services:
 {#    ports: #}
 {#      - "1400:1400" #}
     environment:
-      - "DB_URL=postgresql://homeassistant:password@db/homeassistant"
-      - "POSTGRES_PASSWORD=password"
-      - "POSTGRES_USER=homeassistant"
+      DB_URL: postgresql://homeassistant:password@db/homeassistant
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: homeassistant
     volumes:
       - type: bind
         source: "{{ data_path.library.homeassistant.dot }}"

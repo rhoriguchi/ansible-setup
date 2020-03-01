@@ -6,13 +6,13 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - "ubuntu_version={{ docker.image_version.ubuntu }}"
+        ubuntu_version: {{ docker.image_version.ubuntu }}
     restart: unless-stopped
     ports:
       - "5555:5555"
       - "8888:8888"
     environment:
-      - "TZ={{ system.timezone }}"
+      TZ: {{ system.timezone }}
     volumes:
       - type: bind
         source: "{{ data_path.library.resilio_sync }}/config"
