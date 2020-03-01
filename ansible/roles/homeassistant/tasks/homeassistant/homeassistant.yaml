@@ -31,12 +31,12 @@
     path: "{{ local.tmp_ansible_fetch_path }}"
     state: absent
 
-- name: Create homeassistant data dir
+- name: Create data dir
   file:
     path: "{{ data_path.library.homeassistant.main }}"
     state: directory
 
-- name: Synchronize .homeassistant to homeassistant config dir
+- name: Synchronize .homeassistant to config dir
   synchronize:
     src: "{{ homeassistant.tmp_path }}/.homeassistant"
     dest: "{{ data_path.library.homeassistant.main }}"
@@ -85,18 +85,18 @@
     path: "{{ homeassistant.tmp_secrets_path }}"
     state: absent
 
-- name: Generate phue.conf with correct hue token in homeassistant config dir
+- name: Generate phue.conf with correct hue token in config dir
   template:
     src: homeassistant/homeassistant/phue.conf.jinja2
     dest: "{{ data_path.library.homeassistant.dot }}/phue.conf"
 
-- name: Replace base_url in homeassistant configuration.yaml
+- name: Replace base_url in configuration.yaml
   replace:
     path: "{{ data_path.library.homeassistant.dot }}/configuration.yaml"
     regexp: "base_url:\\s.*$"
     replace: "base_url: https://{{ duckdns.url }}"
 
-- name: Replace http://localhost with http://glances in homeassistant sensor/glances_localhost.yaml
+- name: Replace http://localhost with http://glances in sensor/glances_localhost.yaml
   replace:
     path: "{{ data_path.library.homeassistant.dot }}/sensor/glances_localhost.yaml"
     regexp: "http:\\/\\/localhost"

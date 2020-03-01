@@ -1,20 +1,20 @@
 ---
-- name: Create resilio sync dir
+- name: Create sync dir
   file:
     path: "{{ resilio_sync.sync_path.main }}"
     state: directory
 
-- name: Create resilio sync Downloads dir
+- name: Create downloads dir
   file:
     path: "{{ resilio_sync.download_path }}"
     state: directory
 
-- name: Create resilio sync data dir
+- name: Create data dir
   file:
     path: "{{ data_path.library.resilio_sync }}"
     state: directory
 
-- name: Create resilio sync /config dir
+- name: Create sync /config dir
   file:
     path: "{{ data_path.library.resilio_sync }}/config"
     state: directory
@@ -24,17 +24,17 @@
     src: config.json.jinja2
     dest: "{{data_path.library.resilio_sync }}/config.json"
 
-- name: Delete resilio sync docker-compose dir
+- name: Delete docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.resilio_sync }}"
     state: absent
 
-- name: Create resilio sync docker-compose dir
+- name: Create docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.resilio_sync }}"
     state: directory
 
-- name: Copy Dockerfile to resilio sync docker-compose dir
+- name: Copy Dockerfile to docker-compose dir
   copy:
     src: "{{ role_path }}/files/Dockerfile"
     dest: "{{ data_path.library.docker_compose.resilio_sync }}"

@@ -1,25 +1,25 @@
 ---
-- name: Create duckdns data dir
+- name: Create data dir
   file:
     path: "{{ data_path.library.duckdns }}"
     state: directory
 
-- name: Create duckdns /duck.log file
+- name: Create /duck.log file
   file:
     path: "{{ data_path.library.duckdns }}/duck.log"
     state: touch
 
-- name: Delete duckdns docker-compose dir
+- name: Delete docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.duckdns }}"
     state: absent
 
-- name: Create duckdns docker-compose dir
+- name: Create docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.duckdns }}"
     state: directory
 
-- name: Copy Dockerfile to duckdns docker-compose dir
+- name: Copy Dockerfile to docker-compose dir
   copy:
     src: "{{ role_path }}/files/Dockerfile"
     dest: "{{ data_path.library.docker_compose.duckdns }}"

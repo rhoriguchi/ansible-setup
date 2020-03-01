@@ -1,45 +1,45 @@
 ---
-- name: Create mal_export exports dir
+- name: Create exports dir
   file:
     path: "{{ resilio_sync.sync_path.sub.mal_export_path }}"
     state: directory
 
-- name: Create mal_export data dir
+- name: Create data dir
   file:
     path: "{{ data_path.library.mal_export }}"
     state: directory
 
-- name: Create mal_export mal_export.log file
+- name: Create mal_export.log file
   file:
     path: "{{ data_path.library.mal_export }}/mal_export.log"
     state: touch
 
-- name: Generate mal_export myanimelist-export.yaml with correct values
+- name: Generate myanimelist-export.yaml with correct values
   template:
     src: myanimelist-export.yaml.jinja2
     dest: "{{ data_path.library.mal_export }}/myanimelist-export.yaml"
 
-- name: Delete mal_export docker-compose dir
+- name: Delete docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.mal_export }}"
     state: absent
 
-- name: Create mal_export docker-compose dir
+- name: Create docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.mal_export }}"
     state: directory
 
-- name: Delete myanimelist-export dir in mal_export docker-compose dir
+- name: Delete myanimelist-export dir in docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.mal_export }}/myanimelist-export"
     state: absent
 
-- name: Clone myanimelist-export to mal_export docker-compose dir
+- name: Clone myanimelist-export to docker-compose dir
   git:
     repo: https://github.com/rhoriguchi/myanimelist-export.git
     dest: "{{ data_path.library.docker_compose.mal_export }}/myanimelist-export"
 
-- name: Copy Dockerfile to mal_export docker-compose dir
+- name: Copy Dockerfile to docker-compose dir
   copy:
     src: "{{ role_path }}/files/Dockerfile"
     dest: "{{ data_path.library.docker_compose.mal_export }}"

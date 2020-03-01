@@ -1,5 +1,5 @@
 ---
-- name: Create homeassistant postgress data dir
+- name: Create postgress data dir
   file:
     path: "{{ data_path.library.homeassistant.sub.postgres }}"
     state: directory

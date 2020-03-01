@@ -1,15 +1,15 @@
 ---
-- name: Create portainer data dir
+- name: Create data dir
   file:
     path: "{{ data_path.library.portainer }}"
     state: directory
 
-- name: Create portainer /data dir
+- name: Create /data dir
   file:
     path: "{{ data_path.library.portainer }}/data"
     state: directory
 
-- name: Generate portainer admin password hash
+- name: Generate admin password hash
   shell: "docker run --rm httpd:alpine htpasswd -nbB admin {{ vault.portainer.password }} | cut -d ':' -f 2"
   register: portainer_hashed_admin_password
   no_log: true
@@ -18,12 +18,12 @@
   set_fact:
     portainer_hashed_admin_password: "{{ portainer_hashed_admin_password.stdout }}"
 
-- name: Delete portainer docker-compose dir
+- name: Delete docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.portainer }}"
     state: absent
 
-- name: Create portainer docker-compose dir
+- name: Create docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.portainer }}"
     state: directory

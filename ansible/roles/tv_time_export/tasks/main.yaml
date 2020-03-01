@@ -1,40 +1,40 @@
 ---
-- name: Create tv_time_export exports dir
+- name: Create exports dir
   file:
     path: "{{ resilio_sync.sync_path.sub.tv_time_export_path }}"
     state: directory
 
-- name: Create tv_time_export data dir
+- name: Create data dir
   file:
     path: "{{ data_path.library.tv_time_export }}"
     state: directory
 
-- name: Generate tv_time_export config.yaml with correct values
+- name: Generate config.yaml with correct values
   template:
     src: config.yaml.jinja2
     dest: "{{ data_path.library.tv_time_export }}/config.yaml"
 
-- name: Create tv_time_export tv_time_export.log file
+- name: Create tv_time_export.log file
   file:
     path: "{{ data_path.library.tv_time_export }}/tv_time_export.log"
     state: touch
 
-- name: Delete tv_time_export docker-compose dir
+- name: Delete docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.tv_time_export }}"
     state: absent
 
-- name: Create tv_time_export docker-compose dir
+- name: Create docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.tv_time_export }}"
     state: directory
 
-- name: Delete tv_time_export dir in tv_time_export docker-compose dir
+- name: Delete tv_time_export dir in docker-compose dir
   file:
     path: "{{ data_path.library.docker_compose.tv_time_export }}/tv_time_export"
     state: absent
 
-- name: Clone tv_time_export to tv_time_export docker-compose dir
+- name: Clone tv_time_export to docker-compose dir
   git:
     repo: https://github.com/rhoriguchi/tv_time_export.git
     dest: "{{ data_path.library.docker_compose.tv_time_export }}/tv_time_export"

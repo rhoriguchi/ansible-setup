@@ -1,10 +1,10 @@
 ---
-- name: Create homeassistant letsencrypt dir
+- name: Create letsencrypt dir
   file:
     path: "{{ data_path.library.letsencrypt }}"
     state: directory
 
-- name: Create homeassistant nginx dir
+- name: Create nginx dir
   file:
     path: "{{ data_path.library.nginx }}"
     state: directory
