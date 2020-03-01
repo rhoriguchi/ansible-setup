@@ -1,6 +1,4 @@
-ARG docker_python_version=alpine
-
-FROM python:${docker_python_version} AS install_ansible
+FROM python:3.8.1-alpine AS install_ansible
 RUN apk add --no-cache \
     gcc \
     libffi-dev \
