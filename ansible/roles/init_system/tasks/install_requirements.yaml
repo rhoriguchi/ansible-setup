@@ -49,4 +49,4 @@
     executable: pip3
     state: latest
 
-- include: /helper/reboot.yaml
+- import_tasks: "{{ playbook_dir }}/helper/reboot.yaml"

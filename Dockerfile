@@ -36,5 +36,4 @@ RUN mkdir /etc/ansible \
     && mv /ansible/hosts.yaml /etc/ansible/hosts
 COPY --from=decrypt_ansible_vault /vault.yaml /ansible/vars/vault.yaml
 WORKDIR /ansible
-# TODO user user /bin/
 CMD ["tail", "-f", "/dev/null"]

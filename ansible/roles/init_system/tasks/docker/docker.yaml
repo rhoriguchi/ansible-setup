@@ -45,7 +45,7 @@
     install_recommends: no
     update_cache: yes
 
-- include: /helper/reboot.yaml
+- import_tasks: "{{ playbook_dir }}/helper/reboot.yaml"
 
 - name: Install containerd.io docker-ce docker-ce-cli
   apt:

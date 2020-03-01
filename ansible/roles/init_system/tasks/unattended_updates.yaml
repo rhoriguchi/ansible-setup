@@ -4,4 +4,4 @@
     src: unattended_updates.jinja2
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
 
-- include: /helper/reboot.yaml
+- import_tasks: "{{ playbook_dir }}/helper/reboot.yaml"
