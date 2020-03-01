@@ -9,7 +9,7 @@ RUN apk add --no-cache \
     openssh \
     openssl-dev \
     sshpass
-RUN pip install ansible==2.8.4
+RUN pip install ansible==2.9.5
 
 FROM install_ansible AS decrypt_ansible_vault
 ARG ansible_vault_password
