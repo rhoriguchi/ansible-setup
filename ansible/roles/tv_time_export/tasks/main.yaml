@@ -53,7 +53,7 @@
 - name: Run docker-compose pull
   command: docker-compose pull
   args:
-    chdir: "{{ data_path.docker_compose.tv_time_export }}"
+    chdir: "{{ data_path.library.docker_compose.tv_time_export }}"
 
 - name: Run docker-compose up
   command: docker-compose up --build --detach --remove-orphans
