@@ -1,5 +1,5 @@
 ---
-- name: Set hostname
+- name: "Set hostname as {{ system_hostname }}"
   hostname:
     name: "{{ system_hostname }}"
 
@@ -9,3 +9,5 @@
       127.0.0.1     localhost
       127.0.1.1     {{ system_hostname }}
     dest: /etc/hosts
+
+- import_tasks: "{{ playbook_dir }}/helper/reboot.yaml"
