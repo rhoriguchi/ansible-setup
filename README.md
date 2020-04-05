@@ -3,7 +3,7 @@
 ## Default Ports
 
 - Glances - 61208
-- Home Assistant - 443
+- ~~Home Assistant - 443~~
 - Plex - 32400
 - Portainer - 9000
 - Resilio Sync - 8888
