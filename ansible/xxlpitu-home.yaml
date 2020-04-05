@@ -14,5 +14,6 @@
     - glances
     - resilio_sync
     - tv_time_export
+    - price_tracker
     # - homeassistant
     - mal_export

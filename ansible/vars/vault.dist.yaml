@@ -1,5 +1,9 @@
 ---
 vault:
+  gitlab:
+    price_tracker:
+      username:
+      password:
   user:
     default:
       password:

@@ -52,6 +52,7 @@ data_path:
       mal_export: "{{ drive.main.path }}/library/docker_compose/mal_export"
       plex: "{{ drive.main.path }}/library/docker_compose/plex"
       portainer: "{{ drive.main.path }}/library/docker_compose/portainer"
+      price_tracker: "{{ drive.main.path }}/library/docker_compose/price_tracker"
       resilio_sync: "{{ drive.main.path }}/library/docker_compose/resilio_sync"
       tv_time_export: "{{ drive.main.path }}/library/docker_compose/tv_time_export"
     duckdns: "{{ drive.main.path }}/library/duckdns"

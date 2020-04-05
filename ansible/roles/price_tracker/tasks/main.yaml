@@ -1,0 +1,45 @@
+---
+- name: Delete docker-compose dir
+  file:
+    path: "{{ data_path.library.docker_compose.price_tracker }}"
+    state: absent
+
+- name: Copy price-tracker rsa key to tmp dir
+  copy:
+    src: "{{ role_path }}/files/price_tracker_rsa"
+    dest: "/tmp/price_tracker_rsa"
+    force: yes
+
+- name: Clone price-tracker deploy docker-compose dir
+  git:
+    repo: https://gitlab.com/best-price-tracker/deploy.git
+    dest: "{{ data_path.library.docker_compose.price_tracker }}"
+    accept_hostkey: yes
+    # key_file: "/tmp/price_tracker_rsa"
+
+- name: Delete price-tracker rsa key from tmp dir
+  file:
+    path: "/tmp/price_tracker_rsa"
+    state: absent
+
+- name: Log into price-tracker GitLab docker registry
+  docker_login:
+    registry: registry.gitlab.com
+    reauthorize: yes
+    username: "{{ vault.gitlab.price_tracker.username }}"
+    password: "{{ vault.gitlab.price_tracker.password }}"
+
+- name: Build production docker-compose file
+  command: docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml config > docker-compose.stack.yaml
+  args:
+    chdir: "{{ data_path.library.docker_compose.price_tracker }}"
+
+- name: Run docker-compose pull
+  command: docker-compose -f docker-compose.stack.yaml pull
+  args:
+    chdir: "{{ data_path.library.docker_compose.price_tracker }}"
+
+- name: Run docker-compose up
+  command: docker-compose -f docker-compose.stack.yaml up --build --detach --remove-orphans
+  args:
+    chdir: "{{ data_path.library.docker_compose.price_tracker }}"
